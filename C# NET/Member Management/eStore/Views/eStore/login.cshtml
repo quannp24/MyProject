@@ -1,0 +1,44 @@
+﻿
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eStore-Login</title>
+    <link rel="stylesheet" href="/css/login.css">
+
+</head>
+<body>
+   
+    <div id="container">
+
+
+        <form asp-action="login" id="form-login" method="post">
+            <h1 class="form-heading">Login</h1>
+            <h3 style="color: red;font-weight:50 "></h3>
+            <div class="form-group">
+                <i class="form-icon far fa-user"></i>
+                <input value="" name="email" type="text" class="form-input" placeholder="Email">
+            </div>
+            <div class="form-group">
+                <i class="form-icon fas fa-key"></i>
+                <input value="" name="pass" type="password" class="form-input" placeholder="Password">
+                <div id="eye">
+                    <i class="form-icon far fa-eye"></i>
+                </div>
+            </div>
+            <div style="color:red">@ViewData["mess"]</div>
+
+           
+            <input type="submit" value="Login" class="form-submit">
+
+        </form>
+    </div>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+
+
+</html>

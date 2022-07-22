@@ -1,0 +1,113 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 11-03-2022, 22:54:50
+    Author     : Quan
+*/
+
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+
+
+/* 
+    Created on : 09-03-2022, 18:26:51
+    Author     : Quan
+*/
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 18px;
+    line-height: 2em;
+    overflow-x: hidden;
+}
+
+#tm-video-container {
+    max-height: 450px;
+    /* overflow: hidden; */
+    width: auto;
+}
+
+.position-absolute {
+    left: 0px;
+}
+
+#color {
+    background-color: #D1D1D1;
+    box-shadow: 3px -3px 12px 1px #000;
+    /* z-index: 1; */
+    height: 18rem;
+    width: 90%;
+    overflow: hidden;
+    border-top-right-radius: 10px;
+    display: inline-block;
+    padding: 50px;
+    border-top: 5px solid white;
+    border-right: 5px solid white;
+}
+
+#button-link {
+    font-size: 28px;
+    min-width: 300px;
+    width: auto;
+    margin: 50px 10px 0px 10px;
+}
+
+.material-icons {
+    display: inline-block;
+    font-size: 30px;
+}
+
+.admin {
+    color: #000;
+}
+
+.logo {
+    margin-top: 20px;
+}
+
+.logout {
+    left: 70%;
+    top: 2%;
+    font-size: 20px;
+}
+
+
+@media only screen and (max-width:1048px) {
+    #color {
+        height: 20rem;
+    }
+}
+
+@media only screen and (max-width:898px) {
+    #color {
+        height: 25rem;
+    }
+}
+
+@media only screen and (max-width:592px) {
+    #color {
+        height: auto;
+    }
+    #button-link {
+        margin: 50px 0px 0px 0px;
+        min-width: 200px;
+    }
+    .admin {
+        margin-top: 20px;
+    }
+}
+
+
+
+
+
+
+

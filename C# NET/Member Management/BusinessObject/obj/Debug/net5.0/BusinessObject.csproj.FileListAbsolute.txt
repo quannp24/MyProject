@@ -1,0 +1,15 @@
+C:\Users\Quan\FU\PRN211\Asm03Solution\BusinessObject\bin\Debug\net5.0\BusinessObject.deps.json
+C:\Users\Quan\FU\PRN211\Asm03Solution\BusinessObject\bin\Debug\net5.0\BusinessObject.dll
+C:\Users\Quan\FU\PRN211\Asm03Solution\BusinessObject\bin\Debug\net5.0\ref\BusinessObject.dll
+C:\Users\Quan\FU\PRN211\Asm03Solution\BusinessObject\bin\Debug\net5.0\BusinessObject.pdb
+C:\Users\Quan\FU\PRN211\Asm03Solution\BusinessObject\obj\Debug\net5.0\BusinessObject.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Quan\FU\PRN211\Asm03Solution\BusinessObject\obj\Debug\net5.0\BusinessObject.AssemblyInfoInputs.cache
+C:\Users\Quan\FU\PRN211\Asm03Solution\BusinessObject\obj\Debug\net5.0\BusinessObject.AssemblyInfo.cs
+C:\Users\Quan\FU\PRN211\Asm03Solution\BusinessObject\obj\Debug\net5.0\BusinessObject.csproj.CoreCompileInputs.cache
+C:\Users\Quan\FU\PRN211\Asm03Solution\BusinessObject\obj\Debug\net5.0\BusinessObject.dll
+C:\Users\Quan\FU\PRN211\Asm03Solution\BusinessObject\obj\Debug\net5.0\ref\BusinessObject.dll
+C:\Users\Quan\FU\PRN211\Asm03Solution\BusinessObject\obj\Debug\net5.0\BusinessObject.pdb
+C:\Users\Quan\FU\PRN211\Asm03Solution\BusinessObject\bin\Debug\net5.0\BusinessObject.runtimeconfig.json
+C:\Users\Quan\FU\PRN211\Asm03Solution\BusinessObject\bin\Debug\net5.0\BusinessObject.runtimeconfig.dev.json
+C:\Users\Quan\FU\PRN211\Asm03Solution\BusinessObject\obj\Debug\net5.0\BusinessObject.genruntimeconfig.cache
+C:\Users\Quan\FU\PRN211\Asm03Solution\BusinessObject\obj\Debug\net5.0\BusinessObject.csproj.AssemblyReference.cache
