@@ -1,5 +1,167 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <filter>
+        <filter-name>FilterForMember</filter-name>
+        <filter-class>Filter.FilterForMember</filter-class>
+    </filter>
+    <filter>
+        <filter-name>FilterForStaff</filter-name>
+        <filter-class>Filter.FilterForStaff</filter-class>
+    </filter>
+    <filter>
+        <filter-name>FilterForAdmin</filter-name>
+        <filter-class>Filter.FilterForAdmin</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>FilterForAdmin</filter-name>
+        <url-pattern>/managementroom</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>FilterForAdmin</filter-name>
+        <url-pattern>/usermanagement</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>FilterForAdmin</filter-name>
+        <servlet-name>DisplayBookController</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>FilterForAdmin</filter-name>
+        <servlet-name>AdminDeleteSlotController</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>FilterForAdmin</filter-name>
+        <servlet-name>EditScheduleController</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>FilterForAdmin</filter-name>
+        <servlet-name>AddScheduleController</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>FilterForAdmin</filter-name>
+        <servlet-name>AdminSetupScheduleController</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>FilterForAdmin</filter-name>
+        <servlet-name>AdminDeleteRoomController</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>FilterForAdmin</filter-name>
+        <servlet-name>AdminEditRoomController</servlet-name>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>FilterForAdmin</filter-name>
+        <servlet-name>AdminDeleteAccountController</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>FilterForAdmin</filter-name>
+        <servlet-name>AdminDeleteFoodController</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>FilterForAdmin</filter-name>
+        <servlet-name>AdminEditFoodController</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>FilterForAdmin</filter-name>
+        <servlet-name>AdminAddFoodDrinkController</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>FilterForAdmin</filter-name>
+        <servlet-name>AdminFoodAndDrinkList</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>FilterForAdmin</filter-name>
+        <servlet-name>AdminAddAccountController</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>FilterForAdmin</filter-name>
+        <servlet-name>AdminSearchAccountController</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>FilterForAdmin</filter-name>
+        <servlet-name>AdminDeleteMovieController</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>FilterForAdmin</filter-name>
+        <servlet-name>AdminEditMovie</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>FilterForAdmin</filter-name>
+        <servlet-name>AdminSearchMovieController</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>FilterForAdmin</filter-name>
+        <servlet-name>AdminAddMovieController</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>FilterForAdmin</filter-name>
+        <servlet-name>AdminMovieList</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>FilterForStaff</filter-name>
+        <servlet-name>ConfirmTicketController</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>FilterForStaff</filter-name>
+        <servlet-name>ScanTicketController</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>FilterForStaff</filter-name>
+        <servlet-name>StaffDeleteBannerController</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>FilterForStaff</filter-name>
+        <servlet-name>StaffEditBannerController</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>FilterForStaff</filter-name>
+        <servlet-name>AdminListBannerController</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>FilterForStaff</filter-name>
+        <servlet-name>StaffAddBannerController</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>FilterForMember</filter-name>
+        <servlet-name>PaymentController</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>FilterForMember</filter-name>
+        <servlet-name>BookFoodController</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>FilterForMember</filter-name>
+        <servlet-name>BookSeatController</servlet-name>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>FilterForMember</filter-name>
+        <servlet-name>SearchOrderController</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>FilterForMember</filter-name>
+        <servlet-name>FilterOrderController</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>FilterForMember</filter-name>
+        <servlet-name>OrderDetailController</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>FilterForMember</filter-name>
+        <servlet-name>MyOrderController</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>FilterForMember</filter-name>
+        <servlet-name>EditAccountController</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>FilterForMember</filter-name>
+        <servlet-name>UserProfileController</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>FilterForMember</filter-name>
+        <servlet-name>ChangePasswordController</servlet-name>
+    </filter-mapping>
     <servlet>
         <servlet-name>HomeController</servlet-name>
         <servlet-class>Controller.HomeController</servlet-class>
@@ -188,6 +350,14 @@
         <servlet-name>ConfirmTicketController</servlet-name>
         <servlet-class>Controller.ConfirmTicketController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DisplayBookController</servlet-name>
+        <servlet-class>Controller.DisplayBookController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MovieDetailController</servlet-name>
+        <servlet-class>Controller.MovieDetailController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -375,6 +545,14 @@
     <servlet-mapping>
         <servlet-name>ConfirmTicketController</servlet-name>
         <url-pattern>/confirmticket</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DisplayBookController</servlet-name>
+        <url-pattern>/displaybook</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MovieDetailController</servlet-name>
+        <url-pattern>/moviedetail</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

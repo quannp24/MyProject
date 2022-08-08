@@ -14,7 +14,12 @@ import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URLDecoder;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -52,14 +57,14 @@ public class PaymentVerification extends HttpServlet {
         String vnp_BankTranNo = request.getParameter("vnp_BankTranNo");
         String vnp_TransactionNo = request.getParameter("vnp_TransactionNo");
         String vnp_ResponseCode = request.getParameter("vnp_ResponseCode");
-         ArrayList<SeatRoom> listSeat = (ArrayList<SeatRoom>) request.getSession().getAttribute("listSeat");
+        ArrayList<SeatRoom> listSeat = (ArrayList<SeatRoom>) request.getSession().getAttribute("listSeat");
         SeatRoomDAO seatroomDB = new SeatRoomDAO();
         try {
             if (vnp_TxnRef != null && Integer.parseInt(vnp_TxnRef) > 0
                     && vnp_BankTranNo != null && vnp_ResponseCode != null && vnp_ResponseCode.equals("00")
                     && vnp_TransactionNo != null && Integer.parseInt(vnp_TransactionNo) > 0) {  // giao dich thanh cong
                 String path = this.getClass().getClassLoader().getResource("").getPath();
-                int id=(Integer)request.getSession().getAttribute("cartId");
+                int id = (Integer) request.getSession().getAttribute("cartId");
                 String fullPath = URLDecoder.decode(path, "UTF-8");
                 String pathArr[] = fullPath.split("/build");
                 String img = "image/QRcode/" + id + ".png";
@@ -75,10 +80,15 @@ public class PaymentVerification extends HttpServlet {
                     int cartId = cartDB.AddCart(acc.getAccId(), total / 1000, img); // add va tra ve cartid vua add
                     if (cartId != 0) { //add cart thanh cong
                         try {
-                            generateQR(convertQR, pathArr[0] + "/web/" + img);// chuyen link thanh QRcode va luu vao file
                             srCartDB.AddSeatRoomCart(cartId, listSeat);//add seat vao seatroomcart
                             fdcartDB.AddFastFoodCart(cartId, listFood);//add food vao fastfoodcart
                             seatroomDB.updateStatus(listSeat);
+                            String uploadPath = getServletContext().getRealPath("") + File.separator + "image" + File.separator + "QRcode";
+                            String[] newd = uploadPath.split("build");
+                            generateQR(convertQR, pathArr[0] + "/web/" + img);// chuyen link thanh QRcode va luu vao file
+                            copyImage(newd[0] + File.separator + "web"
+                + File.separator + "image" + File.separator + "QRcode" + File.separator + id + ".png",uploadPath+ File.separator + id + ".png");
+
                         } catch (Exception e) {
                             Logger.getLogger(PaymentVerification.class.getName()).log(Level.SEVERE, null, e);
                         }
@@ -102,6 +112,23 @@ public class PaymentVerification extends HttpServlet {
         QRCodeWriter writer = new QRCodeWriter();
         BitMatrix bitMatrix = writer.encode(text, BarcodeFormat.QR_CODE, 300, 300);
         MatrixToImageWriter.writeToPath(bitMatrix, "PNG", new File(pathfile));
+    }
+
+    public static void copyImage(String pathIn, String pathOut) throws FileNotFoundException, IOException {
+        InputStream is = null;
+        OutputStream os = null;
+        try {
+            is = new FileInputStream(new File(pathIn));
+            os = new FileOutputStream(new File(pathOut));
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = is.read(buffer)) > 0) {
+                os.write(buffer, 0, length);
+            }
+        } finally {
+            is.close();
+            os.close();
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

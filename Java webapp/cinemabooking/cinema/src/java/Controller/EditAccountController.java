@@ -5,7 +5,10 @@
 package Controller;
 
 import DAL.AccountDAO;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -107,7 +110,13 @@ public class EditAccountController extends HttpServlet {
         int accId = Integer.parseInt(request.getParameter("id"));
 
         Part part = request.getPart("avatar");  //lấy file ảnh truyền vào
-        String realPath = "C:/Users/Quan/FU/SWP/cinemabooking/cinema/web/image/avatar";  //truyền đường dẫn folder chứa ảnh
+        String fileName
+                = Paths.get(part.getSubmittedFileName()).getFileName().toString();
+        InputStream inputStream = part.getInputStream();
+        InputStream inputStream2 = part.getInputStream();
+        String uploadPath = getServletContext().getRealPath("") + File.separator + "image" + File.separator + "avatar";
+        String[] newd = uploadPath.split("build");
+
         String filename = Paths.get(part.getSubmittedFileName()).getFileName().toString();
         String imgDB = "";
         //lay img cũ từ database và cắt lấy phần tên ảnh cũ
@@ -115,8 +124,11 @@ public class EditAccountController extends HttpServlet {
         //đường dẫn đến thư mục chứa ảnh cũ
 
         Path path = null;
+        Path path2 = null;
         if (ImgOldDB.length > 1) {
-            path = Paths.get(realPath + "/" + ImgOldDB[2]);
+            path = Paths.get(uploadPath + File.separator + ImgOldDB[2]);
+            path2 = Paths.get(newd[0] + File.separator + "web"
+                    + File.separator + "image" + File.separator + "avatar" + File.separator + ImgOldDB[2]);
         }
         //nếu ko cập nhật ảnh mới thì vẫn giữ nguyên đường dẫn ảnh cũ từ database
         if (filename.trim().length() < 1) {
@@ -141,7 +153,7 @@ public class EditAccountController extends HttpServlet {
         account.setPhone(phone);
         account.setRole(role);
         String mess = "";
-        if (fullname.trim().length()<5 || fullname.trim().length()>300) {
+        if (fullname.trim().length() < 5 || fullname.trim().length() > 300) {
             mess = "Họ tên phải chứa 5-300 kí tự!";
         } else if (address.length() < 6) {
             mess = "Địa chỉ phải có ít nhất 6 ký tự";
@@ -153,17 +165,33 @@ public class EditAccountController extends HttpServlet {
             int check = dbUpdate.UpdateAccount(account);
 
             //get edit status through check variable
+            File uploadDir = new File(uploadPath);
             if (check == 1) {
-                if (!Files.exists(Paths.get(realPath))) {
-                    Files.createDirectory(Paths.get(realPath));
+                if (!uploadDir.exists()) {
+                    uploadDir.mkdir();
                 }
                 if (filename.trim().length() > 1) { //truyền lên ảnh
                     if (ImgOldDB.length > 1) {
                         if (Files.exists(path)) { //check có tồn tại file ảnh, có thì xóa
                             Files.delete(path);
                         }
+                        if (Files.exists(path2)) { //check có tồn tại file ảnh, có thì xóa
+                            Files.delete(path2);
+                        }
                     }
-                    part.write(realPath + "/" + filename);
+                    FileOutputStream outputStream = new FileOutputStream(uploadPath
+                            + File.separator + fileName);
+                    FileOutputStream outputStream2 = new FileOutputStream(newd[0] + File.separator + "web"
+                            + File.separator + "image" + File.separator + "avatar" + File.separator + fileName);
+                    int read = 0;
+                    final byte[] bytes = new byte[1024];
+                    while ((read = inputStream.read(bytes)) != -1) {
+                        outputStream.write(bytes, 0, read);
+                    }
+                    read = 0;
+                    while ((read = inputStream2.read(bytes)) != -1) {
+                        outputStream2.write(bytes, 0, read);
+                    }
                 }
 
                 String successMessage = "Đã cập nhật thông tin tài khoản!";

@@ -113,7 +113,7 @@ public class BookFoodController extends HttpServlet {
                             + "                                                                            <i class=\"fas fa-minus \"></i>\n"
                             + "                                                                        </a>\n"
                             + "                                                                    </span>\n"
-                            + "                                                                    <input type=\"text\" name=\"quantity\" class=\"form-control no-padding text-center item-quantity\" value=\"0\">\n"
+                            + "                                                                    <input type=\"text\" name=\"quantity\" class=\"form-control no-padding text-center item-quantity\" readonly value=\"0\">\n"
                             + "                                                                     <input type=\"text\" name=\"foodId\" value=\"" + listFood.get(i).getFadId() + "\" hidden>\n"
                             + "                                                                     <input value =\"" + listFood.get(i).getPrice() + "\" hidden>\n"
                             + "                                                                    <span id=\"btn-add\" onclick=\"addQuantity(" + i + ")\" class=\"input-group-btn\">\n"

@@ -61,9 +61,11 @@ public class LoadMoreController extends HttpServlet {
                         + "                                    <h4 class=\"currency price-hp\" style=\"color: #000\">Khởi chiếu: " + o.getStartdate() + "</h4> \n"
                         + "                                </div>\n"
                         + "                                <div class=\"text-center my-4 hover\">                               \n"
-                        + "                                    <button onclick=\"viewDetail(" + o.getMovieId() + ")\" class=\"custom-btn btn-watch\"><span>Chi tiết !</span><span>Chi tiết</span></button>\n"
-                        + "                                    <button onclick=\"Quickbooking(" + o.getMovieId() + ")\" class=\"custom-btn btn-book\"><span>Mua vé !</span><span>Mua vé</span></button>\n"
-                        + "                                </div>\n"
+                        + "                                    <button onclick=\"location.href='moviedetail?movieId=" + o.getMovieId() + "'\" class=\"custom-btn btn-watch\"><span>Chi tiết !</span><span>Chi tiết</span></button>\n");
+                if (o.getDuration() != 0) {
+                    out.print("                                    <button onclick=\"Quickbooking(" + o.getMovieId() + ")\" class=\"custom-btn btn-book\"><span>Mua vé !</span><span>Mua vé</span></button>\n");
+                }
+                out.print("                                </div>\n"
                         + "                            </div>\n"
                         + "                        </div>\n"
                         + "                    </div>");

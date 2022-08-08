@@ -125,6 +125,9 @@
                                         <li class="dropdown" style="text-align: start;margin-top: 10px;">
                                             <label>Vai trò :</label>
                                             <select name="role" style="border-radius: 5px; ">
+                                                <c:if test="${requestScope.account.role=='1'}">
+                                                     <option value="1" selected="">Admin</option>
+                                                </c:if>
                                                 <c:if test="${requestScope.account.role=='3'}">
                                                     <option value="3" selected="">Người dùng</option>
                                                     <option value="2">Nhân viên</option>      

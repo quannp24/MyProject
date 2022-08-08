@@ -28,13 +28,40 @@ public class TimeRoomDAO extends DBContext {
     public ArrayList<TimeRoom> getAllTimeRoomByDateRoom(int dateroomID) {
         ArrayList<TimeRoom> list = new ArrayList<>();
         try {
-            query = "select TimeRoomId,RoomId,MovieId,t.MovieTimeId from TimeRoom t join MovieTime m on t.MovieTimeId=m.MovieTimeId where DateRoomID=?";
+            query = "select TimeRoomId,RoomId,MovieId,t.MovieTimeId,t.status from TimeRoom t join MovieTime m on t.MovieTimeId=m.MovieTimeId where DateRoomID=?";
             con = new DBContext().connection;
             ps = con.prepareStatement(query);
             ps.setInt(1, dateroomID);
             rs = ps.executeQuery();
             while (rs.next()) {
-                list.add(new TimeRoom(rs.getInt("TimeRoomId"), rs.getInt("RoomId"), rs.getInt("MovieId"), rs.getInt("MovieTimeId"))
+                list.add(new TimeRoom(rs.getInt("TimeRoomId"), rs.getInt("RoomId"), rs.getInt("MovieId"), rs.getInt("MovieTimeId"), rs.getBoolean("status"))
+                );
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(TimeRoomDAO.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            /*Close connection, prepare statement, result set*/
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
+        }
+
+        return list;
+    }
+
+    public ArrayList<TimeRoom> getTimeRoomByStatus(Date dateroom) {
+        ArrayList<TimeRoom> list = new ArrayList<>();
+        try {
+            query = "select DISTINCT * from TimeRoom t join MovieTime m on t.MovieTimeId=m.MovieTimeId\n"
+                    + "               					join DateRoom d on d.DateRoomID=m.DateRoomID\n"
+                    + "                						join Room r on t.RoomId=r.RoomId\n"
+                    + "                					where DateRoom=? and t.status=0";
+            con = new DBContext().connection;
+            ps = con.prepareStatement(query);
+            ps.setDate(1, dateroom);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new TimeRoom(rs.getInt("TimeRoomId"), rs.getInt("RoomId"), rs.getInt("MovieId"), rs.getInt("MovieTimeId"), rs.getBoolean("status"))
                 );
             }
         } catch (SQLException e) {
@@ -70,7 +97,7 @@ public class TimeRoomDAO extends DBContext {
             ps.setInt(3, movietimeId);
             rs = ps.executeQuery();
             if (rs.next()) {
-                TimeRoom t = new TimeRoom(rs.getInt("TimeRoomId"), rs.getInt("RoomId"), rs.getInt("MovieId"), rs.getInt("MovieTimeId"));
+                TimeRoom t = new TimeRoom(rs.getInt("TimeRoomId"), rs.getInt("RoomId"), rs.getInt("MovieId"), rs.getInt("MovieTimeId"), rs.getBoolean("status"));
                 return t;
             }
         } catch (SQLException e) {
@@ -90,11 +117,12 @@ public class TimeRoomDAO extends DBContext {
             query = "INSERT INTO [dbo].[TimeRoom]\n"
                     + "           ([RoomId]\n"
                     + "           ,[MovieId]\n"
-                    + "           ,[MovieTimeId])\n"
+                    + "           ,[MovieTimeId]"
+                    + "           ,[status])\n"
                     + "     VALUES\n"
                     + "           (?\n"
                     + "           ,?\n"
-                    + "           ,?)";
+                    + "           ,?,0)";
             con = new DBContext().connection;
             ps = con.prepareStatement(query);
             ps.setInt(1, t.getRoomId());
@@ -143,7 +171,7 @@ public class TimeRoomDAO extends DBContext {
             ps.setInt(2, accId);
             rs = ps.executeQuery();
             if (rs.next()) {
-                TimeRoom t = new TimeRoom(rs.getInt("TimeRoomId"), rs.getInt("RoomId"), rs.getInt("MovieId"), rs.getInt("MovieTimeId"));
+                TimeRoom t = new TimeRoom(rs.getInt("TimeRoomId"), rs.getInt("RoomId"), rs.getInt("MovieId"), rs.getInt("MovieTimeId"), rs.getBoolean("status"));
                 return t;
             }
         } catch (SQLException e) {
@@ -167,7 +195,7 @@ public class TimeRoomDAO extends DBContext {
             ps.setInt(1, timeroomId);
             rs = ps.executeQuery();
             if (rs.next()) {
-                TimeRoom t = new TimeRoom(rs.getInt("TimeRoomId"), rs.getInt("RoomId"), rs.getInt("MovieId"), rs.getInt("MovieTimeId"));
+                TimeRoom t = new TimeRoom(rs.getInt("TimeRoomId"), rs.getInt("RoomId"), rs.getInt("MovieId"), rs.getInt("MovieTimeId"), rs.getBoolean("status"));
                 return t;
             }
         } catch (SQLException e) {
@@ -200,6 +228,34 @@ public class TimeRoomDAO extends DBContext {
 
         } catch (SQLException e) {
             Logger.getLogger(TimeRoomDAO.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
+        }
+        return 0;
+    }
+
+    public int updateStatusTimeRoom(ArrayList<TimeRoom> list) {
+        try {
+            query = "UPDATE [dbo].[TimeRoom]\n"
+                    + "   SET [Status] = 1\n"
+                    + " WHERE TimeRoomId=?";
+            con = new DBContext().connection;
+            connection.setAutoCommit(false);
+            for (TimeRoom t : list) {
+                ps = con.prepareStatement(query);
+                ps.setInt(1, t.getTimeRoomId());
+                ps.executeUpdate();
+            }
+            return 1;
+        } catch (SQLException e) {
+            Logger.getLogger(TimeRoomDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+        try {
+            connection.setAutoCommit(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(TimeRoomDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             closeConnection(con);
             closePreparedStatement(ps);

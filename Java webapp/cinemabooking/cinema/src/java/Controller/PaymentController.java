@@ -67,7 +67,7 @@ public class PaymentController extends HttpServlet {
         request.getSession().setAttribute("total", convert);
         request.getSession().setAttribute("cartId", cartDB.getCartID()+1);
         
-        int id = cartDB.getCartID()+6;
+        int id = cartDB.getCartID()+1;
 //        double convert = fee * 1000;
         String vnp_Version = "2.0.1";  //phiên bản api sử dụng để thanh toán
         String vnp_Command = "pay";     //mã cho giao dịch thanh toán là pay

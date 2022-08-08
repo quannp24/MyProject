@@ -106,12 +106,12 @@ public class MovieTimeDAO extends DBContext {
             query = "select m.* from TimeRoom t join MovieTime m on t.MovieTimeId=m.MovieTimeId \n"
                     + "						join DateRoom d on d.DateRoomID=m.DateRoomID\n"
                     + "						join Room r on t.RoomId=r.RoomId\n"
-                    + "						where MovieId=? and DateRoom=? and RoomName like '%Cinema%' and convert(time,m.Start)>=CONVERT(time,CURRENT_TIMESTAMP) order by m.Start";
+                    + "						where MovieId=? and DateRoom=? and RoomName like '%Cinema%' and t.status=1 and convert(time,m.Start)>=CONVERT(time,CURRENT_TIMESTAMP) order by m.Start";
         } else {
             query = "select m.* from TimeRoom t join MovieTime m on t.MovieTimeId=m.MovieTimeId \n"
                     + "						join DateRoom d on d.DateRoomID=m.DateRoomID\n"
                     + "						join Room r on t.RoomId=r.RoomId\n"
-                    + "						where MovieId=? and DateRoom=? and RoomName like '%VIP%' and convert(time,m.Start)>=CONVERT(time,CURRENT_TIMESTAMP) order by m.Start";
+                    + "						where MovieId=? and DateRoom=? and RoomName like '%VIP%' and t.status=1 and convert(time,m.Start)>=CONVERT(time,CURRENT_TIMESTAMP) order by m.Start";
         }
 
         try {
@@ -145,12 +145,12 @@ public class MovieTimeDAO extends DBContext {
             query = "select m.* from TimeRoom t join MovieTime m on t.MovieTimeId=m.MovieTimeId \n"
                     + "						join DateRoom d on d.DateRoomID=m.DateRoomID\n"
                     + "						join Room r on t.RoomId=r.RoomId\n"
-                    + "						where MovieId=? and DateRoom=? and RoomName like '%Cinema%'  order by m.Start";
+                    + "						where MovieId=? and DateRoom=? and t.status=1 and RoomName like '%Cinema%'  order by m.Start";
         } else {
             query = "select m.* from TimeRoom t join MovieTime m on t.MovieTimeId=m.MovieTimeId \n"
                     + "						join DateRoom d on d.DateRoomID=m.DateRoomID\n"
                     + "						join Room r on t.RoomId=r.RoomId\n"
-                    + "						where MovieId=? and DateRoom=? and RoomName like '%VIP%'  order by m.Start";
+                    + "						where MovieId=? and DateRoom=? and t.status=1 and RoomName like '%VIP%'  order by m.Start";
         }
 
         try {

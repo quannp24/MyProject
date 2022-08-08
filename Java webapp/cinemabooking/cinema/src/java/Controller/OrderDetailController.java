@@ -77,7 +77,7 @@ public class OrderDetailController extends HttpServlet {
                 }
             }
 
-            Cart order = cartDB.getOrderByCartId(cId, acc.getAccId());
+            Cart order = cartDB.getOrderByCartIdAcc(cId, acc.getAccId());
             TimeRoom timeroom = timeroomDB.getTimeRoomByCartId(cId, acc.getAccId());
             Room room = roomDB.getRoomsByID(timeroom.getRoomId());
             Movie movie = movieDB.getMovieById(timeroom.getMovieId());

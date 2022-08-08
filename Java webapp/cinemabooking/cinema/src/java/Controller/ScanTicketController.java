@@ -63,7 +63,8 @@ public class ScanTicketController extends HttpServlet {
         SeatDAO seatDB = new SeatDAO();
         FastFoodCartDAO fdDB = new FastFoodCartDAO();
         try {
-            ArrayList<Integer> cartIdExpired = cartDB.getCartExpired(acc.getAccId());  // lấy dsach mã hóa đơn đã hết hạn
+             Cart order = cartDB.getOrderByCartId(cId);
+            ArrayList<Integer> cartIdExpired = cartDB.getCartExpired(order.getAccountId());  // lấy dsach mã hóa đơn đã hết hạn
             if (cartIdExpired.size() > 0) {
                 for (Integer e : cartIdExpired) {
                     if (cId == e) {// update status=0 theo e
@@ -73,14 +74,13 @@ public class ScanTicketController extends HttpServlet {
                 }
             }
 
-            Cart order = cartDB.getOrderByCartId(cId, acc.getAccId());
-            TimeRoom timeroom = timeroomDB.getTimeRoomByCartId(cId, acc.getAccId());
+            TimeRoom timeroom = timeroomDB.getTimeRoomByCartId(cId, order.getAccountId());
             Room room = roomDB.getRoomsByID(timeroom.getRoomId());
             Movie movie = movieDB.getMovieById(timeroom.getMovieId());
             MovieTime slot = movietimeDB.getSlotByMovieTimeId(timeroom.getMovieTimeId());
             Date date = dateDB.getDateRoomByDateroomId(slot.getDateRoomID()).getDateRoom();
-            ArrayList<Seat> seatlist = seatDB.getSeatByCartId(cId, acc.getAccId());
-            ArrayList<FastFoodCart> listFood = fdDB.getFoodByCartId(cId, acc.getAccId());
+            ArrayList<Seat> seatlist = seatDB.getSeatByCartId(cId, order.getAccountId());
+            ArrayList<FastFoodCart> listFood = fdDB.getFoodByCartId(cId, order.getAccountId());
             ArrayList<FoodAndDrink> listFD = new ArrayList<>();
             for (FastFoodCart f : listFood) {
                 listFD.add(fdDB.getFoodByFastFoodId(f.getFastfoodId()));

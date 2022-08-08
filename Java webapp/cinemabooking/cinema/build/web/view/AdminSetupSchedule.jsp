@@ -25,7 +25,8 @@
     Calendar c = Calendar.getInstance();
     c.setTime(currentDate);
     c.add(Calendar.DATE, 9);
-    Date addDate = new Date(c.getTimeInMillis());%>
+    Date addDate = new Date(c.getTimeInMillis());
+    int displaybook = 0;%>
 
 <jsp:useBean id="getMovie" class="DAL.MovieDAO"/>
 <jsp:useBean id="getRoom" class="DAL.RoomDAO"/>
@@ -123,20 +124,20 @@
 
             </div>
             <div >
-                <div style="display: flex; justify-content: end; margin: 10px">
-                    <%//if (date.after(addDate)) {%>
-                    <div style="">
+                <div style="display: flex; justify-content: end; margin: 10px;">
+                    <%if (curdate.after(addDate)) {%>
+                    <div >
 
                         <button onclick="openAddSchedule('${date}')"  class="custom-btn btn-crud"><span>Thêm ngay !</span><span>Thêm</span></button>
                     </div>
-                    <%//} else {%>
-                    <%//}%>
+                    <%} else {%>
+                    <%}%>
                     <div  style="margin: auto;display: flex">
 
                         <p  style="font-size: 30px;font-weight:bold">                               
                             <fmt:formatDate pattern="EEEE, dd-MM-yyyy" value = "${date}"/>  
                         </p>
-                        <i  class="far fa-copy button-icon neon-button" aria-hidden="true"></i>
+                        <i onclick="openTool()"  class="fas fa-hashtag button-icon neon-button" aria-hidden="true"></i>
                     </div>
                     <div style="display: flex;">
                         <label style="font-size: 20px;">Chọn ngày: </label>
@@ -144,7 +145,9 @@
                             <input onchange="this.form.submit()" class="neon-button" type="date" name="date" value="${date}">
                         </form>
                     </div>
+
                 </div>
+
                 <c:if test="${mess!=null ||mess!=''}">
                     <div style="display: flex; justify-content: end; margin: 10px" >
                         <div style="margin: auto">
@@ -216,17 +219,28 @@
                                     <td style="border: solid black;"> 
                                         <div style="display: flex;flex-direction: row; justify-content: space-between;"> 
                                             <div style="display: flex;flex-direction:column;margin-right: 12px">
-                                                <h5 style="color: #ffc107"><i class="fas fa-film" style="color: #ffc107"></i> <%=listMovie.get(g).getMovieName()%></h5>                                 
+                                                <h5 style="color: #ffc107"><i class="fas fa-film" style="color: #ffc107"></i> <%=listMovie.get(g).getMovieName()%>
+                                                    <%if (listTimeRoom.get(k).isStatus()) {%><img width="13px" height="13px" src="${pageContext.request.contextPath}/image/green.png">
+                                                    <%} else {%>
+                                                    <%displaybook = 1;%>
+                                                    <img width="10px" height="10px" src="${pageContext.request.contextPath}/image/red.png">
+                                                    <%}%>
+
+
+                                                </h5>                                 
                                                 [<fmt:formatDate pattern="HH:mm" type="time" value="<%=s.getStart()%>"/> - <fmt:formatDate pattern="HH:mm" type="time" value="<%=s.getFinish()%>"/>]
                                                 <!--<button onclick=" showDelMess()"  class="btn-movie " style="width: 6em">Xóa</button>-->
+
                                             </div>
                                         </div>
-                                        <%//if (curdate.after(addDate)) {%>
+                                        <%if (curdate.after(addDate)) {%>
+                                        <%if (!listTimeRoom.get(k).isStatus()) {%>
                                         <div style="text-align: center">
                                             <a ><button onclick="openEditSchedule(<%=listTimeRoom.get(k).getTimeRoomId()%>)" class="btn-movie " style="width: 5em">Sửa</button></a>
                                         </div>
-                                        <%//} else {%>
-                                        <%//}%>
+                                        <%}%>
+                                        <%} else {%>
+                                        <%}%>
                                     </td>
                                     <%check = true;%>
                                     <%checkc = true;%>
@@ -742,495 +756,569 @@
                 </div>
             </div>
         </div>
-        <style>
-            #admin-edit-modal{
-                display: none;
-            }
-            #modal-edit-choose-movie{
-                display: none;
-            }
-            #modal-edit-choose-slot{
-                display: none;
-            }
-            #modal-edit-choose-room{
-                display: none;
-            }
+
+        <div >
+            <div class="modal-tool-nofi" id="admin-tool-modal" >
+                <div class="modal-nofi-overlay"></div>
+                <div class="modal-tool modal-dialog-scrollable">
+                    <div class="full-width">
+                        <img style="position: absolute;right: 0;cursor: pointer" onclick="closeTool()" src="${pageContext.request.contextPath}/image/close-white.png">
+                        <h5 class="modal-add-title">Hộp tiện ích</h5>
+                        <div class="modal-add-body" style="text-align: center">
+                            <div class="add-input-option">
+
+                                <button style="margin: 0  auto;width: 70%" type="button" onclick="setupLongDay()" class="neon-button">Áp dụng lịch 7 ngày tới</button>
+                            </div>
+                            <div class="add-input-option">
+                                <form id="displaybook" action="displaybook" method="post" style="width: 100%;height: 100%">
+                                    <input name="date" value="${date}" hidden>
+                                    <button style="margin: 0  auto;width: 70%;height: 100%" type="button" <%if(displaybook!=0){%> onclick="displayBook()" <%}else{%>  onclick="displayBookMess()" <%}%> class="neon-button">Hiển thị tất cả trên đặt vé</button>
+                                </form>
+                            </div>
+
+                                <label id="messDisplaybook" style="color: #FF0000;margin: 10px auto"></label>
+                        </div>
+
+                        </dic>
+                    </div>
+                </div>
+            </div>
+            <style>
+                #admin-edit-modal{
+                    display: none;
+                }
+                #admin-tool-modal{
+                    display: none;
+                }
+                #modal-edit-choose-movie{
+                    display: none;
+                }
+                #modal-edit-choose-slot{
+                    display: none;
+                }
+                #modal-edit-choose-room{
+                    display: none;
+                }
 
 
-            .modal-edit-nofi{
-                position:fixed;
-                top:0;
-                right:0;
-                left:0;
-                bottom:0;
-                z-index: 9999999;
-                display: flex;
-            }
-            .modal-edit-nofi-overlay{
-                position: absolute;
-                width: 100%;
-                height: 100%;
-                background-color: rgba(0,0,0,0.2);
-            }
-            .modal-edit{
-                width: 30rem;
-                /* modal height here*/
-                height: 21rem;
-                top: 48%;
-                left: 20%;
-                transform: translate(-50%, -50%);
-                margin: auto;
-                position: relative;
-                background-color: #fff;
-                border-radius:5px;
-            }
-            .modal-add{
-                width: 30rem;
-                /* modal height here*/
-                height: 21rem;
-                top: 48%;
-                left: 20%;
-                transform: translate(-50%, -50%);
-                margin: auto;
-                position: relative;
-                background-color: #fff;
-                border-radius:5px;
-            }
-            .modal-edit-movieroom{
-                width: 29rem;
-                /* modal height here*/
-                height: 25rem;
-                margin: auto;
-                position: relative;
-                background-color: #fff;
-                border-radius:5px;
-            }
-            .modal-edit-movie{
-                width: 49rem;
-                /* modal height here*/
-                margin: auto;
-                position: relative;
-                background-color: #fff;
-                border-radius:5px;
-                max-height: calc(100vh - 200px);
-                overflow-y: auto;
-            }
+                .modal-edit-nofi{
+                    position:fixed;
+                    top:0;
+                    right:0;
+                    left:0;
+                    bottom:0;
+                    z-index: 9999999;
+                    display: flex;
+                }
 
-            .full-width{
-                width: 100%;
-            }
-            .modal-edit-medium{
-                width: 26rem;
-                /* modal height here*/
-                max-height: 32rem;
-                margin: auto;
-                position: relative;
-                background-color: #fff;
-                border-radius:5px;
-                overflow-y: auto;
-            }
-            .modal-edit-small{
-                width: 20rem;
-                /* modal height here*/
-                max-height: 28rem;
-                margin: auto;
-                position: relative;
-                background-color: #fff;
-                border-radius:5px;
-                overflow-y: auto;
-            }
-            .button-icon{
-                font-size: 1.2rem;
-                padding: 0 8px;
-                line-height: 1.5rem;
-                height: 2rem;
-                margin: 5px 10px;
-                /*border: none;*/
-                cursor: pointer;
-            }
- 
+                .modal-tool-nofi{
+                    position:fixed;
+                    top:0;
+                    right:0;
+                    left:0;
+                    bottom:0;
+                    z-index: 9999999;
+                    display: flex;
+                }
+                .modal-edit-nofi-overlay{
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0,0,0,0.2);
+                }
+                .modal-edit{
+                    width: 30rem;
+                    /* modal height here*/
+                    height: 21rem;
+                    top: 48%;
+                    left: 20%;
+                    transform: translate(-50%, -50%);
+                    margin: auto;
+                    position: relative;
+                    background-color: #fff;
+                    border-radius:5px;
+                }
+                .modal-add{
+                    width: 30rem;
+                    /* modal height here*/
+                    height: 21rem;
+                    top: 48%;
+                    left: 20%;
+                    transform: translate(-50%, -50%);
+                    margin: auto;
+                    position: relative;
+                    background-color: #fff;
+                    border-radius:5px;
+                }
+                .modal-tool{
+                    width: 20rem;
+                    /* modal height here*/
+                    height: 15rem;
+                    top: 0;
+                    left: 0;
+                    bottom: 0;
+                    right: 0;
+                    /*transform: translate(-50%, -50%);*/
+                    margin: auto;
+                    position: relative;
+                    background-color: #fff;
+                    border-radius:5px;
+                }
+                .modal-edit-movieroom{
+                    width: 29rem;
+                    /* modal height here*/
+                    height: 25rem;
+                    margin: auto;
+                    position: relative;
+                    background-color: #fff;
+                    border-radius:5px;
+                }
+                .modal-edit-movie{
+                    width: 49rem;
+                    /* modal height here*/
+                    margin: auto;
+                    position: relative;
+                    background-color: #fff;
+                    border-radius:5px;
+                    max-height: calc(100vh - 200px);
+                    overflow-y: auto;
+                }
 
-        </style>
-
-        <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-            crossorigin="anonymous"
-        ></script>
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-            crossorigin="anonymous"
-        ></script>
-        <script>
-
-                                function dropdown() {
-                                    if (document.getElementById("dropdown-menu").style.display === "none") {
-                                        document.getElementById("dropdown-menu").style.display = "block";
-                                    } else {
-                                        document.getElementById("dropdown-menu").style.display = "none";
-                                    }
-                                }
-
-
-                                function showDelMess(id) {
-                                    var result = confirm("Bạn có chắc muốn xóa slot này?");
-                                    if (result === true) {
-                                        window.location.href = 'deleteslot?timeroomId=' + id;
-                                    }
-                                }
+                .full-width{
+                    width: 100%;
+                }
+                .modal-edit-medium{
+                    width: 26rem;
+                    /* modal height here*/
+                    max-height: 32rem;
+                    margin: auto;
+                    position: relative;
+                    background-color: #fff;
+                    border-radius:5px;
+                    overflow-y: auto;
+                }
+                .modal-edit-small{
+                    width: 20rem;
+                    /* modal height here*/
+                    max-height: 28rem;
+                    margin: auto;
+                    position: relative;
+                    background-color: #fff;
+                    border-radius:5px;
+                    overflow-y: auto;
+                }
+                .button-icon{
+                    font-size: 1.2rem;
+                    padding: 0 8px;
+                    line-height: 1.5rem;
+                    height: 2rem;
+                    margin: 5px 10px;
+                    /*border: none;*/
+                    cursor: pointer;
+                }
 
 
-                                function closeModalChoose() {
-                                    var x = document.querySelectorAll(".modal-choose");
-                                    for (var i = 0; i < x.length; i++) {
-                                        if (x[i].style.display !== "none") {
-                                            x[i].style.display = "none";
+            </style>
+
+            <script
+                src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+                crossorigin="anonymous"
+            ></script>
+            <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+            <script
+                src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+                crossorigin="anonymous"
+            ></script>
+            <script>
+                                        function displayBook() {
+                                            var result = confirm("Bạn có chắc muốn hiển thị tất cả lịch ngày này trên đặt vé không? Khi đã hiển thị sẽ không thể thay đổi lại.");
+                                            if (result) {
+                                                document.getElementById("displaybook").submit();
+                                            }
                                         }
-                                    }
-                                    if (document.getElementById("modal-add-movie") !== null) {
-                                        document.getElementById("modal-add-movie").style.display = "flex";
-                                    } else if (document.getElementById("modal-update-movie") !== null) {
-                                        document.getElementById("modal-update-movie").style.display = "flex";
-                                    }
-                                }
 
-
-
-                                function checkAdd() {
-                                    var mess1 = document.querySelector('input[name=addimg]');
-                                    var mess1Trim = mess1.value.trim();
-                                    var mess1ReplaceSpace = mess1Trim.replace(/\s\s+/g, ' ');
-                                    console.log(mess1ReplaceSpace);
-                                    if (mess1ReplaceSpace.length > 50 || mess1ReplaceSpace.length < 6) {
-                                        mess1.setCustomValidity('Description nằm trong khoảng 6 đến 50 ký tự');
-                                    } else {
-                                        mess1.setCustomValidity('');
-                                    }
-
-                                    var mess2 = document.querySelector('input[name=addtitle]');
-                                    var mess2Trim = mess2.value.trim();
-                                    var mess2ReplaceSpace = mess2Trim.replace(/\s\s+/g, ' ');
-                                    console.log(mess2ReplaceSpace);
-                                    if (mess2ReplaceSpace.length > 250 || mess2ReplaceSpace.length < 6) {
-                                        mess2.setCustomValidity('Description nằm trong khoảng 6 đến 250 ký tự');
-                                    } else {
-                                        mess2.setCustomValidity('');
-                                    }
-
-                                    var mess3 = document.querySelector('textarea[name=adddescription]');
-                                    var mess3Trim = mess3.value.trim();
-                                    var mess3ReplaceSpace = mess3Trim.replace(/\s\s+/g, ' ');
-                                    console.log(mess3ReplaceSpace);
-                                    if (mess3ReplaceSpace.length > 2500 || mess3ReplaceSpace.length < 6) {
-                                        mess3.setCustomValidity('Description nằm trong khoảng 6 đến 2500 ký tự');
-                                    } else {
-                                        mess3.setCustomValidity('');
-                                    }
-                                }
-
-                                function openChooseMovie() {
-                                    document.getElementById("modal-choose-movie").style.display = "flex";
-                                    if (document.getElementById("modal-add-movie") !== null) {
-                                        document.getElementById("modal-add-movie").style.display = "none";
-                                    }
-                                }
-
-                                function openchooseRoom() {
-                                    document.getElementById("modal-choose-room").style.display = "flex";
-                                    if (document.getElementById("modal-edit-small") !== null) {
-                                        document.getElementById("modal-edit-small").style.display = "none";
-                                    }
-                                }
-                                function openChooseTime() {
-                                    document.getElementById("modal-choose-slot").style.display = "flex";
-                                    if (document.getElementById("modal-edit-medium") !== null) {
-                                        document.getElementById("modal-edit-medium").style.display = "none";
-                                    }
-                                }
-
-                                function checkSearch() {
-                                    var mess = document.querySelector('input[name=searchtxt]');
-                                    var messTrim = mess.value.trim();
-                                    var messReplaceSpace = messTrim.replace(/\s\s+/g, ' ');
-                                    console.log(messReplaceSpace);
-                                    if (messReplaceSpace.length == 0) {
-                                        mess.setCustomValidity('Can not be empty!');
-                                    } else {
-                                        mess.setCustomValidity('');
-                                    }
-                                }
-
-
-                                function openEditModal() {
-                                    document.getElementById("admin-edit-modal").style.display = "flex";
-                                }
-                                function closeModal() {
-                                    var x = document.querySelectorAll(".modal-nofi");
-                                    for (var i = 0; i < x.length; i++) {
-                                        if (x[i].style.display !== "none") {
-                                            x[i].style.display = "none";
+                                        function displayBookMess() {
+                                            document.getElementById("messDisplaybook").innerHTML="Không còn suất chiếu nào chưa hiển thị."
                                         }
-                                    }
-                                }
 
-                                function openEditchooseRoom() {
-                                    document.getElementById("modal-edit-choose-room").style.display = "flex";
-                                    if (document.getElementById("modal-edit-small") !== null) {
-                                        document.getElementById("modal-edit-small").style.display = "none";
-                                    }
-
-                                }
-                                function openEditChooseMovie() {
-                                    document.getElementById("modal-edit-choose-movie").style.display = "flex";
-                                    if (document.getElementById("modal-edit-movie") !== null) {
-                                        document.getElementById("modal-edit-movie").style.display = "none";
-                                    }
-                                }
-
-                                function openEditChooseSlot() {
-                                    document.getElementById("modal-edit-choose-slot").style.display = "flex";
-                                    if (document.getElementById("modal-edit-medium") !== null) {
-                                        document.getElementById("modal-edit-medium").style.display = "none";
-                                    }
-                                }
-                                function ChooseMovie(roomId, movieId, date) {
-                                    $.ajax({
-                                        type: "get",
-                                        url: "${pageContext.request.contextPath}/updateschedule",
-                                        data: {
-                                            movieId: movieId,
-                                            date: date,
-                                            roomId: roomId
-                                        },
-                                        beforeSend: function () {
-                                            $("#modal-choose-movie").hide();
-                                        },
-                                        success: function (data) {
-                                            var c = document.getElementById("modal-add-schedule");
-                                            c.innerHTML = data;
-                                            $("#admin-add-modal").show();
+                                        function openTool() {
+                                            document.getElementById("admin-tool-modal").style.display = "flex";
+                                            if (document.getElementById("modal-edit-small") !== null) {
+                                                document.getElementById("modal-edit-small").style.display = "none";
+                                            }
                                         }
-                                    });
-                                }
-
-                                function ChooseRoom(movieId, date, roomId) {
-                                    $.ajax({
-                                        type: "get",
-                                        url: "${pageContext.request.contextPath}/updateschedule",
-                                        data: {
-                                            movieId: movieId,
-                                            date: date,
-                                            roomId: roomId
-                                        },
-                                        beforeSend: function () {
-                                            $("#modal-choose-room").hide();
-                                        },
-                                        success: function (data) {
-                                            var c = document.getElementById("modal-add-schedule");
-                                            c.innerHTML = data;
-                                            $("#admin-add-modal").show();
+                                        function closeTool() {
+                                            document.getElementById("admin-tool-modal").style.display = "none";
                                         }
-                                    });
-                                }
 
-                                function ChooseTime(date, slot, start, finish, roomId, movieId) {
-                                    $.ajax({
-                                        type: "get",
-                                        url: "${pageContext.request.contextPath}/updateschedule",
-                                        data: {
-                                            movieId: movieId,
-                                            date: date,
-                                            roomId: roomId,
-                                            start: start,
-                                            finish: finish,
-                                            slot: slot
-                                        },
-                                        beforeSend: function () {
-                                            $("#modal-choose-slot").hide();
-                                        },
-                                        success: function (data) {
-                                            var c = document.getElementById("modal-add-schedule");
-                                            c.innerHTML = data;
-                                            $("#admin-add-modal").show();
+                                        function dropdown() {
+                                            if (document.getElementById("dropdown-menu").style.display === "none") {
+                                                document.getElementById("dropdown-menu").style.display = "block";
+                                            } else {
+                                                document.getElementById("dropdown-menu").style.display = "none";
+                                            }
                                         }
-                                    });
-                                }
 
 
-                                function closeEditModalChoose() {
-                                    var x = document.querySelectorAll(".modal-choose");
-                                    for (var i = 0; i < x.length; i++) {
-                                        if (x[i].style.display !== "none") {
-                                            x[i].style.display = "none";
+                                        function showDelMess(id) {
+                                            var result = confirm("Bạn có chắc muốn xóa slot này?");
+                                            if (result === true) {
+                                                window.location.href = 'deleteslot?timeroomId=' + id;
+                                            }
                                         }
-                                    }
-                                    if (document.getElementById("modal-add-movie") !== null) {
-                                        document.getElementById("modal-add-movie").style.display = "flex";
-                                    }
-                                }
-                                function valueSubmit(timeroomId, index, slot, roomId, movieId) {
-                                    var start = document.querySelectorAll("#start");
-                                    var finish = document.querySelectorAll("#finish");
-                                    var cell = document.querySelectorAll("#submit-time");
-                                    for (var i = 0; i < cell.length; i++) {
-                                        if (index == i)
-                                            cell[i].setAttribute("onclick", "selectTime(" + timeroomId + "," + slot + ",'" + start[i].value + ":00','" + finish[i].value + ":00'," + roomId + "," + movieId + ")");
-                                    }
 
-                                }
 
-                                function valueSubmitAdd(date, index, slot, roomId, movieId) {
-                                    var start = document.querySelectorAll("#start");
-                                    var finish = document.querySelectorAll("#finish");
-                                    var cell = document.querySelectorAll("#submit-time");
-                                    for (var i = 0; i < cell.length; i++) {
-                                        if (index == i)
-                                            cell[i].setAttribute("onclick", "ChooseTime('" + date + "'," + slot + ",'" + start[i].value + ":00','" + finish[i].value + ":00'," + roomId + "," + movieId + ")");
-                                    }
-
-                                }
-
-                                function checkSubmitForm() {
-                                    var movieId = document.getElementsByName("movieId");
-                                    var timeroomId = document.getElementsByName("timeroomId");
-                                    var slot = document.getElementsByName("slot");
-                                    var start = document.getElementsByName("start");
-                                    var finish = document.getElementsByName("finish");
-                                    var roomId = document.getElementsByName("roomId");
-                                    if (movieId[0].value.length > 0 && timeroomId[0].value.length > 0 && slot[0].value.length > 0 && start[0].value.length > 0 && finish[0].value.length > 0 && roomId[0].value.length > 0) {
-                                        document.getElementById("edit-slotForm").submit();
-                                    } else {
-                                        document.getElementById("mess-test").innerHTML = "Thiếu thông tin cập nhật!";
-                                    }
-                                }
-
-                                function checkSubmitFormAdd() {
-                                    var movieId = document.getElementsByName("movieId");
-                                    var dateroom = document.getElementsByName("dateRoom");
-                                    var slot = document.getElementsByName("slot");
-                                    var start = document.getElementsByName("start");
-                                    var finish = document.getElementsByName("finish");
-                                    var roomId = document.getElementsByName("roomId");
-                                    if (movieId[0].value.length > 0 && dateroom[0].value.length > 0 && slot[0].value.length > 0 && start[0].value.length > 0 && finish[0].value.length > 0 && roomId[0].value.length > 0) {
-                                        document.getElementById("Add-form").submit();
-//                                        document.getElementById("mess-text").innerHTML = "oke!";
-                                    } else {
-                                        document.getElementById("mess-text").innerHTML = "Thiếu thông tin cập nhật!";
-                                    }
-
-                                }
-
-                                function selectTime(timeroomId, slotnew, startd, finishd, roomID, movieID) {
-                                    $.ajax({
-                                        type: "get",
-                                        url: "${pageContext.request.contextPath}/editslot",
-                                        data: {
-                                            timeroomId: timeroomId,
-                                            slot: slotnew,
-                                            start: startd,
-                                            finish: finishd,
-                                            roomId: roomID,
-                                            movieId: movieID
-                                        },
-                                        beforeSend: function () {
-                                            $("#admin-add-modal ").hide();
-                                        },
-                                        success: function (data) {
-                                            var c = document.getElementById("modal-edit-schedule");
-                                            c.innerHTML = data;
-                                            $("#admin-edit-modal").show();
+                                        function closeModalChoose() {
+                                            var x = document.querySelectorAll(".modal-choose");
+                                            for (var i = 0; i < x.length; i++) {
+                                                if (x[i].style.display !== "none") {
+                                                    x[i].style.display = "none";
+                                                }
+                                            }
+                                            if (document.getElementById("modal-add-movie") !== null) {
+                                                document.getElementById("modal-add-movie").style.display = "flex";
+                                            } else if (document.getElementById("modal-update-movie") !== null) {
+                                                document.getElementById("modal-update-movie").style.display = "flex";
+                                            }
                                         }
-                                    });
-                                }
 
-                                function selectRoom(movieId, timeroomId, roomId) {
-                                    $.ajax({
-                                        type: "get",
-                                        url: "${pageContext.request.contextPath}/editslot",
-                                        data: {
-                                            timeroomId: timeroomId,
-                                            movieId: movieId,
-                                            roomId: roomId
-                                        },
-                                        beforeSend: function () {
-                                            $("#admin-add-modal ").hide();
-                                        },
-                                        success: function (data) {
-                                            var c = document.getElementById("modal-edit-schedule");
-                                            c.innerHTML = data;
-                                            $("#admin-edit-modal").show();
+
+
+                                        function checkAdd() {
+                                            var mess1 = document.querySelector('input[name=addimg]');
+                                            var mess1Trim = mess1.value.trim();
+                                            var mess1ReplaceSpace = mess1Trim.replace(/\s\s+/g, ' ');
+                                            console.log(mess1ReplaceSpace);
+                                            if (mess1ReplaceSpace.length > 50 || mess1ReplaceSpace.length < 6) {
+                                                mess1.setCustomValidity('Description nằm trong khoảng 6 đến 50 ký tự');
+                                            } else {
+                                                mess1.setCustomValidity('');
+                                            }
+
+                                            var mess2 = document.querySelector('input[name=addtitle]');
+                                            var mess2Trim = mess2.value.trim();
+                                            var mess2ReplaceSpace = mess2Trim.replace(/\s\s+/g, ' ');
+                                            console.log(mess2ReplaceSpace);
+                                            if (mess2ReplaceSpace.length > 250 || mess2ReplaceSpace.length < 6) {
+                                                mess2.setCustomValidity('Description nằm trong khoảng 6 đến 250 ký tự');
+                                            } else {
+                                                mess2.setCustomValidity('');
+                                            }
+
+                                            var mess3 = document.querySelector('textarea[name=adddescription]');
+                                            var mess3Trim = mess3.value.trim();
+                                            var mess3ReplaceSpace = mess3Trim.replace(/\s\s+/g, ' ');
+                                            console.log(mess3ReplaceSpace);
+                                            if (mess3ReplaceSpace.length > 2500 || mess3ReplaceSpace.length < 6) {
+                                                mess3.setCustomValidity('Description nằm trong khoảng 6 đến 2500 ký tự');
+                                            } else {
+                                                mess3.setCustomValidity('');
+                                            }
                                         }
-                                    });
-                                }
 
-                                function closeEditModal() {
-                                    var x = document.querySelectorAll(".modal-edit-nofi");
-                                    for (var i = 0; i < x.length; i++) {
-                                        if (x[i].style.display !== "none") {
-                                            x[i].style.display = "none";
+                                        function openChooseMovie() {
+                                            document.getElementById("modal-choose-movie").style.display = "flex";
+                                            if (document.getElementById("modal-add-movie") !== null) {
+                                                document.getElementById("modal-add-movie").style.display = "none";
+                                            }
                                         }
-                                    }
-                                }
 
-
-                                function openEditSchedule(timeroomID) {
-                                    $.ajax({
-                                        type: "get",
-                                        url: "${pageContext.request.contextPath}/editslot",
-                                        data: {
-                                            timeroomId: timeroomID
-                                        },
-                                        beforeSend: function () {
-                                            $("#admin-add-modal ").hide();
-                                        },
-                                        success: function (data) {
-                                            var c = document.getElementById("modal-edit-schedule");
-                                            c.innerHTML = data;
-                                            $("#admin-edit-modal").show();
+                                        function openchooseRoom() {
+                                            document.getElementById("modal-choose-room").style.display = "flex";
+                                            if (document.getElementById("modal-edit-small") !== null) {
+                                                document.getElementById("modal-edit-small").style.display = "none";
+                                            }
                                         }
-                                    });
-                                }
-
-                                function openAddSchedule(date) {
-                                    $.ajax({
-                                        type: "get",
-                                        url: "${pageContext.request.contextPath}/updateschedule",
-                                        data: {
-                                            date: date
-                                        },
-                                        beforeSend: function () {
-                                            $("#admin-edit-modal ").hide();
-                                        },
-                                        success: function (data) {
-                                            var c = document.getElementById("modal-add-schedule");
-                                            c.innerHTML = data;
-//                                            document.getElementById("mess-text").innerHTML=date;
-                                            $("#admin-add-modal").show();
+                                        function openChooseTime() {
+                                            document.getElementById("modal-choose-slot").style.display = "flex";
+                                            if (document.getElementById("modal-edit-medium") !== null) {
+                                                document.getElementById("modal-edit-medium").style.display = "none";
+                                            }
                                         }
-                                    });
-                                }
-                                function selectMovie(movieId, timeroomID) {
-                                    $.ajax({
-                                        type: "get",
-                                        url: "${pageContext.request.contextPath}/editslot",
-                                        data: {
-                                            timeroomId: timeroomID,
-                                            movieId: movieId
-                                        },
-                                        beforeSend: function () {
-                                            $("#modal-edit-choose-movie").hide();
-                                        },
-                                        success: function (data) {
-                                            var c = document.getElementById("modal-edit-schedule");
-                                            c.innerHTML = data;
-                                            $("#admin-edit-modal").show();
+
+                                        function checkSearch() {
+                                            var mess = document.querySelector('input[name=searchtxt]');
+                                            var messTrim = mess.value.trim();
+                                            var messReplaceSpace = messTrim.replace(/\s\s+/g, ' ');
+                                            console.log(messReplaceSpace);
+                                            if (messReplaceSpace.length == 0) {
+                                                mess.setCustomValidity('Can not be empty!');
+                                            } else {
+                                                mess.setCustomValidity('');
+                                            }
                                         }
-                                    });
-                                }
 
 
-        </script>
+                                        function openEditModal() {
+                                            document.getElementById("admin-edit-modal").style.display = "flex";
+                                        }
+                                        function closeModal() {
+                                            var x = document.querySelectorAll(".modal-nofi");
+                                            for (var i = 0; i < x.length; i++) {
+                                                if (x[i].style.display !== "none") {
+                                                    x[i].style.display = "none";
+                                                }
+                                            }
+                                        }
+
+                                        function openEditchooseRoom() {
+                                            document.getElementById("modal-edit-choose-room").style.display = "flex";
+                                            if (document.getElementById("modal-edit-small") !== null) {
+                                                document.getElementById("modal-edit-small").style.display = "none";
+                                            }
+
+                                        }
+                                        function openEditChooseMovie() {
+                                            document.getElementById("modal-edit-choose-movie").style.display = "flex";
+                                            if (document.getElementById("modal-edit-movie") !== null) {
+                                                document.getElementById("modal-edit-movie").style.display = "none";
+                                            }
+                                        }
+
+                                        function openEditChooseSlot() {
+                                            document.getElementById("modal-edit-choose-slot").style.display = "flex";
+                                            if (document.getElementById("modal-edit-medium") !== null) {
+                                                document.getElementById("modal-edit-medium").style.display = "none";
+                                            }
+                                        }
+                                        function ChooseMovie(roomId, movieId, date) {
+                                            $.ajax({
+                                                type: "get",
+                                                url: "${pageContext.request.contextPath}/updateschedule",
+                                                data: {
+                                                    movieId: movieId,
+                                                    date: date,
+                                                    roomId: roomId
+                                                },
+                                                beforeSend: function () {
+                                                    $("#modal-choose-movie").hide();
+                                                },
+                                                success: function (data) {
+                                                    var c = document.getElementById("modal-add-schedule");
+                                                    c.innerHTML = data;
+                                                    $("#admin-add-modal").show();
+                                                }
+                                            });
+                                        }
+
+                                        function ChooseRoom(movieId, date, roomId) {
+                                            $.ajax({
+                                                type: "get",
+                                                url: "${pageContext.request.contextPath}/updateschedule",
+                                                data: {
+                                                    movieId: movieId,
+                                                    date: date,
+                                                    roomId: roomId
+                                                },
+                                                beforeSend: function () {
+                                                    $("#modal-choose-room").hide();
+                                                },
+                                                success: function (data) {
+                                                    var c = document.getElementById("modal-add-schedule");
+                                                    c.innerHTML = data;
+                                                    $("#admin-add-modal").show();
+                                                }
+                                            });
+                                        }
+
+                                        function ChooseTime(date, slot, start, finish, roomId, movieId) {
+                                            $.ajax({
+                                                type: "get",
+                                                url: "${pageContext.request.contextPath}/updateschedule",
+                                                data: {
+                                                    movieId: movieId,
+                                                    date: date,
+                                                    roomId: roomId,
+                                                    start: start,
+                                                    finish: finish,
+                                                    slot: slot
+                                                },
+                                                beforeSend: function () {
+                                                    $("#modal-choose-slot").hide();
+                                                },
+                                                success: function (data) {
+                                                    var c = document.getElementById("modal-add-schedule");
+                                                    c.innerHTML = data;
+                                                    $("#admin-add-modal").show();
+                                                }
+                                            });
+                                        }
+
+
+                                        function closeEditModalChoose() {
+                                            var x = document.querySelectorAll(".modal-choose");
+                                            for (var i = 0; i < x.length; i++) {
+                                                if (x[i].style.display !== "none") {
+                                                    x[i].style.display = "none";
+                                                }
+                                            }
+                                            if (document.getElementById("modal-add-movie") !== null) {
+                                                document.getElementById("modal-add-movie").style.display = "flex";
+                                            }
+                                        }
+                                        function valueSubmit(timeroomId, index, slot, roomId, movieId) {
+                                            var start = document.querySelectorAll("#start");
+                                            var finish = document.querySelectorAll("#finish");
+                                            var cell = document.querySelectorAll("#submit-time");
+                                            for (var i = 0; i < cell.length; i++) {
+                                                if (index == i)
+                                                    cell[i].setAttribute("onclick", "selectTime(" + timeroomId + "," + slot + ",'" + start[i].value + ":00','" + finish[i].value + ":00'," + roomId + "," + movieId + ")");
+                                            }
+
+                                        }
+
+                                        function valueSubmitAdd(date, index, slot, roomId, movieId) {
+                                            var start = document.querySelectorAll("#start");
+                                            var finish = document.querySelectorAll("#finish");
+                                            var cell = document.querySelectorAll("#submit-time");
+                                            for (var i = 0; i < cell.length; i++) {
+                                                if (index == i)
+                                                    cell[i].setAttribute("onclick", "ChooseTime('" + date + "'," + slot + ",'" + start[i].value + ":00','" + finish[i].value + ":00'," + roomId + "," + movieId + ")");
+                                            }
+
+                                        }
+
+                                        function checkSubmitForm() {
+                                            var movieId = document.getElementsByName("movieId");
+                                            var timeroomId = document.getElementsByName("timeroomId");
+                                            var slot = document.getElementsByName("slot");
+                                            var start = document.getElementsByName("start");
+                                            var finish = document.getElementsByName("finish");
+                                            var roomId = document.getElementsByName("roomId");
+                                            if (movieId[0].value.length > 0 && timeroomId[0].value.length > 0 && slot[0].value.length > 0 && start[0].value.length > 0 && finish[0].value.length > 0 && roomId[0].value.length > 0) {
+                                                document.getElementById("edit-slotForm").submit();
+                                            } else {
+                                                document.getElementById("mess-test").innerHTML = "Thiếu thông tin cập nhật!";
+                                            }
+                                        }
+
+                                        function checkSubmitFormAdd() {
+                                            var movieId = document.getElementsByName("movieId");
+                                            var dateroom = document.getElementsByName("dateRoom");
+                                            var slot = document.getElementsByName("slot");
+                                            var start = document.getElementsByName("start");
+                                            var finish = document.getElementsByName("finish");
+                                            var roomId = document.getElementsByName("roomId");
+                                            if (movieId[0].value.length > 0 && dateroom[0].value.length > 0 && slot[0].value.length > 0 && start[0].value.length > 0 && finish[0].value.length > 0 && roomId[0].value.length > 0) {
+                                                document.getElementById("Add-form").submit();
+                                                //                                        document.getElementById("mess-text").innerHTML = "oke!";
+                                            } else {
+                                                document.getElementById("mess-text").innerHTML = "Thiếu thông tin cập nhật!";
+                                            }
+
+                                        }
+
+                                        function selectTime(timeroomId, slotnew, startd, finishd, roomID, movieID) {
+                                            $.ajax({
+                                                type: "get",
+                                                url: "${pageContext.request.contextPath}/editslot",
+                                                data: {
+                                                    timeroomId: timeroomId,
+                                                    slot: slotnew,
+                                                    start: startd,
+                                                    finish: finishd,
+                                                    roomId: roomID,
+                                                    movieId: movieID
+                                                },
+                                                beforeSend: function () {
+                                                    $("#admin-add-modal ").hide();
+                                                },
+                                                success: function (data) {
+                                                    var c = document.getElementById("modal-edit-schedule");
+                                                    c.innerHTML = data;
+                                                    $("#admin-edit-modal").show();
+                                                }
+                                            });
+                                        }
+
+                                        function selectRoom(movieId, timeroomId, roomId) {
+                                            $.ajax({
+                                                type: "get",
+                                                url: "${pageContext.request.contextPath}/editslot",
+                                                data: {
+                                                    timeroomId: timeroomId,
+                                                    movieId: movieId,
+                                                    roomId: roomId
+                                                },
+                                                beforeSend: function () {
+                                                    $("#admin-add-modal ").hide();
+                                                },
+                                                success: function (data) {
+                                                    var c = document.getElementById("modal-edit-schedule");
+                                                    c.innerHTML = data;
+                                                    $("#admin-edit-modal").show();
+                                                }
+                                            });
+                                        }
+
+                                        function closeEditModal() {
+                                            var x = document.querySelectorAll(".modal-edit-nofi");
+                                            for (var i = 0; i < x.length; i++) {
+                                                if (x[i].style.display !== "none") {
+                                                    x[i].style.display = "none";
+                                                }
+                                            }
+                                        }
+
+
+                                        function openEditSchedule(timeroomID) {
+                                            $.ajax({
+                                                type: "get",
+                                                url: "${pageContext.request.contextPath}/editslot",
+                                                data: {
+                                                    timeroomId: timeroomID
+                                                },
+                                                beforeSend: function () {
+                                                    $("#admin-add-modal ").hide();
+                                                },
+                                                success: function (data) {
+                                                    var c = document.getElementById("modal-edit-schedule");
+                                                    c.innerHTML = data;
+                                                    $("#admin-edit-modal").show();
+                                                }
+                                            });
+                                        }
+
+                                        function openAddSchedule(date) {
+                                            $.ajax({
+                                                type: "get",
+                                                url: "${pageContext.request.contextPath}/updateschedule",
+                                                data: {
+                                                    date: date
+                                                },
+                                                beforeSend: function () {
+                                                    $("#admin-edit-modal ").hide();
+                                                },
+                                                success: function (data) {
+                                                    var c = document.getElementById("modal-add-schedule");
+                                                    c.innerHTML = data;
+                                                    //                                            document.getElementById("mess-text").innerHTML=date;
+                                                    $("#admin-add-modal").show();
+                                                }
+                                            });
+                                        }
+                                        function selectMovie(movieId, timeroomID) {
+                                            $.ajax({
+                                                type: "get",
+                                                url: "${pageContext.request.contextPath}/editslot",
+                                                data: {
+                                                    timeroomId: timeroomID,
+                                                    movieId: movieId
+                                                },
+                                                beforeSend: function () {
+                                                    $("#modal-edit-choose-movie").hide();
+                                                },
+                                                success: function (data) {
+                                                    var c = document.getElementById("modal-edit-schedule");
+                                                    c.innerHTML = data;
+                                                    $("#admin-edit-modal").show();
+                                                }
+                                            });
+                                        }
+
+
+            </script>
     </body>
 </html>

@@ -49,7 +49,7 @@ public class RoomDAO extends DBContext {
         String sql = "select r.* from TimeRoom t join MovieTime m on t.MovieTimeId=m.MovieTimeId \n"
                 + "						join DateRoom d on d.DateRoomID=m.DateRoomID\n"
                 + "						join Room r on t.RoomId=r.RoomId\n"
-                + "						where MovieId=? and DateRoom=? ";
+                + "						where MovieId=? and DateRoom=? and t.status=1";
         try {
             PreparedStatement s = connection.prepareStatement(sql);
             s.setInt(1, movieId);

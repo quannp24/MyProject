@@ -6,7 +6,10 @@ package Controller;
 
 import DAL.MovieDAO;
 import Validation.ValidateMovie;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -68,7 +71,12 @@ public class AdminAddMovieController extends HttpServlet {
         //lấy ra các dữ liệu từ request 
         String movieName = request.getParameter("movieName").trim();
         Part part = request.getPart("movieImage");  //lấy file ảnh truyền vào
-        String realPath = "C:/Users/Quan/FU/SWP/cinemabooking/cinema/web/image/movie";  //truyền đường dẫn folder chứa ảnh
+        String fileName
+                = Paths.get(part.getSubmittedFileName()).getFileName().toString();
+        InputStream inputStream = part.getInputStream();
+        InputStream inputStream2 = part.getInputStream();
+        String uploadPath = getServletContext().getRealPath("") + File.separator + "image" + File.separator + "movie";
+        String[] newd = uploadPath.split("build");
         String filename = Paths.get(part.getSubmittedFileName()).getFileName().toString();  //
 
         String movieCategory = request.getParameter("movieCategory").trim();
@@ -91,7 +99,7 @@ public class AdminAddMovieController extends HttpServlet {
             request.setAttribute("movie", movie);
             request.setAttribute("error", "Tên phim không được để trống và giới hạn 4-3000 ký tự!!!");
             request.getRequestDispatcher("view/AdminAddMovie.jsp").forward(request, response);
-        } else if (movieCategory.trim().length()<4 || movieCategory.trim().length()>1000) {
+        } else if (movieCategory.trim().length() < 4 || movieCategory.trim().length() > 1000) {
             request.setAttribute("movie", movie);
             request.setAttribute("error", "Thể loại không được để trống và giới hạn 4-1000 ký tự!!!");
             request.getRequestDispatcher("view/AdminAddMovie.jsp").forward(request, response);
@@ -99,11 +107,11 @@ public class AdminAddMovieController extends HttpServlet {
             request.setAttribute("movie", movie);
             request.setAttribute("error", "Miêu tả nội dung không được để trống và giới hạn 4-4000 ký tự!!!");
             request.getRequestDispatcher("view/AdminAddMovie.jsp").forward(request, response);
-        } else if (language.trim().length()<4 || language.trim().length()>800) {
+        } else if (language.trim().length() < 4 || language.trim().length() > 800) {
             request.setAttribute("movie", movie);
             request.setAttribute("error", "Ngôn ngữ không được để trống và giới hạn 4-800 ký tự!!! ");
             request.getRequestDispatcher("view/AdminAddMovie.jsp").forward(request, response);
-        } else if (rated.trim().length()<4 || rated.trim().length()>1000) {
+        } else if (rated.trim().length() < 4 || rated.trim().length() > 1000) {
             request.setAttribute("movie", movie);
             request.setAttribute("error", "Rated không được để trống và giới hạn 4-1000 ký tự!!! ");
             request.getRequestDispatcher("view/AdminAddMovie.jsp").forward(request, response);
@@ -116,12 +124,23 @@ public class AdminAddMovieController extends HttpServlet {
             request.setAttribute("error", "Ngày dừng chiếu phải sau ngày khởi chiếu!");
             request.getRequestDispatcher("view/AdminAddMovie.jsp").forward(request, response);
         } else {
-            //folder chứa ảnh ko tồn tại thì tạo mới
-
-            if (!Files.exists(Paths.get(realPath))) {
-                Files.createDirectory(Paths.get(realPath));
+            File uploadDir = new File(uploadPath);
+            if (!uploadDir.exists()) {
+                uploadDir.mkdir();
             }
-            part.write(realPath + "/" + filename);  //in ảnh vào folder
+            FileOutputStream outputStream = new FileOutputStream(uploadPath
+                    + File.separator + fileName);
+            FileOutputStream outputStream2 = new FileOutputStream(newd[0] + File.separator + "web"
+                    + File.separator + "image" + File.separator + "movie" + File.separator + fileName);
+            int read = 0;
+            final byte[] bytes = new byte[1024];
+            while ((read = inputStream.read(bytes)) != -1) {
+                outputStream.write(bytes, 0, read);
+            }
+            read = 0;
+            while ((read = inputStream2.read(bytes)) != -1) {
+                outputStream2.write(bytes, 0, read);
+            }
             movieDAO.addMovie(movie);
             request.setAttribute("mess", "Thêm phim thành công!!");
             request.getRequestDispatcher("view/AdminAddMovie.jsp").forward(request, response);

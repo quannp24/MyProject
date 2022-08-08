@@ -13,16 +13,28 @@ public class TimeRoom {
     private int roomId;
     private int movieId;
     private int movieTimeId;
+    private boolean status;
 
     public TimeRoom() {
     }
 
-    public TimeRoom(int timeRoomId, int roomId, int movieId, int movieTimeId) {
+    public TimeRoom(int timeRoomId, int roomId, int movieId, int movieTimeId, boolean status) {
         this.timeRoomId = timeRoomId;
         this.roomId = roomId;
         this.movieId = movieId;
         this.movieTimeId = movieTimeId;
+        this.status = status;
     }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+
 
     public int getTimeRoomId() {
         return timeRoomId;

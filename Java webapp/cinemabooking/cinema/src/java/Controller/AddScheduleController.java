@@ -476,10 +476,12 @@ public class AddScheduleController extends HttpServlet {
                     request.setAttribute("messAdd", mess);
                     request.setAttribute("date", date);
                     request.getRequestDispatcher("setupschedule?date=" + date).forward(request, response);
+                    return;
                 } else {
                     mess = "Lỗi thêm ở phần phòng hoặc phim";
                     request.setAttribute("messError", mess);
                     request.getRequestDispatcher("setupschedule?date=" + date).forward(request, response);
+                    return;
                 }
             } else {// không có cái trùng
                 m = movietimeDB.addSlot(mt); //thì thêm mới 1 cái và trả về movietime vừa thêm mới
@@ -493,15 +495,18 @@ public class AddScheduleController extends HttpServlet {
                         request.setAttribute("messAdd", mess);
                         request.setAttribute("date", date);
                         request.getRequestDispatcher("setupschedule?date=" + date).forward(request, response);
+                        return;
                     } else {// thêm thất bại
                         mess = "Lỗi thêm ở phần phòng hoặc phim";
                         request.setAttribute("messError", mess);
                         request.getRequestDispatcher("setupschedule?date=" + date).forward(request, response);
+                        return;
                     }
                 } else {//thêm ko thành công
                     mess = "Lỗi thêm ở phần slot";
                     request.setAttribute("messError", mess);
                     request.getRequestDispatcher("setupschedule?date=" + date).forward(request, response);
+                    return;
                 }
             }
         } else {// date chua co trong database
@@ -523,21 +528,25 @@ public class AddScheduleController extends HttpServlet {
                         request.setAttribute("messAdd", mess);
                         //request.setAttribute("date", date);
                         request.getRequestDispatcher("setupschedule?date=" + date).forward(request, response);
+                        return;
                     } else {
                         mess = "Lỗi thêm ở phần phòng hoặc phim";
                         request.setAttribute("messError", mess);
                         request.getRequestDispatcher("setupschedule?date=" + date).forward(request, response);
+                        return;
                     }
 
                 } else {// thêm movietime ko thành công thì báo lỗi
                     mess = "Lỗi thêm ở phần slot";
                     request.setAttribute("messError", mess);
                     request.getRequestDispatcher("setupschedule?date=" + date).forward(request, response);
+                    return;
                 }
             } else {// ko add dc date moi
                 mess = "Lỗi thêm ngày mới";
                 request.setAttribute("messError", mess);
                 request.getRequestDispatcher("setupschedule?date=" + date).forward(request, response);
+                return;
             }
         }
     }

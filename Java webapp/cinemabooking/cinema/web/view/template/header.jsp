@@ -59,13 +59,13 @@
                             <!-- Admin -->
                             <c:if test="${sessionScope.account.role == 1}">
                                 <li><a style="color: #D85B5B" class="dropdown-item" href="${pageContext.request.contextPath}/usermanagement">Quản lý rạp phim</a></li>
-                                <li><a style="color: #D85B5B" class="dropdown-item" href="${pageContext.request.contextPath}/alistmovie">Quản lý phim</a></li>
+                                <!--<li><a style="color: #D85B5B" class="dropdown-item" href="${pageContext.request.contextPath}/alistmovie">Quản lý phim</a></li>-->
                                 </c:if>
                             <!-- Staff -->
                             <c:if test="${sessionScope.account.role ==  2}">
-                                <li><a style="color: #D85B5B" class="dropdown-item" href="#">DashBoard</a></li>
+                                <!--<li><a style="color: #D85B5B" class="dropdown-item" href="#">DashBoard</a></li>-->
                                 <li><a style="color: #D85B5B" class="dropdown-item" href="listbanner">Quản lý banner</a></li>
-                                <li><a style="color: #D85B5B" class="dropdown-item" href="#">Quản lý khuyến mãi</a></li>
+                                <!--<li><a style="color: #D85B5B" class="dropdown-item" href="#">Quản lý khuyến mãi</a></li>-->
                                 </c:if>
                             <!-- My order-->
                             <!--<li><a style="color: #D85B5B" class="dropdown-item" href="${pageContext.request.contextPath}/myorder">Đơn hàng</a></li>-->

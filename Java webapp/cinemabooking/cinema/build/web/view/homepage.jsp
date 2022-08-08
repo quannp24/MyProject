@@ -100,17 +100,9 @@
                                     <h4 class="currency price-hp" style="color: #000">Khởi chiếu: ${o.startdate}</h4> 
                                 </div>
                                 <div class="text-center my-4 hover">                               
-                                    <button onclick="openEditSchedule(23)" class="custom-btn btn-watch"><span>Chi tiết !</span><span>Chi tiết</span></button>
-                                    <c:if test="${count >= 1}">
-                                        <button  class="custom-btn btn-book"><a href="#" onclick="checkCart()"><span>Mua vé !</span><span>Mua vé</span></a></button>
-                                    </c:if>
-                                    <c:if test="${count < 1 || count == null}">
-                                        <c:if test="${count >= 1}">
-                                            <button  class="custom-btn btn-book"><a href="#" onclick="checkCart()"><span>Mua vé !</span><span>Mua vé</span></a></button>
-                                        </c:if>
-                                        <c:if test="${count < 1 || count == null}">
-                                            <button onclick="Quickbooking(${o.getMovieId()})"  class="custom-btn btn-book"><span>Mua vé !</span><span>Mua vé</span></button>
-                                        </c:if>
+                                    <button onclick="location.href = '${pageContext.request.contextPath}/moviedetail?movieId=${o.movieId}'" class="custom-btn btn-watch"><span>Chi tiết !</span><span>Chi tiết</span></button>
+                                    <c:if test="${o.duration!=0}">
+                                        <button onclick="Quickbooking(${o.getMovieId()})"  class="custom-btn btn-book"><span>Mua vé !</span><span>Mua vé</span></button>
                                     </c:if>
                                 </div>
                             </div>
@@ -677,27 +669,8 @@
                     }
                 });
             }
-            
-            function openEditSchedule(bannerId) {
-                $.ajax({
-                    type: "get",
-                    url: "${pageContext.request.contextPath}/editslot",
-                    data: {
-                        timeroomId: bannerId
-                    },
-                    beforeSend: function () {
-                        $("#loading-mask").show();
-                    },
-                    success: function (data) {
-//                        $("#loading-mask").hide();
-                        $("#admin-banner-modal").show();
 
-//                        var c = document.getElementById("admin-banner-modal");
-//                        c.innerHTML = data;
 
-                    }
-                });
-            }
 
 //            function openEditSchedule(timeroomId) {
 //                $.ajax({

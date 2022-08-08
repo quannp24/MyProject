@@ -5,7 +5,10 @@
 package Controller;
 
 import DAL.FoodAndDrinkDAO;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -73,7 +76,12 @@ public class AdminAddFoodDrinkController extends HttpServlet {
         String name = request.getParameter("new_Name");
 
         Part part = request.getPart("new_Img");  //lấy file ảnh truyền vào
-        String realPath = "C:/Users/Quan/FU/SWP/cinemabooking/cinema/web/image/FoodAndDrink";  //truyền đường dẫn folder chứa ảnh
+        String fileName
+                = Paths.get(part.getSubmittedFileName()).getFileName().toString();
+        InputStream inputStream = part.getInputStream();
+        InputStream inputStream2 = part.getInputStream();
+        String uploadPath = getServletContext().getRealPath("") + File.separator + "image" + File.separator + "FoodAndDrink";
+        String[] newd = uploadPath.split("build");
         String filename = Paths.get(part.getSubmittedFileName()).getFileName().toString();
 
         float price = Float.valueOf(request.getParameter("new_Price"));
@@ -95,15 +103,28 @@ public class AdminAddFoodDrinkController extends HttpServlet {
             request.setAttribute("fd", fd);
             request.setAttribute("error", "Tên đồ ăn, uống phải có độ dài 4-150 kí tự!");
             request.getRequestDispatcher("view/AddFoodAndDrink.jsp").forward(request, response);
-        } else if (price<0) {
+        } else if (price < 0) {
             request.setAttribute("fd", fd);
             request.setAttribute("error", "Giá sản phẩm không được nhỏ hơn 0!");
             request.getRequestDispatcher("view/AddFoodAndDrink.jsp").forward(request, response);
         } else {
-            if (!Files.exists(Paths.get(realPath))) {
-                Files.createDirectory(Paths.get(realPath));
+            File uploadDir = new File(uploadPath);
+            if (!uploadDir.exists()) {
+                uploadDir.mkdir();
             }
-            part.write(realPath + "/" + filename);
+            FileOutputStream outputStream = new FileOutputStream(uploadPath
+                    + File.separator + fileName);
+            FileOutputStream outputStream2 = new FileOutputStream(newd[0] + File.separator + "web"
+                    + File.separator + "image" + File.separator + "FoodAndDrink" + File.separator + fileName);
+            int read = 0;
+            final byte[] bytes = new byte[1024];
+            while ((read = inputStream.read(bytes)) != -1) {
+                outputStream.write(bytes, 0, read);
+            }
+            read = 0;
+            while ((read = inputStream2.read(bytes)) != -1) {
+                outputStream2.write(bytes, 0, read);
+            }
             fadDAO.addFoodAndDrink(fd);
             request.setAttribute("fd", fd);
             request.setAttribute("mess", "Thêm đồ ăn, uống thành công!");

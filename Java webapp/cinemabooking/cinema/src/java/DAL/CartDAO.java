@@ -392,7 +392,43 @@ public class CartDAO extends DBContext {
         return 0;
     }
 
-    public Cart getOrderByCartId(int cartId, int accId) {
+    public Cart getOrderByCartId(int cartId) {
+        try {
+
+            query = "select * from cart where cartId=?";
+            con = new DBContext().connection;
+            ps = con.prepareStatement(query);
+            ps.setInt(1, cartId);
+
+            /*Query and save in ResultSet*/
+            rs = ps.executeQuery();
+
+            /*Assign data to an arraylist of Account*/
+            if (rs.next()) {
+                Cart c = (new Cart(
+                        rs.getInt("CartId"),
+                        rs.getInt("AccountId"),
+                        rs.getFloat("TotalPrice"),
+                        rs.getString("Status"),
+                        rs.getDate("OrderDate"),
+                        rs.getString("QRcode")
+                ));
+                return c;
+            }
+
+        } catch (SQLException e) {
+            /*Exeption Handle*/
+            Logger.getLogger(CartDAO.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            /*Close connection, prepare statement, result set*/
+            closeConnection(con);
+            closePreparedStatement(ps);
+            closeResultSet(rs);
+        }
+        return null;
+    }
+    
+    public Cart getOrderByCartIdAcc(int cartId,int accId) {
         try {
 
             query = "select * from cart where cartId=? and AccountId=?";

@@ -27,9 +27,9 @@
         <a class="neon-button" href="${pageContext.request.contextPath}/alistfd"><i class="far fa-life-bouy"></i> Đồ ăn & đồ uống</a>
     </li>
     <!--notification-->
-    <li class="">
+<!--    <li class="">
         <a class="neon-button" href="${pageContext.request.contextPath}/adminnotificationlist"><i class='fas fa-bell'></i> Thông báo</a>
-    </li>
+    </li>-->
     <li class="">
         <a class="neon-button" href="${pageContext.request.contextPath}/listbanner"><i class="fas fa-ad"></i> Banner</a>
     </li>

@@ -5,7 +5,10 @@
 package Controller;
 
 import DAL.FoodAndDrinkDAO;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -83,15 +86,23 @@ public class AdminEditFoodController extends HttpServlet {
         String name = request.getParameter("new_Name");
         Float uPrice = Float.parseFloat(request.getParameter("new_Price"));
         Part part = request.getPart("new_Img");  //lấy file ảnh truyền vào
-        String realPath = "C:/Users/Quan/FU/SWP/cinemabooking/cinema/web/image/FoodAndDrink";  //truyền đường dẫn folder chứa ảnh
+        String fileName
+                = Paths.get(part.getSubmittedFileName()).getFileName().toString();
+        InputStream inputStream = part.getInputStream();
+        InputStream inputStream2 = part.getInputStream();
+        String uploadPath = getServletContext().getRealPath("") + File.separator + "image" + File.separator + "FoodAndDrink";
+        String[] newd = uploadPath.split("build");
         String filename = Paths.get(part.getSubmittedFileName()).getFileName().toString();  //
         String imgDB = "";
         //lay img cũ từ database và cắt lấy phần tên ảnh cũ
         String[] ImgOldDB = dao.getImgFoodById(uid).split("/");
         //đường dẫn đến thư mục chứa ảnh cũ
         Path path = null;
+        Path path2 = null;
         if (ImgOldDB.length > 1) {
-            path = Paths.get(realPath + "/" + ImgOldDB[2]);
+            path = Paths.get(uploadPath + File.separator + ImgOldDB[2]);
+            path2 = Paths.get(newd[0] + File.separator + "web"
+                    + File.separator + "image" + File.separator + "FoodAndDrink" + File.separator + ImgOldDB[2]);
         }
         //nếu ko cập nhật ảnh mới thì vẫn giữ nguyên đường dẫn ảnh cũ từ database
         if (filename.trim().length() < 1) {
@@ -101,7 +112,7 @@ public class AdminEditFoodController extends HttpServlet {
                 imgDB = "image/FoodAndDrink/" + ImgOldDB[2]; //ko truyền ảnh nhưng có dữ liệu từ db trước đó
             }
         } else {
-            imgDB =  "image/FoodAndDrink/"+filename;   //có truyền ảnh
+            imgDB = "image/FoodAndDrink/" + filename;   //có truyền ảnh
         }
 
         fd.setFadId(uid);
@@ -122,16 +133,32 @@ public class AdminEditFoodController extends HttpServlet {
             request.setAttribute("error", "Tên đồ ăn, uống phải có độ dài 4-150 kí tự!");
             request.getRequestDispatcher("view/UpdateFoodAndDrink.jsp").forward(request, response);
         } else {
-            if (!Files.exists(Paths.get(realPath))) {
-                Files.createDirectory(Paths.get(realPath));
+            File uploadDir = new File(uploadPath);
+            if (!uploadDir.exists()) {
+                uploadDir.mkdir();
             }
             if (filename.trim().length() > 1) { //truyền lên ảnh
                 if (ImgOldDB.length > 1) {
                     if (Files.exists(path)) { //check có tồn tại file ảnh, có thì xóa
                         Files.delete(path);
                     }
+                    if (Files.exists(path2)) { //check có tồn tại file ảnh, có thì xóa
+                        Files.delete(path2);
+                    }
                 }
-                part.write(realPath + "/" + filename);
+                FileOutputStream outputStream = new FileOutputStream(uploadPath
+                        + File.separator + fileName);
+                FileOutputStream outputStream2 = new FileOutputStream(newd[0] + File.separator + "web"
+                        + File.separator + "image" + File.separator + "FoodAndDrink" + File.separator + fileName);
+                int read = 0;
+                final byte[] bytes = new byte[1024];
+                while ((read = inputStream.read(bytes)) != -1) {
+                    outputStream.write(bytes, 0, read);
+                }
+                read = 0;
+                while ((read = inputStream2.read(bytes)) != -1) {
+                    outputStream2.write(bytes, 0, read);
+                }
             }
             dao.updateFoodAndDrink(fd);
             FoodAndDrink newfd = dao.getFoodAndDrink(uid);

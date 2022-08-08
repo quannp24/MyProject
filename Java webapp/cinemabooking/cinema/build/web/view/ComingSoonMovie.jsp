@@ -100,18 +100,12 @@
                                     <h4 class="currency price-hp" style="color: #000">Khởi chiếu: ${o.startdate}</h4> 
                                 </div>
                                 <div class="text-center my-4 hover">                               
-                                    <button onclick="viewDetail(${o.getMovieId()})" class="custom-btn btn-watch"><span>Xem ngay !</span><span>Xem ngay</span></button>
-                                    <c:if test="${count >= 1}">
-                                        <button  class="custom-btn btn-book"><a href="#" onclick="checkCart()"><span>Mua vé !</span><span>Mua vé</span></a></button>
-                                    </c:if>
-                                    <c:if test="${count < 1 || count == null}">
-                                        <c:if test="${count >= 1}">
-                                            <button  class="custom-btn btn-book"><a href="#" onclick="checkCart()"><span>Mua vé !</span><span>Mua vé</span></a></button>
-                                        </c:if>
-                                        <c:if test="${count < 1 || count == null}">
+                                    <button onclick="viewDetail(${o.getMovieId()})" class="custom-btn btn-watch"><span>Chi tiết !</span><span>Chi tiết</span></button>
+         
+                             
+                                        <c:if test="${o.duration!=0}">
                                             <button  class="custom-btn btn-book"><a href="" ><span>Mua vé !</span><span>Mua vé</span></a></button>
                                         </c:if>
-                                    </c:if>
                                 </div>
                                 <!--                                 <div class="clearfix mb-1"> <span class="float-start"><i class="far fa-question-circle"></i></span> <span class="float-end"><i class="fas fa-plus"></i></span> </div> -->
                             </div>
