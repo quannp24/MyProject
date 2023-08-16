@@ -1,0 +1,387 @@
+﻿@page 
+@model Home
+@{
+}
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>SpanLuxy - Home</title>
+    <link rel="shortcut icon" href="~/Image/Resource/icon.ico" type="image/x-icon">
+
+    <link href="https://fonts.googleapis.com/css?family=Baloo+Chettan|Poppins:400,600,700&display=swap"
+          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="~/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="~/css/splide.css" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+          integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="~/js/test.js"></script>
+    <script src="~/js/splide.min.js"></script>
+</head>
+<body>
+    <header class="header_section" style="padding: 10px 0;">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg custom_nav-container " style="display: flex;">
+                <a class="navbar-brand" href="~/home" style="width: 32%;">
+                    <img class="img-title" src="~/Image/Resource/ne.png" width="70px" height="auto">
+                    <span>
+                        SpanLuxy
+                    </span>
+                </a>
+
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent" style="width: 68%;display: flex;">
+                    <div class="d-flex mx-auto flex-column flex-lg-row align-items-center" style="width: 70%;">
+                        <ul class="navbar-nav " style="list-style-type: none;display: flex;">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="~/home">Home </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href=""> About</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="~/gallery"> Gallery </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="">Contact us</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="quote_btn-container " style="width: 30%;">
+                        @if (Model.account == null)
+                        {
+                            <a href="~/login" style="margin-right: 30px;">
+                                Log in
+
+                            </a>
+                        }
+                        @if (Model.account != null)
+                        {
+                            <div class="dropdown-header" style="margin-right: 30px;">
+                                <a>Hello <span style="color: #ffffff;font-weight: bold; ">@Model.account.FirstName</span></a>
+                                <div class="dropdown-content-header">
+                                    <ul style="padding-left: 0;">
+
+                                        @if (Model.account.Role == 1)
+                                        {
+                                            <li><a href="~/management">Management</a></li>
+                                        }
+                                        <li><a href="/myorder">My order</a></li>
+                                        <li><a href="">User profile</a></li>
+                                        <li><a href="/logout">Log out</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        }
+
+                        <a class="img-cart" href="~/cart">
+                            <img src="~/Image/Resource/cart.png" alt="">
+
+
+                            @if (Model.carts != null && Model.carts > 0)
+                            {
+                                <span id="number-cart">@Model.carts</span>
+                            }
+                            else
+                            {
+                                <span id="number-cart"></span>
+                            }
+
+                        </a>
+
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div id="splide">
+        <div class="splide__track" id="splide-track">
+            <ul class="splide__list">
+                <li class="splide__slide">
+                    <img src="~/Image/Resource/ban1.png" alt="plchldr.co Green">
+                </li>
+
+                <li class="splide__slide">
+                    <img src="~/Image/Resource/ban2.png" alt="plchldr.co Orange">
+                </li>
+
+                <li class="splide__slide">
+                    <img src="~/Image/Resource/ban3.png" alt="plchldr.co Black">
+                </li>
+
+                <li class="splide__slide">
+                    <img src="~/Image/Resource/ban4.png" alt="Profile">
+                </li>
+
+            </ul> <!-- /.splide__list -->
+        </div> <!-- /.splide__track -->
+
+        <div class="splide__optional-button-container">
+            <button class="splide__play-pause" aria-controls="splide-track">
+                <img src="~/Image/Resource/pause.png" class="img-buttonPause" style="display: flex;">
+                <img src="~/Image/Resource/play.png" class="img-buttonPlay" style="display: none;">
+            </button>
+        </div> <!-- /.splide__optional-button-container -->
+
+    </div> <!-- /.splide -->
+
+    <div class="hero_area col-md-12">
+        <section class=" slider_section position-relative">
+
+            <div class="container banner-slide" style="margin: 0;">
+
+                <div class="row">
+                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div class="col-lg-6 col-md-8" style="display: flex;">
+                                    <img class="img-left" src="~/Image/Resource/poster.png" style="width: 447px; height: 550px;transform: scaleX(-1);">
+
+                                    <div class="detail_box">
+                                        <h1 style="font-family: 'Permanent Marker', cursive;font-size: 60px;color: #bdb4b0;">
+                                            SpanLuxy
+                                            <img class="img-banner1" src="~/Image/Resource/banner1.png" alt="hoa ne">
+                                        </h1>
+                                        <p style="width: 80%;color: #bdb4b0;">
+                                            SpanLuxy located at North York Toronto.
+                                            The mythological landscape envisages our desire for a life surrounded by flowers and fragrance.
+                                            From a wide selection of Korean fragrance oils and ingredients, we have handcrafted our aroma stones and scented candles of different characteristics.
+                                            <br />
+                                            We have but one wish— the flowers and scents will always be with us.
+                                        </p>
+                                        <div>
+                                            <a class="neon-button" href="/Gallery">Order Now</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </div>
+
+
+
+    <div class="row" style="margin-bottom: 0;">
+        <div class="content-left col-md-6">
+
+            <div class="list-product">
+                <div class="products-catagories-area ">
+                    <div class="amado-pro-catagory ">
+                        <a class="title-collections">OUR COLLECTIONS</a>
+
+                        <div style="display: flex;">
+                            <!-- Single Catagory -->
+                            <div class="single-products-catagory ">
+                                <a href="#">
+                                    <img src="~/Image/Resource/product1.jpg" alt="">
+                                    <!-- Hover Content -->
+                                    <div class="hover-content">
+                                        <div class="line"></div>
+                                        <h4>Summer 2023</h4>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="single-products-catagory ">
+                                <a href="#" style="height: 100%;">
+                                    <img src="~/Image/Resource/product2.jpg" alt="" height="100%">
+                                    <!-- Hover Content -->
+                                    <div class="hover-content">
+                                        <div class="line"></div>
+                                        <h4>Lover 2023</h4>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="single-products-catagory ">
+                                <a href="#" style="height: 100%;">
+                                    <img src="~/Image/Resource/basket.png" alt="" height="100%">
+                                    <!-- Hover Content -->
+                                    <div class="hover-content">
+                                        <div class="line"></div>
+                                        <h4>Flower Basket</h4>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div style="display: flex;">
+                            <div class="single-products-catagory " style="width: 50%;">
+                                <a href="#">
+                                    <img src="~/Image/Resource/flower-wedding.png" alt="" style="object-fit: cover;">
+                                    <!-- Hover Content -->
+                                    <div class="hover-content">
+                                        <div class="line"></div>
+                                        <h4>Wedding 2023</h4>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="single-products-catagory " style="width: 50%;">
+                                <a href="#">
+                                    <img src="~/Image/Resource/nen.png" alt="">
+                                    <!-- Hover Content -->
+                                    <div class="hover-content">
+                                        <div class="line"></div>
+                                        <h4>Scented candle</h4>
+                                    </div>
+                                </a>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+        <div class="follow-contianer">
+            <h1>FOLLOW US ON INSTAGRAM</h1>
+
+
+            <div class="amado-pro-catagory " style="padding-top: 0;">
+
+                <div style="display: flex;">
+                    <!-- Single Catagory -->
+                    <div class="single-ins-catagory ">
+                        <a href="#">
+                            <img src="~/Image/Resource/ins1.png" alt="">
+                            <!-- Hover Content -->
+                            <div class="hover-content">
+                            </div>
+                        </a>
+                    </div>
+                    <div class="single-ins-catagory ">
+                        <a href="#">
+                            <img src="~/Image/Resource/ins2.png" alt="">
+                            <!-- Hover Content -->
+                            <div class="hover-content">
+                            </div>
+                        </a>
+                    </div>
+                    <div class="single-ins-catagory ">
+                        <a href="#">
+                            <img src="~/Image/Resource/ins3.png" alt="">
+                            <!-- Hover Content -->
+                            <div class="hover-content">
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div style="display: flex;">
+                    <!-- Single Catagory -->
+                    <div class="single-ins-catagory ">
+                        <a href="#">
+                            <img src="~/Image/Resource/ins4.png" alt="">
+                            <!-- Hover Content -->
+                            <div class="hover-content">
+                            </div>
+                        </a>
+                    </div>
+                    <div class="single-ins-catagory ">
+                        <a href="#">
+                            <img src="~/Image/Resource/ing5.png" alt="">
+                            <!-- Hover Content -->
+                            <div class="hover-content">
+                            </div>
+                        </a>
+                    </div>
+                    <div class="single-ins-catagory ">
+                        <a href="#">
+                            <img src="~/Image/Resource/ins6.png" alt="">
+                            <!-- Hover Content -->
+                            <div class="hover-content">
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+
+
+        </div>
+
+
+    </div>
+
+    </div>
+
+    </div>
+
+    <footer class="container-fluid footer_section" style="width: 100%;">
+        <!-- <div >
+        <p>
+        <span>Contact with us</span>
+        </p>
+        <p>Phone :</p> -->
+        <div class="container p-4" style="width: 100%;">
+            <!--Grid row-->
+            <div style="display: flex;margin: auto;">
+
+                <!--Grid column-->
+                <div class="col-lg-6 col-md-6 mb-6 mb-md-0" style="width: 50%; margin: auto;display: flex;
+                justify-content: center;
+                align-items: center;">
+                    <div>
+                        <h5 class="text-uppercase mb-4 pb-1" style="margin-bottom: 0;">
+                            <i class="fas fa-search"></i>&nbsp;Contact with us
+                        </h5>
+                        <ul class="fa-ul" style="margin-left: 1.65em;">
+                            <li class="mb-3 text-footer">
+                                <span class="fa-li"><i class="fas fa-home"></i></span><span class="ms-2">
+                                    Tân Xã,
+                                    Thạch Thất, Hà Nội
+                                </span>
+                            </li>
+                            <li class="mb-3 text-footer">
+                                <span class="fa-li"><i class="fas fa-envelope"></i></span><span class="ms-2">
+                                    Email support:
+                                    hoidap@gflower.vn
+                                </span>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6 mb-6 mb-md-0" style="width: 50%;display: flex;
+                justify-content: center;
+                align-items: center;" ;>
+                    <div>
+                        <h5 class="text-uppercase mb-4" style="width: 500px;margin-bottom: 0;">
+                            <i class="far fa-clock"></i>&nbsp;Support customer
+                        </h5>
+
+                        <ul class="fa-ul text-footer" style="margin-left: 1.65em;">
+                            <li class="mb-3">
+                                <span class="ms-2">Time: 8:00 - 20:00</span>
+                            </li>
+                            <li class="mb-3 text-footer">
+                                <span class="fa-li"><i class="fas fa-phone"></i></span><span class="ms-2">
+                                    Hotline: 1900
+                                    6017
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

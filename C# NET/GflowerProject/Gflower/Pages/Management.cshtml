@@ -1,0 +1,387 @@
+﻿@page
+@model Gflower.Pages.ManagementModel
+@{
+}
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>SpanLuxy-Admin</title>
+    <link rel="shortcut icon" href="~/Image/Resource/icon.ico" type="image/x-icon">
+    <!-- Favicon icon -->
+    <!-- Bootstrap Core CSS -->
+    <link href="~/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/css/perfect-scrollbar.css" rel="stylesheet">
+    <!-- This page CSS -->
+    <!-- chartist CSS -->
+    <link href="~/css/morris.css" rel="stylesheet">
+    <!--c3 CSS -->
+    <link href="~/css/c3.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="~/css/styleManagement.css" rel="stylesheet">
+    <!-- Dashboard 1 Page CSS -->
+    <link href="~/css/dashboard1.css" rel="stylesheet">
+
+
+</head>
+<body class="fix-header fix-sidebar card-no-border" >
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+
+    <div id="main-wrapper">
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <header class="topbar" style="margin-bottom:20px;background-color:#d2c9c9">
+            <nav class="navbar top-navbar navbar-expand-md navbar-light">
+                <!-- ============================================================== -->
+                <!-- Logo -->
+                <!-- ============================================================== -->
+                <div class="navbar-header" style="text-align:center">
+                    <a class="navbar-brand" href="~/home" style="width: 32%;">
+                        <img class="img-title" src="~/Image/Resource/ne.png" width="70px" height="auto">
+                        <span>
+                            SpanLuxy
+                        </span>
+                    </a>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Logo -->
+                <!-- ============================================================== -->
+                <div class="navbar-collapse" style="background:#d2c9c9">
+                    <!-- ============================================================== -->
+                    <!-- toggle and nav items -->
+                    <!-- ============================================================== -->
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link nav-toggler hidden-md-up waves-effect waves-dark"
+                               href="javascript:void(0)"><i class="fa fa-bars"></i></a>
+                        </li>
+                        <!-- ============================================================== -->
+                        <!-- Search -->
+                        <!-- ============================================================== -->
+                        <li class="nav-item hidden-xs-down search-box">
+                            <a class="nav-link hidden-sm-down waves-effect waves-dark" href="javascript:void(0)">
+                                <i class="fa fa-search"></i>
+                            </a>
+                            <form class="app-search">
+                                <input type="text" class="form-control" placeholder="Search & enter"> <a class="srh-btn"><i class="fa fa-times"></i></a>
+                            </form>
+                        </li>
+                    </ul>
+                    <!-- ============================================================== -->
+                    <!-- User profile and search -->
+                    <!-- ============================================================== -->
+                    <ul class="navbar-nav my-lg-0">
+                        <!-- ============================================================== -->
+                        <!-- Profile -->
+                        <!-- ============================================================== -->
+                        <li class="nav-item dropdown u-pro">
+                            <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" href="#" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src="~/Image/Resource/iconavatar.png" alt="user" class="" /> <span class="hidden-md-down">Hello @Model.account.FirstName</span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#">Profile</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Settings</a>
+                                <a class="dropdown-item" href="#">Change Password</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/Logout" >Logout</a>
+                            
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <!-- ============================================================== -->
+        <!-- End Topbar header -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <aside class="left-sidebar">
+            <!-- Sidebar scroll-->
+            <div class="scroll-sidebar">
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav">
+                        <li>
+                            <a class="waves-effect waves-dark" href="/Management" aria-expanded="false">
+                                <i class="fa fa-tachometer"></i><span class="hide-menu">Orders</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="waves-effect waves-dark" href="/product" aria-expanded="false">
+                                <i class="fa fa-user-circle-o"></i><span class="hide-menu">Product</span>
+                            </a>
+                        </li>
+                        
+                </nav>
+                <!-- End Sidebar navigation -->
+            </div>
+            <!-- End Sidebar scroll-->
+        </aside>
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <div class="page-wrapper" id="content-bodyload" style="display:none">
+
+
+            <div class="card-list">
+                <div class="row" style="margin-left: 3%;margin-right: 3%; margin-top: 3%;">
+                    <div class="col-12 col-md-6 col-lg-6 col-xl-6 mb-6" style="height: 110px;">
+                        <div class="card blue" style="margin:0 80px;background-color: #e2b880;box-shadow: 0px 10px 20px rgb(223 221 221);height:100%">
+                            <div class="title">All Orders</div>
+                            <i class="zmdi zmdi-upload"></i>
+                            <div class="row" style="margin-left:20px">
+                                <div class="col-md-7 value" id="total-orders">@Model.TotalOrder</div>
+                                <select class="col-md-5 form-select" id="filter-select-order" style="width:100px;background-color: #e2b880;border:none;color:#fff">
+                                    <option selected value="day">Day</option>
+                                    <option value="month">Month</option>
+                                    <option value="year">Year</option>
+                                </select>
+                            </div>
+                      
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-6 col-xl-6 mb-6" style="height: 110px;">
+                        <div class="card green" style="margin:0 80px;background-color: #96dcaf;box-shadow: 0px 10px 20px rgb(223 221 221);height:100%">
+                            <div class="title">Total money</div>
+                            <i class="zmdi zmdi-upload"></i>
+                            <div class="row" style="margin-left:20px">
+                                <div class="col-md-7 value" id="total-money">@Model.TotalMoney $</div>
+                                <select class="col-md-5 form-select" id="filter-select-money" style="width:100px;background-color: #96dcaf;border:none;color:#fff">
+                                    <option selected value="day">Day</option>
+                                    <option value="month">Month</option>
+                                    <option value="year">Year</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                <div class="row page-titles" style="margin-top:40px">
+                    <div class="col-md-5 align-self-center">
+                        <h3 class="text-themecolor">Dashboard Orders</h3>
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/home">Home</a></li>
+                            <li class="breadcrumb-item active">Dashboard</li>
+                        </ol>
+                    </div>
+                    <div class="col-md-7 align-self-center">
+                        
+                    </div>
+                </div>
+     
+              
+      
+                <div class="row">
+                    <!-- Start Notification -->
+                    <div class="col-lg-6 col-md-12">
+                        <div class="card card-body mailbox">
+                            <div class="table-responsive">
+                                <h4 style="color:#20aee3">Account Orders</h4>
+                                @if (Model.ordersUsers != null)
+                                {
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Receiver</th>
+                                                <th>Account</th>
+                                                <th>Order Date</th>
+                                                <th>Status</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @for (var i = 0; i < Model.ordersUsers.Count; i++)
+                                            {
+                                                <tr>
+                                                    <td>@(i+1)</td>
+                                                    @{
+                                                        string[] parts = Model.ordersUsers[i].ShippingInfo.Split('-');
+                                                    }
+                                                    @if (parts.Length > 0)
+                                                    {
+                                                        <td>@parts[0]</td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td>@Model.ordersUnknown[i].ShippingInfo</td>
+                                                    }
+                                                    <td>@Model.ordersUsers[i].Account.Username</td>
+                                                    <td>@Model.ordersUsers[i].OrderDate</td>
+                                                    @if (Model.ordersUsers[i].OrderStatus == 1)
+                                                    {
+                                                        <td><span class="badge badge-info">Pending</span></td>
+                                                    }
+                                                    else if (Model.ordersUsers[i].OrderStatus == 2)
+                                                    {
+                                                        <td><span class="badge badge-warning">Processed</span></td>
+                                                    }
+                                                    else if (Model.ordersUsers[i].OrderStatus == 3)
+                                                    {
+                                                        <td><span class="badge badge-warning">Shipped</span></td>
+                                                    }
+                                                    else if (Model.ordersUsers[i].OrderStatus == 4)
+                                                    {
+                                                        <td><span class="badge badge-success">Complete</span></td>
+                                                    }
+                                                    else if (Model.ordersUsers[i].OrderStatus == 0)
+                                                    {
+                                                        <td><span class="badge badge-red">Cancel</span></td>
+                                                    }
+                                                    <td>
+                                                        <a asp-page="./UpdateOrder" asp-route-orderId="@Model.ordersUsers[i].OrderId" class="btn btn-secondary btn-sm">Update</a>
+                                                    </td>
+                                                </tr>
+                                            }
+
+
+                                            <!-- Add more rows here -->
+                                        </tbody>
+                                    </table>
+
+                                }else{
+                                    <p style="text-align:center">Orders is empty</p>
+                                }
+                            </div>
+                            <div class="pagination" style="justify-content:center">
+                                @for (var i = 1; i <= Model.totalPage; i++)
+                                {
+                                    <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                                        <a class="page-link" asp-page="./Management" asp-route-currentPage="@i">@i</a>
+                                    </li>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Notification -->
+                    <!-- Start Feeds -->
+                    <div class="col-lg-6">
+                        <div class="card card-body mailbox">
+                            <div class="table-responsive">
+                                <h4 style="color:#20aee3">Unknown Orders</h4>
+                                @if (Model.ordersUnknown != null)
+                                {
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Receiver</th>
+                                                <th>Phone</th>
+                                                <th>Order Date</th>
+                                                <th>Status</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @for (var i = 0; i < Model.ordersUnknown.Count; i++)
+                                            {
+                                                <tr>
+                                                    <td>@(i+1)</td>
+                                                    @{
+                                                        string[] parts = Model.ordersUnknown[i].ShippingInfo.Split('-');
+                                                    }
+                                                    @if (parts.Length > 1)
+                                                    {
+                                                        <td>@parts[0]</td>
+                                                        <td>@parts[1]</td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td>@Model.ordersUnknown[i].ShippingInfo</td>
+                                                        <td>@Model.ordersUnknown[i].ShippingInfo</td>
+                                                    }
+                                                    <td>@Model.ordersUnknown[i].OrderDate</td>
+
+                                                    @if (Model.ordersUnknown[i].OrderStatus == 1)
+                                                    {
+                                                        <td><span class="badge badge-info ">Pending</span></td>
+                                                    }
+                                                    else if (Model.ordersUnknown[i].OrderStatus == 2)
+                                                    {
+                                                        <td><span class="badge badge-warning">Processed</span></td>
+                                                    }
+                                                    else if (Model.ordersUnknown[i].OrderStatus == 3)
+                                                    {
+                                                        <td><span class="badge badge-success">Shipped</span></td>
+                                                    }
+                                                    else if (Model.ordersUnknown[i].OrderStatus == 4)
+                                                    {
+                                                        <td><span class="badge badge-warning">Complete</span></td>
+                                                    }
+                                                    else if (Model.ordersUnknown[i].OrderStatus == 0)
+                                                    {
+                                                        <td><span class="badge badge-red">Cancel</span></td>
+                                                    }
+                                                    <td>
+                                                        <a asp-page="./UpdateOrder" asp-route-orderId="@Model.ordersUnknown[i].OrderId" class="btn btn-secondary btn-sm">Update</a>
+                                                    </td>
+                                                </tr>
+                                            }
+
+
+                                            <!-- Add more rows here -->
+                                        </tbody>
+                                    </table>
+                                }else{
+                                    <p style="text-align:center">Orders is empty</p>
+                                }
+                            </div>
+                            <div class="pagination" style="justify-content:center">
+                                @for (var i = 1; i <= Model.totalPageUnknown; i++)
+                                {
+                                    <li class="page-item @(i == Model.CurrentPageUnknown ? "active" : "")">
+                                        <a class="page-link" asp-page="./Management" asp-route-currentPageUnknown="@i">@i</a>
+                                    </li>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Feeds -->
+                </div>
+     
+            </div>
+    
+            <footer class="footer"> © 2023 SpanLuxy</a> </footer>
+
+        </div>
+    </div>
+</body>
+<div id="loading-screen">
+    <img src="~/Image/Resource/ne.png" alt="Logo" class="logo-load">
+</div>
+<script src="~/js/jquery.min.js"></script>
+<script src="~/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/perfect-scrollbar.jquery.min.js"></script>
+<script src="~/js/funManagement.js"></script>
+<!--Wave Effects -->
+<script src="~/js/waves.js"></script>
+<!--Menu sidebar -->
+<script src="~/js/sidebarmenu.js"></script>
+<!--Custom JavaScript -->
+<script src="~/js/custom.min.js"></script>
+<script src="~/js/dashboard1.js"></script>
+
+
+</html>

@@ -1,0 +1,395 @@
+﻿@page
+@model Gflower.Pages.UpdateOrderModel
+@{
+}
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>SpanLuxy-Admin</title>
+    <link rel="shortcut icon" href="~/Image/Resource/icon.ico" type="image/x-icon">
+    <!-- Favicon icon -->
+    <!-- Bootstrap Core CSS -->
+    <link href="~/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/css/perfect-scrollbar.css" rel="stylesheet">
+    <!-- This page CSS -->
+    <!-- chartist CSS -->
+    <link href="~/css/morris.css" rel="stylesheet">
+    <!--c3 CSS -->
+    <link href="~/css/c3.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="~/css/styleManagement.css" rel="stylesheet">
+    <!-- Dashboard 1 Page CSS -->
+    <link href="~/css/dashboard1.css" rel="stylesheet">
+
+
+</head>
+<body class="fix-header fix-sidebar card-no-border">
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+
+    <div id="main-wrapper">
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <header class="topbar" style="margin-bottom:20px;background-color:#d2c9c9">
+            <nav class="navbar top-navbar navbar-expand-md navbar-light">
+                <!-- ============================================================== -->
+                <!-- Logo -->
+                <!-- ============================================================== -->
+                <div class="navbar-header" style="text-align:center">
+                    <a class="navbar-brand" href="~/home" style="width: 32%;">
+                        <img class="img-title" src="~/Image/Resource/ne.png" width="70px" height="auto">
+                        <span>
+                            SpanLuxy
+                        </span>
+                    </a>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Logo -->
+                <!-- ============================================================== -->
+                <div class="navbar-collapse" style="background:#d2c9c9">
+                    <!-- ============================================================== -->
+                    <!-- toggle and nav items -->
+                    <!-- ============================================================== -->
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link nav-toggler hidden-md-up waves-effect waves-dark"
+                               href="javascript:void(0)"><i class="fa fa-bars"></i></a>
+                        </li>
+                        <!-- ============================================================== -->
+                        <!-- Search -->
+                        <!-- ============================================================== -->
+                        <li class="nav-item hidden-xs-down search-box">
+                            <a class="nav-link hidden-sm-down waves-effect waves-dark" href="javascript:void(0)">
+                                <i class="fa fa-search"></i>
+                            </a>
+                            <form class="app-search">
+                                <input type="text" class="form-control" placeholder="Search & enter"> <a class="srh-btn"><i class="fa fa-times"></i></a>
+                            </form>
+                        </li>
+                    </ul>
+                    <!-- ============================================================== -->
+                    <!-- User profile and search -->
+                    <!-- ============================================================== -->
+                    <ul class="navbar-nav my-lg-0">
+                        <!-- ============================================================== -->
+                        <!-- Profile -->
+                        <!-- ============================================================== -->
+                        <li class="nav-item dropdown u-pro">
+                            <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" href="#" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src="~/Image/Resource/iconavatar.png" alt="user" class="" /> <span class="hidden-md-down">Hello @Model.account.FirstName</span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#">Profile</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Settings</a>
+                                <a class="dropdown-item" href="#">Change Password</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#" >Logout</a>
+                            
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <!-- ============================================================== -->
+        <!-- End Topbar header -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <aside class="left-sidebar">
+            <!-- Sidebar scroll-->
+            <div class="scroll-sidebar">
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav">
+                        <li>
+                            <a class="waves-effect waves-dark" href="/Management" aria-expanded="false">
+                                <i class="fa fa-tachometer"></i><span class="hide-menu">Orders</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="waves-effect waves-dark" href="/product" aria-expanded="false">
+                                <i class="fa fa-user-circle-o"></i><span class="hide-menu">Product</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- End Sidebar navigation -->
+            </div>
+            <!-- End Sidebar scroll-->
+        </aside>
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <div class="page-wrapper" id="content-bodyload" style="display:none">
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                <div class="row page-titles" style="margin-top:40px">
+                    <div class="col-md-5 align-self-center">
+                        <h3 class="text-themecolor">Dashboard Orders</h3>
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/home">Home</a></li>
+                            <li class="breadcrumb-item"><a href="/Management">Orders</a></li>
+                            <li class="breadcrumb-item active">Update order</li>
+                        </ol>
+                    </div>
+                    <div class="col-md-7 align-self-center">
+                        
+                    </div>
+                </div>
+
+
+
+                <div class="row">
+                    <!-- Start Notification -->
+                    <div class="col-lg-12 col-md-12">
+                        <div class="card card-body mailbox">
+                            <div class="table-responsive" style="overflow:hidden">
+                                <div class="row mb-3">
+                                    <div class="col-md-5">
+                                        <button class="btn btn-secondary" onclick="back()">Back</button>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <h3 style="color:#bdb4b0">Update Order</h3>
+                                    </div>
+                                </div>
+                                <div class="container" style="color:#978888">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-9">
+                                                    <h4>Order ID : <span id="orderId">@Model.order.OrderId</span></h4>
+                                                    @{
+                                                        string mess = (string)ViewData["Message"];
+                                                        string messError = (string)ViewData["MessageError"];
+                                                    }
+                                                    @if (!string.IsNullOrEmpty(mess))
+                                                    {
+                                                        <a style="color:green;font-size:14px;font-weight:bold">@mess</a>
+                                                    }
+                                                    @if (!string.IsNullOrEmpty(messError))
+                                                    {
+                                                        <a style="color:red;font-size:14px;font-weight:bold">@messError</a>
+                                                    }
+                                                </div>
+                                                <div class="col-md-3" style="display:flex">
+                                                         <h5 style="margin-top:10px;margin-right:10px">Status:</h5>
+                                                    <form method="post" asp-page-handler="UpdateStatus" id="updateForm" asp-page="/UpdateOrder">
+                                                        <input name="orderId" type="text" value="@Model.order.OrderId" hidden />
+                                                        <select class="form-control" name="status" style="width:200px">
+                                                    @if (Model.order.OrderStatus == 1)
+                                                    {
+                                                                <option value="1" selected>Pending</option>
+                                                                <option value="2">Processed</option>
+                                                                <option value="3">Shipped</option>
+                                                                <option value="4">Complete</option>
+                                                                <option value="0">Cancel</option>
+                                                    }
+                                                    else if (Model.order.OrderStatus == 2)
+                                                    {
+                                                                <option value="1" >Pending</option>
+                                                                <option value="2" selected>Processed</option>
+                                                                <option value="3">Shipped</option>
+                                                                <option value="4">Complete</option>
+                                                                <option value="0">Cancel</option>
+                                                    }
+                                                    else if (Model.order.OrderStatus == 3)
+                                                    {
+                                                                <option value="1" >Pending</option>
+                                                                <option value="2" >Processed</option>
+                                                                <option value="3" selected>Shipped</option>
+                                                                <option value="4">Complete</option>
+                                                                <option value="0">Cancel</option>
+                                                    }
+                                                    else if (Model.order.OrderStatus == 4)
+                                                    {
+                                                                <option value="1" >Pending</option>
+                                                                <option value="2">Processed</option>
+                                                                <option value="3">Shipped</option>
+                                                                <option value="4" selected>Complete</option>
+                                                                <option value="0">Cancel</option>
+                                                    }
+                                                    else if (Model.order.OrderStatus == 0)
+                                                    {
+                                                                <option value="1" >Pending</option>
+                                                                <option value="2">Processed</option>
+                                                                <option value="3">Shipped</option>
+                                                                <option value="4">Complete</option>
+                                                                <option value="0" selected>Cancel</option>
+
+                                                    }
+                                                        </select>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="row" style="color:#bdb4b0;font-weight:500">
+                                                <div class="col-md-6">
+                                                        @{
+                                                            string[] parts = Model.order.ShippingInfo.Split('-');
+                                                        }
+                                                        @if (parts.Length > 0)
+                                                        {
+                                                        <div class="form-group">
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <label>Receiver:</label>
+                                                                    <p class="form-control-static">@parts[0]</p>
+                                                                </div>
+                                                                <div  class="col-md-6">
+                                                                    <label>Order Name:</label>
+                                                                    <p class="form-control-static">@parts[3]</p>
+                                                                </div>
+                                                            </div >
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Phone:</label>
+                                                            <p class="form-control-static">@parts[1]</p>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Address:</label>
+                                                            <p class="form-control-static">@parts[2]</p>
+                                                        </div>
+                                                        }
+                                                        else
+                                                        {
+                                                        <div class="form-group">
+                                                            <label>Receiver:</label>
+                                                            <p class="form-control-static">@Model.order.ShippingInfo</p>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Phone:</label>
+                                                            <p class="form-control-static">@Model.order.ShippingInfo</p>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Address:</label>
+                                                            <p class="form-control-static">@Model.order.ShippingInfo</p>
+                                                        </div>
+                                                        }
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Account Order:</label>
+                                                        @if (Model.order.Account != null)
+                                                        {
+                                                            <p class="form-control-static">@Model.order.Account.Username</p>
+                                                        }
+                                                        else
+                                                        {
+                                                        <p class="form-control-static">Unknown</p>
+                                                        }
+
+                                                    </div>
+                                              
+                                                    <div class="form-group">
+                                                        <label>Order Date:</label>
+                                                        <p class="form-control-static">@Model.order.OrderDate</p>
+                                                    </div>
+                                                    @if (Model.order.ShippedDate != null)
+                                                    {
+                                                        <div class="form-group">
+                                                            <label>Shipped date:</label>
+                                                            <p class="form-control-static">@Model.order.ShippedDate</p>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <h4>Order Items:</h4>
+                                            <table class="table table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th></th>
+                                                        <th>Product Name</th>
+                                                        <th>Price</th>
+                                                        <th>Quantity</th>
+                                                        <th>Total</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var item in Model.order.OrderDetails)
+                                                    {
+                                                        <tr>
+                                                            <td><img width="80px" height="85px" src="~/Image/bouquet/@item.Product.ProductImage" /></td>
+                                                            <td>@item.Product.ProductName</td>
+                                                            <td>$@Math.Round( item.Product.ProductPrice,2)</td>
+                                                            <td>@item.Quantity</td>
+                                                            <td>$@Math.Round( item.Price,2)</td>
+                                                        </tr>
+                                                    }
+                                                    <!-- Add more rows here -->
+                                                </tbody>
+                                            </table>
+                                            <hr>
+                                            <div class="text-right">
+                                                <label>Total:</label>
+                                                <strong>$@Math.Round((decimal) Model.order.TotalPrice,2)</strong>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12 text-center">
+                                                    <a class="btn btn-success btn-lg" onclick="submit()">Update</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Notification -->
+              
+                </div>
+
+            </div>
+
+            <footer class="footer"> © 2023 SpanLuxy</a> </footer>
+
+        </div>
+
+</body>
+<div id="loading-screen">
+    <img src="~/Image/Resource/ne.png" alt="Logo" class="logo-load">
+</div>
+<script src="~/js/bootstrap.bundle.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script src="~/js/perfect-scrollbar.jquery.min.js"></script>
+<!--Wave Effects -->
+<script src="~/js/waves.js"></script>
+<!--Menu sidebar -->
+<script src="~/js/sidebarmenu.js"></script>
+<!--Custom JavaScript -->
+<script src="~/js/custom.min.js"></script>
+<script src="~/js/dashboard1.js"></script>
+<script src="~/js/funUpdateOrder.js"></script>
+<script>
+    function submit(){
+        var sub = document.getElementById("updateForm");
+        sub.submit();
+    }
+
+    function back(){
+        window.location.href ="/management";
+    }
+</script>
+
+</html>

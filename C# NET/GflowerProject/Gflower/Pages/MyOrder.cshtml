@@ -1,0 +1,250 @@
+﻿@page
+@model Gflower.Pages.MyOrderModel
+
+@{
+}
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>SpanLuxy - My Order</title>
+    <link rel="shortcut icon" href="~/Image/Resource/icon.ico" type="image/x-icon">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" /> -->
+    <link href="https://fonts.googleapis.com/css?family=Baloo+Chettan|Poppins:400,600,700&display=swap"
+          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="~/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="~/css/cart.css" />
+    <link rel="stylesheet" type="text/css" href="~/css/myorder.css" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+          integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+</head>
+<body>
+    <header class="header_section" style="padding: 10px 0;">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg custom_nav-container " style="display: flex;">
+                <a class="navbar-brand" href="~/home" style="width: 32%;">
+                    <img class="img-title" src="~/Image/Resource/ne.png" width="70px" height="auto">
+                    <span>
+                        SpanLuxy
+                    </span>
+                </a>
+
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent" style="width: 68%;display: flex;">
+                    <div class="d-flex mx-auto flex-column flex-lg-row align-items-center" style="width: 70%;">
+                        <ul class="navbar-nav " style="list-style-type: none;display: flex;">
+                            <li class="nav-item">
+                                <a class="nav-link" href="~/home">Home </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href=""> About</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="~/gallery"> Gallery </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="">Contact us</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="quote_btn-container " style="width: 30%;">
+                        @if (Model.account == null)
+                        {
+                            <a href="~/login" style="margin-right: 30px;">
+                                Log in
+
+                            </a>
+                        }
+                        @if (Model.account != null)
+                        {
+                            <div class="dropdown-header" style="margin-right: 30px;">
+                                <a>Hello <span style="color: #ffffff;font-weight: bold; ">@Model.account.FirstName</span></a>
+                                <div class="dropdown-content-header">
+                                    <ul style="padding-left: 0;">
+
+                                        @if (Model.account.Role == 1)
+                                        {
+                                            <li><a href="~/management">Management</a></li>
+                                        }
+                                        <li><a href="/myorder">My order</a></li>
+                                        <li><a href="">User profile</a></li>
+                                        <li><a href="/logout">Log out</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        }
+
+                        <a class="img-cart" href="~/cart">
+                            <img src="~/Image/Resource/cart.png" alt="">
+
+
+                            @if (Model.carts != null && Model.carts > 0)
+                            {
+                                <span id="number-cart">@Model.carts</span>
+                            }
+                            else
+                            {
+                                <span id="number-cart"></span>
+                            }
+
+                        </a>
+
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="fake-body" id="order" >
+        <div class="CartContainer" id="CartContainer">
+            <div class="Header">
+                <h3 class="Heading">My Order</h3>
+            </div>
+            @if (Model.account != null)
+            {
+                <table class="table-order">
+
+                    <thead>
+                        <tr>
+                            <th style="width: 20rem;font-size:15px">Ship infor</th>
+                            <th>Date</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var order in Model.orders)
+                        {
+                            <tr class="row-order">
+                                <td>
+                                    @{
+                                        string[] parts = order.ShippingInfo.Split('-');
+                                    }
+                                    <p style="color: #6b6c6d; font-size:13px;margin: 0">Receiver : @parts[0] </p>
+                                    <p style="color: #6b6c6d; font-size:13px;margin: 0">Phone: @parts[1]  </p>
+                                    <p style="color: #6b6c6d; font-size:13px;margin: 0">Address: @parts[2] </p>
+                                </td>
+                                <td>@order.OrderDate</td>
+
+
+                                <td>$@Math.Round((decimal)order.TotalPrice, 2)</td>
+                                <td>
+                                    @if(order.OrderStatus == 1)
+                                    {
+                                        @:Order Pending
+                                    }
+                                    else if (order.OrderStatus == 2)
+                                    {
+                                        @:Order Processed
+                                    }
+                                    else if (order.OrderStatus == 3)
+                                    {
+                                        @:Order Shipped
+                                    }
+                                    else if (order.OrderStatus == 4)
+                                    {
+                                        @:Order Complete
+                                    }
+                                    else if (order.OrderStatus == 0)
+                                    {
+                                        @:Cancel
+                                    }
+                                </td>
+                                <td>
+                                    <a style="cursor:pointer" asp-page="./OrderDetail" asp-route-orderId="@order.OrderId" class="view"
+                               title="Detail" data-toggle="tooltip"><i class="fas fa-arrow-right"></i></a>
+                                </td>
+
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+                <div class="hint-text">Show <b>@Model.orders.Count()</b> order of <b>@Model.totalList</b> order</div>
+
+                <div class="pagination">
+                    @for (var i = 1; i <= Model.totalPage; i++)
+                    {
+                        <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                            <a class="page-link" asp-page="./MyOrder" asp-route-currentPage="@i">@i</a>
+                        </li>
+                    }
+                </div>
+
+            }
+            else
+            {
+                <h2 style="text-align: center;margin-top: 8%">You need login to see your order</h2>
+                <div style="margin-left: 38%;">
+                    <img src="~/Image/Resource/imagelogin.png" width="40%">
+                </div>
+            }
+        </div>
+    </div>
+
+    <footer class="container-fluid footer_section" style="width: 100%;">
+        <div class="container p-4" style="width: 100%;">
+            <!--Grid row-->
+            <div style="display: flex;margin: auto;">
+
+                <!--Grid column-->
+                <div class="col-lg-6 col-md-6 mb-6 mb-md-0" style="width: 50%; margin: auto;display: flex;
+                justify-content: center;
+                align-items: center;">
+                    <div>
+                        <h5 class="text-uppercase mb-4 pb-1" style="margin-bottom: 0;">
+                            <i class="fas fa-search"></i>&nbsp;Contact with us
+                        </h5>
+                        <ul class="fa-ul" style="margin-left: 1.65em;">
+                            <li class="mb-3 text-footer">
+                                <span class="fa-li"><i class="fas fa-home"></i></span><span class="ms-2">
+                                    Tân Xã,
+                                    Thạch Thất, Hà Nội
+                                </span>
+                            </li>
+                            <li class="mb-3 text-footer">
+                                <span class="fa-li"><i class="fas fa-envelope"></i></span><span class="ms-2">
+                                    Email support:
+                                    hoidap@gflower.vn
+                                </span>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6 mb-6 mb-md-0" style="width: 50%;display: flex;
+                justify-content: center;
+                align-items: center;" ;>
+                    <div>
+                        <h5 class="text-uppercase mb-4" style="width: 500px;margin-bottom: 0;">
+                            <i class="far fa-clock"></i>&nbsp;Support customer
+                        </h5>
+
+                        <ul class="fa-ul text-footer" style="margin-left: 1.65em;">
+                            <li class="mb-3">
+                                <span class="ms-2">Time: 8:00 - 20:00</span>
+                            </li>
+                            <li class="mb-3 text-footer">
+                                <span class="fa-li"><i class="fas fa-phone"></i></span><span class="ms-2">
+                                    Hotline: 1900
+                                    6017
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>
