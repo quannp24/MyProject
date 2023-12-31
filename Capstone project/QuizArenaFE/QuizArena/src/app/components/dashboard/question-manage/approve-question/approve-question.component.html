@@ -1,0 +1,230 @@
+<app-header></app-header>
+<button *ngIf="showScrollToTopButton" class="btn-scroll-top" (click)="scrollToTop()" [@fadeOutIn]>^</button>
+
+<div class="body-create">
+    <div class="CreateSetPage">
+        <div class="c1dg9ds9">
+            <div class="c1xpced">
+                <div class="c5ozvp9">
+                    <div class="UIContainer">
+                        <div class="cqy7lq4">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="c11u1mbs">
+                                        <div class="title-create">
+                                            <span>APPROVE QUESTION CATEGORY: </span><span style="color: #07a302;" *ngIf="categorySelect"> {{categorySelect.categoryName}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 text-right">
+                                    <div class="c1lzqd91">
+                                        <button type="button" aria-label="Tạo" [routerLink]="['/question-manage']"
+                                            class="AssemblyButtonBase AssemblyPrimaryButton--default AssemblyButtonBase--medium AssemblyButtonBase--padding">
+                                            <span>Back</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="resultEditQuestion != null">
+                <div *ngFor="let item of numberQuestionCreate; let i = index" class="CreateSetQuestion">
+                    <div class="c1dg9ds9">
+                        <div class="UIContainer">
+                            <div class="col-6 text-right">
+                                <div class="c1lzqd91" style="padding-left: 200%;">
+                                    <button type="button" pTooltip="Approve" aria-label="Tạo" style="background-color: #4af757;border: 3px solid #6cd85f;"
+                                        class="AssemblyButtonBase AssemblyPrimaryButton--default AssemblyButtonBase--medium AssemblyButtonBase--padding"
+                                        (click)="approve(item)">
+                                        <fa-icon [icon]="faCheck"></fa-icon>
+                                    </button>
+                                    <button type="button" pTooltip="Reject" aria-label="Tạo"
+                                        class="AssemblyButtonBase AssemblyRedButton--default AssemblyButtonBase--medium AssemblyButtonBase--padding "
+                                        (click)="showDeleteConfirmation(item)">
+                                        <fa-icon [icon]="faXmark"></fa-icon>
+                                    </button>
+                                </div>
+                            </div>
+                            <div>
+                                <span>{{i + 1}}.</span>
+                                <span class="messError-ques" *ngIf="item.messError.length>0">{{item.messError}}</span>
+                            </div>
+                            <div class="c6vigde" style="display: flex;gap: 8%;">
+                                <div style="width: 57%;">
+                                    <div class="c3go502 c13fxvv8">
+                                        <div class="SpecialCharacterTextarea">
+                                            <label class="UITextarea">
+                                                <div class="UITextarea-content">
+                                                    <div
+                                                        class="AutoExpandTextarea UITextarea-textarea UITextarea-autoExpandTextarea">
+                                                        <div class="AutoExpandTextarea-sizer"></div>
+                                                        <div class="AutoExpandTextarea-wrapper">
+                                                            <textarea disabled [(ngModel)]="item.all4question" aria-label="title"
+                                                                maxlength="255" placeholder="Enter question ..."
+                                                                tabindex="5" variant="default"
+                                                                class="AutoExpandTextarea-textarea"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <span class="UITextarea-border"></span>
+                                                </div>
+                                                <span class="UITextarea-label"><span>Question</span></span>
+                                            </label>
+                                            <div class="hideBelow--s"></div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Difficulty Level -->
+                                    <div class="c3go502" style="margin-bottom: 0% !important;">
+                                        <div class="c3go502 c13fxvv8" style="margin-bottom: 0% !important;">
+                                            <div class="SpecialCharacterTextarea">
+                                                <label class="UITextarea">
+                                                    <div class="UITextarea-content">
+                                                        <div
+                                                            class="AutoExpandTextarea UITextarea-textarea UITextarea-autoExpandTextarea">
+                                                            <div class="AutoExpandTextarea-sizer"></div>
+                                                            <div class="AutoExpandTextarea-wrapper">
+                                                                <select disabled [(ngModel)]="item.difficultyLevel">
+                                                                    <option value=1>Easy</option>
+                                                                    <option value=2>Medium</option>
+                                                                    <option value=3>Hard</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <span class="UITextarea-border"></span>
+                                                    </div>
+                                                    <span class="UITextarea-label"><span>Difficulty Level</span></span>
+                                                </label>
+                                                <div class="hideBelow--s"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div *ngFor="let itemChild of item.radioTextItems; let j = index;" class="c3go502">
+                                        <div class="radio-with-text">
+
+                                            <input disabled type="radio" [id]="'timeLimits' + i + j" [name]="'timeLimit' + i"
+                                                [checked]="itemChild.radio.value === 'correct'"
+                                                (change)="onRadioValueChange(i, j, $event)">
+
+                                            <div class="text-input">
+                                                <input disabled style="padding: 10px 20px" type="text" [id]="'customTime' + i + j" name="customTime"
+                                                    [(ngModel)]="itemChild.textInput.name">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="resultEditQuestion == null">
+                <h1 style="color: red;
+        font-size: 50px;text-align: center;
+    font-weight: bold;">List empty</h1>
+            </div>
+        </div>
+    </div>
+
+    <p-dialog [(visible)]="showResult" [modal]="true" [breakpoints]="{ '960px': '50vw' }" [style]="{ width: '30vw' }"
+        [draggable]="false" [resizable]="false">
+        <ng-template pTemplate="header">
+            <span class="title-note">Result</span>
+        </ng-template>
+        <div class="line-br">
+            <div class="inside-line"></div>
+        </div>
+        <div class="modal-options" *ngIf="!resultEdit">
+            <h6 style="color: #db2323;">Update question fail, error something.</h6>
+        </div>
+        <div class="modal-options" *ngIf="resultEdit">
+            <h6 style="color: #07a302;">Update question successful.</h6>
+        </div>
+    </p-dialog>
+
+
+    <p-dialog [(visible)]="notPermissionEdit" [closable]="false" [modal]="true" [breakpoints]="{ '960px': '50vw' }"
+        [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false">
+        <ng-template pTemplate="header">
+            <span class="title-note">Error</span>
+        </ng-template>
+        <div class="line-br">
+            <div class="inside-line"></div>
+        </div>
+        <div class="modal-options">
+            <h6 style="color: #db2323;">You do not have the permission to edit this quiz: It may be because you are
+                submitting an approval request or the quiz was not created by you!</h6>
+        </div>
+        <div class="div-notebtn">
+            <button class="btn-surenote" [routerLink]="['/staff-view']">Back</button>
+        </div>
+    </p-dialog>
+
+    <p-dialog [(visible)]="isError" [closable]="false" [modal]="true" [breakpoints]="{ '960px': '50vw' }"
+        [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false">
+        <ng-template pTemplate="header">
+            <span class="title-note">Error</span>
+        </ng-template>
+        <div class="line-br">
+            <div class="inside-line"></div>
+        </div>
+        <div class="modal-options">
+            <h6 style="color: #db2323;">This quiz set does not exist in the system!</h6>
+        </div>
+        <div class="div-notebtn">
+            <button class="btn-surenote" [routerLink]="['/staff-view']">Back</button>
+        </div>
+    </p-dialog>
+
+    <p-dialog [(visible)]="showRemove" [closable]="!removeResult" [modal]="true" [breakpoints]="{ '960px': '50vw' }"
+        [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false">
+        <ng-template pTemplate="header">
+            <span class="title-note" *ngIf="!removeResult">Error</span>
+            <span class="title-note" *ngIf="removeResult" style="color: #087ddd;">Result</span>
+        </ng-template>
+        <div class="line-br">
+            <div class="inside-line"></div>
+        </div>
+        <div class="modal-options">
+            <h6 *ngIf="!removeResult" style="color: #db2323;">Remove fail something, try again!</h6>
+            <h6 *ngIf="removeResult" style="color: #087ddd;">Remove successful</h6>
+        </div>
+
+        <div class="div-notebtn" *ngIf="removeResult">
+            <button class="btn-surenote" [routerLink]="['/staff-view']">Back</button>
+        </div>
+    </p-dialog>
+
+    <p-dialog [(visible)]="showResultApprove" [closable]="false" [modal]="true" [breakpoints]="{ '960px': '50vw' }"
+        [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false">
+        <ng-template pTemplate="header">
+            <span class="title-note" style="color: #087ddd;font-size: 18px;font-weight: bold;">Result</span>
+        </ng-template>
+        <div class="line-br">
+            <div class="inside-line"></div>
+        </div>
+        <div class="modal-options" *ngIf="resultApproveMess">
+            <h6 style="color: #087ddd;">{{resultApproveMess}}</h6>
+        </div>
+        <div class="div-notebtn">
+            <button class="btn-surenote" [routerLink]="['/staff-view']">Back</button>
+        </div>
+    </p-dialog>
+
+    <p-dialog [(visible)]="displayDialog" [closable]="false" [modal]="true" [breakpoints]="{ '960px': '50vw' }"
+        [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false">
+        <div class="confirmation-dialog-content">
+            <div class="confirmation-message">
+                <span>Are you sure you want to reject this item?</span>
+            </div>
+            <div class="confirmation-actions">
+                <button class="btn btn-secondary" style="color: rgb(255, 255, 255);background-color:#67757c"
+                    (click)="displayDialog = false">Cancel</button>
+                <button class="btn btn-danger" (click)="rejectQuestion()">Reject</button>
+            </div>
+        </div>
+    </p-dialog>

@@ -1,0 +1,115 @@
+<div id="services" class="services section">
+  <div class="container">
+    <div class="row content-body">
+      <div class="col-lg-12">
+        <div class="section-heading  wow fadeInDown" data-wow-duration="1s" data-wow-delay="0.5s">
+          <h6>Our Services</h6>
+          <h4>What Our Agency <em>Provides</em></h4>
+          <div class="line-dec"></div>
+        </div>
+      </div>
+      <div class="col-lg-12 ">
+        <div class="naccs">
+          <div class="grid">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="menu">
+                  <div class="first-thumb " [class.active]="currentContent === 0" (click)="onMenuItemClick(0)">
+                    <div class="thumb">
+                      <span class="icon"><img src="assets/images/service-icon-01.png" alt=""></span>
+                      Quiz Exam
+                    </div>
+                  </div>
+                  <div [class.active]="currentContent === 1" (click)="onMenuItemClick(1)">
+                    <div class="thumb">
+                      <span class="icon"><img src="assets/images/service-icon-02.png" alt=""></span>
+                      Quiz Practive
+                    </div>
+                  </div>
+                  <div [class.active]="currentContent === 2" (click)="onMenuItemClick(2)">
+                    <div class="thumb">
+                      <span class="icon"><img src="assets/images/service-icon-03.png" alt=""></span>
+                      Forum Support
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+              <div class="col-lg-12">
+                <ul class="nacc">
+                  <li [class.active]="currentContent === 0">
+                    <div>
+                      <div class="thumb">
+                        <div class="row">
+                          <div class="col-lg-6 align-self-center">
+                            <div class="left-text">
+                              <h4>Knowledge Arena</h4>
+                              <p>Quiz Exam is a place for you to show off your knowledge and compete for ranking positions with gifts that only the top players can win.</p>
+                              <div class="ticks-list"><span><i class="fa fa-check"></i> Ranking</span> <span><i class="fa fa-check"></i> Learning Experience</span> <span><i class="fa fa-check"></i> Competition</span>
+                                <span><i class="fa fa-check"></i> General knowledge</span> <span><i class="fa fa-check"></i> Rewards of top</span> <span><i class="fa fa-check"></i> Diverse Questions</span></div>
+                              <p>Train your brain now to prepare for brainstorming battles.</p>
+                            </div>
+                          </div>
+                          <div class="col-lg-6 align-self-center">
+                            <div class="right-image">
+                              <img src="assets/images/dv1.png" alt="">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li [class.active]="currentContent === 1">
+                    <div>
+                      <div class="thumb">
+                        <div class="row">
+                          <div class="col-lg-6 align-self-center">
+                            <div class="left-text">
+                              <h4>Practive quiz daily</h4>
+                              <p>A place to practice and climb to a new level of knowledge every day, preparing for the upcoming exam.</p>
+                              <div class="ticks-list"><span><i class="fa fa-check"></i> Practice Knowledge</span> <span><i class="fa fa-check"></i> Practive Together</span> <span><i class="fa fa-check"></i> Level Up </span>
+                                <span><i class="fa fa-check"></i> Study With Friends</span> <span><i class="fa fa-check"></i> Review Interesting</span> </div>
+                              <p>Practice diligently every day to reach a whole new level of knowledge.</p>
+                            </div>
+                          </div>
+                          <div class="col-lg-6 align-self-center">
+                            <div class="right-image">
+                              <img src="assets/images/dv2.png" alt="">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li [class.active]="currentContent === 2">
+                    <div>
+                      <div class="thumb">
+                        <div class="row">
+                          <div class="col-lg-6 align-self-center">
+                            <div class="left-text">
+                              <h4>Car Re-search &amp; Transport</h4>
+                              <p>A question forum with support from everyone, solidarity and mutual help create a strong community of knowledge..
+                                dover lipsum lorem and the others.</p>
+                              <div class="ticks-list"><span><i class="fa fa-check"></i> Help Each Other</span> <span><i class="fa fa-check"></i> Community </span> <span><i class="fa fa-check"></i> Q&amp;A Forum  </span>
+                                <span><i class="fa fa-check"></i>  Rate Answers</span> </div>
+                              <p>Create a strong community of knowledge with your help.</p>
+                            </div>
+                          </div>
+                          <div class="col-lg-6 align-self-center">
+                            <div class="right-image">
+                              <img src="assets/images/dv3.png" alt="">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

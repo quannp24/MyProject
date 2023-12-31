@@ -1,0 +1,81 @@
+﻿{
+  "$schema": "https://json.schemastore.org/launchsettings.json",
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:38944",
+      "sslPort": 44359
+    }
+  },
+  "profiles": {
+    "QuizArenaBE": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "applicationUrl": "https://localhost:7088;http://localhost:5170",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    "Hung": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "applicationUrl": "https://localhost:7088;http://localhost:5170",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "BeHung"
+      }
+    },
+    "LFAR": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "applicationUrl": "https://localhost:7088;http://localhost:5170",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "BeLfar"
+      }
+    },
+    "MULD": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "applicationUrl": "https://localhost:7088;http://localhost:5170",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "BeMuld"
+      }
+    },
+    "Quan": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "applicationUrl": "https://localhost:7088;http://localhost:5170",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "FeQuan"
+      }
+    },
+    "Thai": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "applicationUrl": "https://localhost:7088;http://localhost:5170",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "FeThai"
+      }
+    },
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

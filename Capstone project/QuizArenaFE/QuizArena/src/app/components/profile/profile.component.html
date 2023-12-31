@@ -1,0 +1,281 @@
+<app-header></app-header>
+<section class="backgound-style">
+  <div class="container py-5">
+    <div class="row">
+      <div class="col">
+        <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+          <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a [routerLink]="['/home']">Home</a></li>
+            <!-- <li class="breadcrumb-item"><a href="#">User</a></li> -->
+            <li class="breadcrumb-item active" aria-current="page">User Profile</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+
+    <div class="row" style="padding: 0 18%;">
+      <div class="col-lg-4">
+        <div class="card mb-4">
+          <div class="card-body text-center"  [ngClass]="{'border-vip':user?.role==5}">
+
+            <div class="avatar avatar-large">
+              <div class="body-avatar" [ngClass]="{ 'gold': user && user.exp >= 10000 }">
+
+                <img *ngIf="user && user.images" src="{{user.images}}" alt="avatar" class="avatar-image">
+                <img *ngIf="user && !user.images" src="assets/images/avatar/avatardefault.png" alt="avatar"
+                  class="avatar-image">
+
+                <img *ngIf="user && user.exp >= 0 && user.exp < 1000" src="assets/images/frameBzone.png" alt="Moldura"
+                  class="avatar-frame anim-spin">
+                <img *ngIf=" user && user.exp >= 1000 && user.exp < 10000" src="assets/images/frameSilver.png"
+                  alt="Moldura" class="avatar-frame anim-spin">
+                <img *ngIf=" user && user.exp >= 10000" src="assets/images/frameGold.png" alt="Moldura"
+                  class="avatar-frame frame-gold anim-spin">
+
+              </div>
+
+            </div>
+
+            <div class="fullname-text">
+              <h5 class="my-3" *ngIf="user">{{user.fullname}}</h5>
+              <img *ngIf="user?.role==5" src="assets/images/vip-font.png" alt="vip">
+            </div>
+            <p class="text-muted mb-1" *ngIf="user">{{user.description}}</p>
+            <!-- <p class="text-muted mb-4">Bay Area, San Francisco, CA</p> -->
+            <div class="d-flex justify-content-center mb-2">
+              <button type="button" (click)="openFileInput()" class="btn btn-primary mr-3">Change avatar</button>
+              <input type="file" #fileInput hidden (change)="onFileSelected($event)">
+              <!-- <button type="button" class="btn btn-outline-primary ms-1">Change avatar</button> -->
+            </div>
+          </div>
+        </div>
+
+        <!-- ==========FRIENDS============= -->
+        <div class="card" style="margin-bottom: 20px;">
+          <div class="col-md-12 card-body">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <div class="media">
+
+                  <div class="media-body">
+                    <h4 class="media-heading ">Friends</h4>
+                  </div>
+                </div>
+              </div>
+              <div class="panel-body">
+                <div class="user-friend-list" *ngIf="listFriend && listFriend.length>0">
+                  <a href="#" *ngFor="let friend of listFriend.slice(0, 6)">
+                    <img *ngIf="friend.images && friend.images.length>2" [src]="friend.images" alt="people" class="img-circle">
+                    <img *ngIf="!friend.images || friend.images.length<2" src="assets/images/avatar/avatardefault.png " alt="people" class="img-circle">
+                  </a>
+                  <span *ngIf="listFriend.length > 6" class="badge badge-info ml-14" style="color: rgb(129, 129, 129);position: absolute;
+                    left: 72%;
+                    bottom: 43%;">+{{totalFriend}}</span>
+                </div>
+              </div>
+              <div class="panel-footer">
+                <button href="#" class="btn btn-primary btn-sm" (click)="showListFriend()">View list <i
+                    class="fa fa-share"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--========END==============  -->
+      </div>
+      <div class="col-lg-8" *ngIf="!showFriend">
+        <div class="card mb-4" style="padding-bottom: 3%;">
+          <div class="card-body">
+            <form [formGroup]="updateForm">
+              <fa-icon [icon]="faPen" style="margin-left: 97%;cursor: pointer;" (click)="toggleEditMode()"></fa-icon>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Full Name</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">
+                    <span *ngIf="user && !editMode">{{ user.fullname }}</span>
+                    <input *ngIf="editMode" formControlName="fullname" class="form-control">
+                  </p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Email</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">
+                    <span *ngIf="user && !editMode">{{ user.email }}</span>
+                    <input *ngIf="editMode" formControlName="email" class="form-control">
+                  </p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Description</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">
+                    <span *ngIf="user && !editMode">{{user.description}}</span>
+                    <input *ngIf="editMode" formControlName="description" class="form-control">
+                  </p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Password</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#changePasswordModal"
+                      class="btn btn-sm btn-outline-primary">Change password</button>
+                  </p>
+                </div>
+              </div>
+              <hr>
+              <div *ngIf="errorMess" class="error-message">
+                {{errorMess}}
+              </div>
+            </form>
+          </div>
+          <div *ngIf="editMode">
+            <button class="btn btn-primary" (click)="saveChanges()"
+              style="padding: 7px 23px; float: right; margin: 10px;">Save</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card mb-4 mb-md-0" style="height: 100%;">
+              <div class="card-body customer">
+                <h6 class="mb-4">Level
+                </h6>
+                <div class="img-exp">
+                  <img *ngIf="user && user.exp >= 0 && user.exp < 1000" src="assets/images/bzoneIcon.png"
+                    style="width: 100px;" alt="logo">
+                  <img *ngIf="user && user.exp >= 1000 && user.exp < 10000" src="assets/images/silverIcon.png"
+                    style="width: 150px;" alt="logo">
+                  <img *ngIf="user && user.exp >= 10000 " src="assets/images/goldIcon.png" style="width: 160px;"
+                    alt="logo">
+
+                </div>
+
+                <div class="progress orange">
+                  <div class="progress-bar" [style.width.%]="rankingPercent"
+                    style=" background:#fe3b3b;overflow: visible;">
+                    <div class="progress-value" *ngIf="user">{{user.exp}}</div>
+                    <div *ngIf="user && user.exp >= 10000 " class="progress-value">Max</div>
+                  </div>
+                </div>
+                <div class="d-flex text-level">
+                  <div class="left" *ngIf="user && user.exp >= 0 && user.exp < 1000">
+                    <p  >Bronze </p>
+                  </div>
+                  <div class="right" *ngIf="user && user.exp >= 0 && user.exp < 1000" >
+                    <p  >Silver</p>
+                  </div>
+                  <div class="left" *ngIf="user && user.exp >= 1000 && user.exp < 10000">
+                    <p class="" >Silver</p>
+                  </div>
+                  <div class="right" *ngIf="user && user.exp >= 1000 && user.exp < 10000" >
+                    <p  >Gold</p>
+                  </div>
+                  <div class="left" *ngIf="user && user.exp >= 10000">
+                    <p>Gold</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card mb-4 mb-md-0" style="height: 100%;">
+
+              <div class="card-body customer" >
+                <h6 class="mb-4">Achievement last session</h6>
+
+                <div class="img-rank" [ngClass]="{'border-img':!isloading && achievements.image && achievements.image.length>2}">
+                  <img class="banner-chall" *ngIf="!isloading && (achievements.topUser && achievements.score) && achievements.image && achievements.image.length>2" [src]="achievements.image" alt="logo">
+                  <img class="banner-chall" *ngIf="!isloading && (achievements.topUser && achievements.score) && (!achievements.image || achievements.image.length<2)" src="assets/images/examdefault.png" alt="logo">
+                  <img *ngIf="!isloading && (!achievements.topUser && !achievements.score)" style="width: 120px;" src="assets/images/rankicon.png" alt="logo">
+                  <p-skeleton *ngIf="isloading" width="220px"  height="150px" styleClass="mb-2"></p-skeleton>
+
+                </div>
+
+                <div class="text-achie">
+
+                  <div class="text-center" *ngIf="!achievements.topUser">
+                    <p>Join challenge and get some achievement.</p>
+                  </div>
+
+                  <div class="text-center" *ngIf="!isloading && achievements.examName">
+                    <p>{{achievements.examName}}</p>
+                  </div>
+                  <div class="infor-achie" *ngIf="!isloading && achievements.topUser && achievements.score">
+                    <div class="tag-achie">
+                      <span>Top {{achievements.topUser}}</span>
+                    </div>
+                    <div class="tag-achie">
+                      <span>{{achievements.score}} Score</span>
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-lg-8" *ngIf="showFriend">
+        <div class="card mb-4" style="height: 556px; overflow-y: auto;">
+          <div class="card-body">
+            <form class="search">
+              <input type="text" id="search" class="search__input text-white" placeholder="Search...."  [(ngModel)]="searchTerm" [ngModelOptions]="{standalone: true}" (input)="onSearch()" />
+              <button type="button" class="search__button">
+                <fa-icon [icon]="faMagnifyingGlass" style="color: #ffffff;margin-right: 45%;"></fa-icon>
+              </button>
+            </form>
+            <div class="friend-list">
+              <!-- Friend Cards will go here -->
+              <div class="friend-card"  *ngFor="let friend of listFriend">
+                <div class="friend-image" [routerLink]="['/profile-orther',friend.userId]">
+                  <img *ngIf="friend.images && friend.images.length>2" [src]="friend.images" alt="people" >
+                  <img *ngIf="!friend.images || friend.images.length<2" src="assets/images/avatar/avatardefault.png " alt="people" >
+                </div>
+                <div class="friend-info" [routerLink]="['/profile-orther',friend.userId]">
+                  <div class="friend-name"><fa-icon [style.color]="friend.status === 0 ? '#ea4335' : 'rgb(49, 162, 76)'" style=" font-size: 11px; margin-right: 7px;"
+                      [icon]="faCircle"></fa-icon>{{friend.fullname}}</div>
+                  <div class="friend-status">{{friend.email}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</section>
+<div class="modal" tabindex="10" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" *ngIf="modalMess">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">QuizArena</h5>
+      </div>
+      <div class="modal-body">
+        The file is not in the correct format. Only JPEG file uploads are allowed.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModal()" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<app-modal-form></app-modal-form>

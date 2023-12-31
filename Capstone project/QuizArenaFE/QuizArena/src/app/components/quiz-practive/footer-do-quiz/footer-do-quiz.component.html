@@ -1,0 +1,287 @@
+<div class="footer">
+  <div class="row content-footer">
+    <div class="col-3 p-0 friend-content" >
+
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="user-friend-list">
+            <ng-container *ngIf="usersRoom && usersRoom.length>0">
+              <ng-container *ngFor="let user of usersRoom; let i = index">
+                <!-- Hiển thị tối đa 3 user -->
+                <ng-container *ngIf="i < 3">
+                  <div  class="img-link">
+                    <div class="div-imguser">
+                      <img *ngIf="user.images" [src]="user.images" alt="people" class="img-circle" [ngClass]="{'last-item': (usersRoom.length<4 && i==usersRoom.length-1) || (usersRoom.length>3 && i==2)}">
+                      <img *ngIf="!user.images" src="assets/images/avatar/avatardefault.png" alt="people" class="img-circle" [ngClass]="{'last-item': (usersRoom.length<4 && i==usersRoom.length-1) || (usersRoom.length>3 && i==2)}">
+                      <div class="overlay" (click)="openModal()" pTooltip="Add friends" *ngIf="(usersRoom.length<4 && i==usersRoom.length-1) || (usersRoom.length>3 && i==2)"></div>
+                    </div>
+                    <!-- Kiểm tra nếu là user thứ 3 thì hiển thị số lượng user còn lại -->
+                    <span class="badge badge-info ml-14" *ngIf="i === 2 && usersRoom.length > 3">
+                      +{{ usersRoom.length - 3 }}
+                    </span>
+                  </div>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+
+            <ng-container *ngIf="!usersRoom || usersRoom.length<1">
+              <a>
+                <img pTooltip="Add friends" (click)="openModal()" src="assets/images/iconplus.png" alt="people" class="img-circle">
+              </a>
+            </ng-container>
+
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="col-5 p-0" >
+
+      <div class="outer-wrap" *ngIf="!isChatBoxVisible && userBoss">
+        <div class="wrap" >
+          <div  *ngFor="let chat of chatList.slice(-1)" class="message" [ngClass]="{'outgoing': chat.from.userId == userBoss.userId}" [@slideInFromBottomMess]>
+              <div class="profile-picture" *ngIf="chat.from.userId == userBoss.userId">
+                  <img *ngIf="chat.from.images" [src]="chat.from.images" alt="Profile Picture"/>
+                  <img *ngIf="!chat.from.images" src="assets/images/avatar/avatardefault.png" alt="Profile Picture"/>
+              </div>
+              <div class="speech-bubble">
+                  <span *ngIf="!chat.isSticker">{{chat.message}}</span>
+                  <span *ngIf="chat.isSticker">*Sticker*</span>
+              </div>
+
+              <div class="profile-picture" *ngIf="chat.from.userId != userBoss.userId">
+                <img *ngIf="chat.from.images" [src]="chat.from.images" alt="Profile Picture"/>
+                <img *ngIf="!chat.from.images" src="assets/images/avatar/avatardefault.png" alt="Profile Picture"/>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+
+    <div class="col-4 p-0 emoji-content d-flex" >
+      <p-dialog id="viewport" [(visible)]="isChatBoxVisible"  styleClass="model-chat" [@fadeInOverflow] closeIcon="pi pi-chevron-down" [resizable]="true">
+          <div class="chatbox" >
+            <div class="chats" #scrollMe>
+              <ul *ngIf="userBoss">
+                <li *ngFor="let chat of chatList" [ngClass]="{'div-him': chat.from.userId !== userBoss.userId, 'div-you': chat.from.userId === userBoss.userId}" [ngStyle]="{'margin': !chat.isFirstInSequence ? '0' : ''}">
+                  <div class="avatar-chat" *ngIf="chat.from.userId !== userBoss.userId">
+                    <img *ngIf="chat.isFirstInSequence && chat.from.images" [src]="chat.from.images" alt="Friend Avatar">
+                    <img *ngIf="chat.isFirstInSequence && !chat.from.images" src="assets/images/avatar/avatardefault.png" alt="Friend Avatar">
+                  </div>
+                  <div class="msg" [ngClass]="{'him': chat.from.userId !== userBoss.userId, 'you': chat.from.userId === userBoss.userId}">
+                    <span class="partner" *ngIf="chat.isFirstInSequence">{{ chat.from.username }}</span>
+                    <ng-container *ngIf="!chat.isSticker">
+                      {{ chat.message }}
+                    </ng-container>
+
+                    <ng-container *ngIf="chat.isSticker">
+                      <img [src]="chat.message" style="width: 70px;" alt="sticker">
+                    </ng-container>
+                    <span class="time">{{ chat.time | date: 'dd/MM/yyyy HH:mm' }}</span>
+                  </div>
+                  <div class="avatar-chat" *ngIf="chat.from.userId === userBoss.userId">
+                    <img *ngIf="chat.isFirstInSequence && chat.from.images" [src]="chat.from.images" alt="My Avatar">
+                    <img *ngIf="chat.isFirstInSequence && !chat.from.images" src="assets/images/avatar/avatardefault.png" alt="My Avatar">
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="sendBox">
+
+              <div class="sticker-box" *ngIf="isChatBoxVisible">
+                <button id="gifButton" pTooltip="Sticker" (click)="toggleGifGrid()"  class="icon-button" #gifGrid>
+                  <fa-icon [icon]="faSmile" ></fa-icon>
+                  <div class="gif-grid" *ngIf="isShowSticker" >
+                    <img src="assets/images/sticker-duck/duck-buc.gif" alt="GIF 1" (click)="addSelectedGif('duck-buc.gif')">
+                    <img src="assets/images/sticker-duck/duck-cry.gif" alt="GIF 2" (click)="addSelectedGif('duck-cry.gif')">
+                    <img src="assets/images/sticker-duck/duck-haha.gif" alt="GIF 3" (click)="addSelectedGif('duck-haha.gif')">
+                    <img src="assets/images/sticker-duck/duck-hoi.gif" alt="GIF 3" (click)="addSelectedGif('duck-hoi.gif')">
+                    <img src="assets/images/sticker-duck/duck-leuleu.gif" alt="GIF 3" (click)="addSelectedGif('duck-leuleu.gif')">
+                    <img src="assets/images/sticker-duck/duck-like.gif" alt="GIF 3" (click)="addSelectedGif('duck-like.gif')">
+                    <img src="assets/images/sticker-duck/duck-ngu.gif" alt="GIF 3" (click)="addSelectedGif('duck-ngu.gif')">
+                    <img src="assets/images/sticker-duck/duck-nhay.gif" alt="GIF 3" (click)="addSelectedGif('duck-nhay.gif')">
+                    <img src="assets/images/sticker-duck/duck-no.gif" alt="GIF 3" (click)="addSelectedGif('duck-no.gif')">
+                    <img src="assets/images/sticker-duck/duck-oai.gif" alt="GIF 3" (click)="addSelectedGif('duck-oai.gif')">
+                    <img src="assets/images/sticker-duck/duck-omg.gif" alt="GIF 3" (click)="addSelectedGif('duck-omg.gif')">
+                    <img src="assets/images/sticker-duck/duck-tym.gif" alt="GIF 3" (click)="addSelectedGif('duck-tym.gif')">
+
+                    <!-- Thêm các hình GIF khác ở đây -->
+                  </div>
+                </button>
+              </div>
+              <div class="chat-text-box" >
+                <input placeholder="Message" class="text-box" name="message" (keyup.enter)="sendMessage()" (focus)="onInput()" (blur)="changeStatusChatting()">
+                <div class="send-ico dialog-icon" (click)="sendMessage()">
+                  <fa-icon [icon]="faPaperPlane" ></fa-icon>
+                </div>
+              </div>
+            </div>
+          </div>
+
+      </p-dialog>
+
+      <div class="button-boxchat" *ngIf="!isChatBoxVisible" [@slideInFromBottomMess]>
+        <div class="icon-boxshow-chat" pTooltip="Box chat" (click)="chatBoxOpen()">
+          <fa-icon [icon]="faMessage"></fa-icon>
+        </div>
+      </div>
+      <div class="sticker-box" *ngIf="!isChatBoxVisible" [@slideInFromBottomMess]>
+        <button id="gifButton" pTooltip="Sticker" (click)="toggleGifGrid()"  class="icon-button" #gifGrid>
+          <fa-icon [icon]="faSmile" ></fa-icon>
+          <div class="gif-grid" *ngIf="isShowSticker" >
+            <img src="assets/images/sticker-duck/duck-buc.gif" alt="GIF 1" (click)="addSelectedGif('duck-buc.gif')">
+            <img src="assets/images/sticker-duck/duck-cry.gif" alt="GIF 2" (click)="addSelectedGif('duck-cry.gif')">
+            <img src="assets/images/sticker-duck/duck-haha.gif" alt="GIF 3" (click)="addSelectedGif('duck-haha.gif')">
+            <img src="assets/images/sticker-duck/duck-hoi.gif" alt="GIF 3" (click)="addSelectedGif('duck-hoi.gif')">
+            <img src="assets/images/sticker-duck/duck-leuleu.gif" alt="GIF 3" (click)="addSelectedGif('duck-leuleu.gif')">
+            <img src="assets/images/sticker-duck/duck-like.gif" alt="GIF 3" (click)="addSelectedGif('duck-like.gif')">
+            <img src="assets/images/sticker-duck/duck-ngu.gif" alt="GIF 3" (click)="addSelectedGif('duck-ngu.gif')">
+            <img src="assets/images/sticker-duck/duck-nhay.gif" alt="GIF 3" (click)="addSelectedGif('duck-nhay.gif')">
+            <img src="assets/images/sticker-duck/duck-no.gif" alt="GIF 3" (click)="addSelectedGif('duck-no.gif')">
+            <img src="assets/images/sticker-duck/duck-oai.gif" alt="GIF 3" (click)="addSelectedGif('duck-oai.gif')">
+            <img src="assets/images/sticker-duck/duck-omg.gif" alt="GIF 3" (click)="addSelectedGif('duck-omg.gif')">
+            <img src="assets/images/sticker-duck/duck-tym.gif" alt="GIF 3" (click)="addSelectedGif('duck-tym.gif')">
+
+            <!-- Thêm các hình GIF khác ở đây -->
+          </div>
+        </button>
+      </div>
+      <div class="chat-text" *ngIf="!isChatBoxVisible" [@slideInFromBottomMess]>
+        <input placeholder="Message" class="text-box" name="message" (keyup.enter)="sendMessage()" (focus)="onInput()" (blur)="changeStatusChatting()" >
+        <div class="send-ico" pTooltip="Send" (click)="sendMessage()">
+          <fa-icon [icon]="faPaperPlane" ></fa-icon>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+  <div class="gif-display">
+    <div *ngFor="let gif of selectedGifs" class="image-gif">
+      <img [src]="gif" alt="GIF">
+    </div>
+  </div>
+</div>
+
+<p-dialog  [(visible)]="showModal" styleClass="user-in-room" [modal]="true" [breakpoints]="{ '1650px':'25vw','1400px':'27vw','1160px':'30vw','960px': '55vw','778px':'70vw','410px':'85vw' }" [style]="{ width: '20vw',height:'60vh' }" [draggable]="false" [resizable]="false">
+  <ng-template pTemplate="header">
+    <span class="title-userjoin">User in room </span>
+  </ng-template>
+  <div class="div-invite-btn" *ngIf="roleUser==1">
+    <button class="btn-invite" (click)="openModalInvite()">Invite Friends <fa-icon [icon]="faUserPlus" ></fa-icon></button>
+  </div>
+  <div class="list-wrapper" >
+    <ul class="list">
+
+      <li class="list-item" *ngFor="let friend of usersRoom">
+        <div>
+          <img *ngIf="usersRoom && friend.images" [src]="friend.images" class="list-item-image" alt="avatar">
+          <img *ngIf="usersRoom && !friend.images" src="assets/images/avatar/avatardefault.png" alt="avatar" class="list-item-image">
+          <p-skeleton *ngIf="!usersRoom" shape="circle" size="3rem" styleClass="mr-2"></p-skeleton>
+        </div>
+        <div class="list-item-content">
+          <h4>{{ friend.fullname }}</h4>
+          <p>@{{ friend.username }}</p>
+        </div>
+
+        <div class="divdot-online">
+          <p-tag *ngIf="friend.role == 2" [style]="{ 'background': 'linear-gradient(-225deg, rgb(239 194 154) 0%, rgb(255 139 22 / 76%) 48%, rgb(255 214 1) 100%)'}">
+            <div class="tag-sp">
+                <span class="text-base">Helper</span>
+                <i class="pi pi-times text-xs" *ngIf="roleUser == 1" (click)="removeHelper(friend.userId)"></i>
+            </div>
+          </p-tag>
+          <button class="btn-support" (click)="addHelper(friend.userId)" *ngIf="roleUser == 1 && friend.role != 2">
+            Helper
+          </button>
+        </div>
+
+      </li>
+
+    </ul>
+  </div>
+
+</p-dialog>
+
+
+<p-dialog  [(visible)]="showModalInvite" [modal]="true" [breakpoints]="{ '1650px':'25vw','1400px':'27vw','1160px':'30vw','960px': '55vw','778px':'70vw','410px':'85vw' }" [style]="{ width: '20vw',height:'60vh' }" [draggable]="false" [resizable]="false">
+  <ng-template pTemplate="header" style="padding: 0;">
+    <span class="title-userjoin">Friends List</span>
+  </ng-template>
+  <div class="title-friend-on">
+    <p>Friends Online</p>
+  </div>
+  <div class="list-wrapper" >
+    <ul class="list" >
+
+      <li class="list-item" *ngFor="let friend of friendsOnl">
+        <div class="item-user">
+          <div>
+            <img *ngIf="isLoadedOnl && friend.images" [src]="friend.images" class="list-item-image" alt="avatar">
+            <img *ngIf="isLoadedOnl && !friend.images" src="assets/images/avatar/avatardefault.png" alt="avatar" class="list-item-image">
+            <p-skeleton *ngIf="!isLoadedOnl" shape="circle" size="3rem" styleClass="mr-2"></p-skeleton>
+          </div>
+          <div class="list-item-content">
+            <h4>{{ friend.fullname }}</h4>
+            <p>@{{ friend.username }}</p>
+          </div>
+          <div class="divdot-online">
+            <span class="dot-online"></span>
+          </div>
+        </div>
+        <div class="div-button-send">
+          <button class="btn-invite" *ngIf="friend.userId && friend.statusInvite==0" (click)="SendInvite(friend.userId)">Invite</button>
+          <p class="inroom-text" *ngIf="friend.userId && friend.statusInvite==1">In Room</p>
+          <p class="busy-text" *ngIf="friend.userId && friend.statusInvite==2">Busy</p>
+        </div>
+      </li>
+
+    </ul>
+  </div>
+
+  <div class="title-friend-on">
+    <p>Friends Offline</p>
+  </div>
+
+
+  <div class="list-wrapper" >
+    <ul class="list" >
+
+      <li class="list-item" *ngFor="let friend of friendsOff">
+        <div>
+          <img *ngIf="isLoadedOff && friend.images" [src]="friend.images" class="list-item-image" alt="avatar">
+          <img *ngIf=" isLoadedOff && !friend.images" src="assets/images/avatar/avatardefault.png" alt="avatar" class="list-item-image">
+          <p-skeleton *ngIf="!isLoadedOff" shape="circle" size="3rem" styleClass="mr-2"></p-skeleton>
+
+        </div>
+        <div class="list-item-content">
+          <h4>{{ friend.fullname }}</h4>
+          <p>@{{ friend.username }}</p>
+        </div>
+        <div class="divdot-offline">
+          <span class="dot-offline"></span>
+        </div>
+      </li>
+
+
+    </ul>
+  </div>
+</p-dialog>
+
+
+<p-dialog  [(visible)]="modalBossOut" [modal]="true" [closable]="false" [breakpoints]="{ '960px': '75vw' }" [style]="{ width: '40vw' }" [draggable]="false" [resizable]="false">
+  <ng-template pTemplate="header">
+    <span class="title-note">Note</span>
+  </ng-template>
+  <div class="line-br">
+    <div class="inside-line"></div>
+  </div>
+  <div class="modal-options">
+    <h6 style="color: #db2323;">The room owner has escaped, the room is no longer active. Will automatically exit after 5 seconds.</h6>
+  </div>
+</p-dialog>

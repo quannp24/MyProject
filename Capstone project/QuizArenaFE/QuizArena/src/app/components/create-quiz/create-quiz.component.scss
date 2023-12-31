@@ -1,0 +1,555 @@
+
+#image-slot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f7f7f7;
+  border: 2px dashed #ccc;
+  width: 100%;
+  height: 100%;
+  border-radius: 6px;
+}
+
+#image-container{
+  width: 100%;
+  height: 100%;
+  max-height: 350px;
+  max-width: 510px;
+  cursor: pointer;
+}
+
+.image-slot .img-upload{
+  max-height: 350px;
+  max-width: 510px;
+  object-fit: cover;
+}
+
+.generate{
+  display: inline-block;
+  padding: 14px 18px;
+  font-size: 13px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  border: 3px solid #d7a869;
+  border-radius: 5px;
+  background-color: #ffb44f;
+  color: #fff;
+}
+
+.generate:hover{
+  background-color: #e78f1c;
+
+}
+
+.undo{
+  display: inline-block;
+  padding: 8px 11px;
+  font-size: 21px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  background-color: #4edfff;
+  color: #fff;
+  border: 3px solid #58cae2;
+  border-radius: 5px;
+  margin-left: 20px;
+}
+
+.btn-scroll-top{
+  background-color: #59d4ffc9;
+  border-radius: 7px;
+  position: fixed;
+  bottom: 25px;
+  right: 10px;
+  border: none;
+  color: #fff;
+  width: 35px;
+  opacity: 0.6;
+}
+
+.undo:hover{
+  background-color: #54cef9;
+}
+
+.back{
+  display: inline-block;
+  padding: 14px 18px;
+  font-size: 13px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  border: 3px solid #8d8888;
+  border-radius: 5px;
+  background-color: #9b9b9b;
+  color: #fff;
+}
+
+.back:hover{
+  background-color: #7c7b7b;
+
+}
+
+.body-create {
+    padding-top: 130px;
+    padding-bottom: 80px;
+}
+
+.CreateSetPage {
+    margin: auto;
+    max-width: 95%;
+    background-color: #f1f1f1c7;
+    padding: 2% 15%;
+    border-radius: 10px;
+}
+
+.CreateSetQuestion{
+    margin-bottom: 3%;
+    background-color: #fff;
+    padding: 20px 34px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 50px;
+}
+
+.messError-ques{
+  font-size: 14px;
+  color: rgb(231, 21, 21);
+  margin-left: 40px;
+}
+
+.c1go502 {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.c11u1mbs {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+}
+
+
+.c3go502 {
+    margin-bottom: 15px;
+
+}
+
+.title-create{
+  color: #25a3df;
+  font-size: 24px ;
+  font-weight:bold;
+}
+
+/* Tạo độ rộng cố định cho các trường nhập và loại bỏ độ rộng mặc định của textarea */
+.c3go502 textarea {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Tạo độ rộng cố định cho các trường select */
+.c3go502 select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #5abbff;
+}
+
+
+
+/* Canh lề trái cho các label */
+.c3go502 label {
+    display: block;
+    margin-bottom: 5px;
+    margin-right: 10px;
+    color: #5abbff;
+}
+
+.c3go502 input[type="radio"] {
+    margin-right: 10px;
+}
+
+
+/* Canh lề trái cho các radio button và label tương ứng */
+.c3go502 div input[type="radio"] {
+    transform: scale(1.5);
+    margin-right: 15px;
+}
+
+.c3go502 div label {
+    display: inline-block;
+}
+
+.SpecialCharacterTextarea {
+    width: 100%;
+}
+
+.cqy7lq4{
+    width: 100%;
+    height: 100px;
+}
+
+.c1lzqd91{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.UITextarea {
+    display: block;
+    position: relative;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.UITextarea textarea,
+.AutoExpandTextarea-textarea {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: calc(100% - 16px);
+}
+
+.UITextarea textarea,
+.AutoExpandTextarea-sizer,
+.AutoExpandTextarea-wrapper {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.UITextarea-content {
+    position: relative;
+}
+
+.AutoExpandTextarea {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+    min-height: 70px;
+}
+
+.AutoExpandTextarea-wrapper {
+    flex-grow: 1;
+}
+
+.AutoExpandTextarea-textarea {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    resize: none;
+}
+
+.UITextarea-border {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background-color: #07bfff;
+}
+
+.UITextarea-label {
+    position: static;
+    top: 0;
+    left: 10px;
+    color: #5abbff;
+    padding: 0 5px;
+}
+
+.AssemblyButtonBase {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+}
+
+.AssemblyPrimaryButton--default {
+    background-color: #4edfff;
+    color: #fff;
+    border: 3px solid #58cae2;
+}
+
+.AssemblyPrimaryButton--default:hover {
+    background-color: #54cef9;
+}
+
+.radio-with-text {
+    display: flex;
+    align-items: center;
+}
+
+.radio-with-text input[type="radio"] {
+    margin-right: 10px; /* Khoảng cách giữa radio và text */
+}
+
+.text-input {
+    display: flex;
+    align-items: center;
+}
+
+.text-input label {
+    margin-right: 5px;
+}
+
+.text-input input[type="text"] {
+    padding: 8px; /* Kích thước của ô input */
+    border: 1px solid #ccc; /* Viền của ô input */
+    border-radius: 4px; /* Độ cong góc của ô input */
+    font-size: 14px; /* Kích thước chữ trong ô input */
+    width: 150px; /* Độ rộng của ô input */
+}
+
+.text-input label {
+    font-size: 14px; /* Kích thước chữ của nhãn */
+}
+
+.text-input input[type="text"] {
+    width: 300px; /* Đặt độ dài mong muốn, có thể điều chỉnh giá trị này */
+}
+
+.add-button {
+    background-color: #fff;
+    border: none;
+    color: #25a3df;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 25px;
+    margin-left: 150px;
+    cursor: pointer;
+    transition: transform 0.2s; /* Thêm hiệu ứng chuyển động */
+  }
+
+
+  .add-button-question{
+    background-color: rgba(241, 241, 241, 0.7803921569); /* Màu nền */
+    border: none; /* Loại bỏ đường viền */
+    color: #25a3df; /* Màu chữ */
+    text-align: center; /* Canh giữa chữ */
+    text-decoration: none; /* Loại bỏ đường gạch chân */
+    display: inline-block;
+    font-size: 38px;
+    margin: -3% 50% 0%;
+    cursor: pointer; /* Đổi con trỏ chuột khi hover */
+  }
+
+  .delete-button {
+    background-color: #ffffff; /* Màu nền */
+    border: none; /* Loại bỏ đường viền */
+    color: #25a3df; /* Màu chữ */
+    padding: 10px 20px; /* Kích thước padding */
+    text-align: center; /* Canh giữa chữ */
+    text-decoration: none; /* Loại bỏ đường gạch chân */
+    display: inline-block;
+    font-size: 18px;
+    margin: 4px 2px;
+    cursor: pointer; /* Đổi con trỏ chuột khi hover */
+  }
+
+  .delete-button-xmark{
+    background-color: #ffffff;
+    border: none;
+    color: rgb(223, 56, 37);
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 25px;
+    cursor: pointer;
+  }
+
+
+
+.c3go502 img {
+    max-width: 100%; /* Chỉnh kích thước tối đa */
+    margin-top: 10px; /* Khoảng cách từ input đến ảnh */
+    display: block; /* Để tránh khoảng cách dư thừa dưới ảnh */
+}
+
+//================MODAL GEN QUESTION ==================
+.title-gen{
+  color: #07bfff;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.btn-modal{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.p-inputtext{
+  width: 100%;
+}
+
+.cmt-content{
+  margin-bottom: 50px;
+}
+
+.btn-genAI{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.btn-genAI button{
+  display: inline-block;
+  padding: 14px 18px;
+  font-size: 13px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  border: 3px solid #d7a869;
+  border-radius: 5px;
+  background-color: #ffb44f;
+  color: #fff;
+}
+
+.btn-genAI button:hover{
+  background-color: #e78f1c;
+}
+
+.mess-genAi .loading{
+  color: #07bfff;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.mess-genAi .nothing{
+  display: none;
+}
+
+.mess-genAi .success{
+  color: #06a301;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.mess-genAi .faild{
+  color: #c20909;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+//==================dialog error ============
+.image-error img{
+  width: 200px;
+}
+
+.image-error{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-options h6{
+  font-size: 17px;
+  font-weight: 600;
+  color: #db2323;
+  text-align: center;
+}
+
+.modal-options span{
+  font-size: 13px;
+  font-weight: 500;
+  color: #11c5f1;
+  display: block;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.modal-options{
+
+  margin: 22px 0;
+}
+
+.div-notebtn{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.custom-btn {
+  width: 130px;
+  height: 40px;
+  color: #fff;
+  border-radius: 5px;
+  padding: 10px 25px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+   box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+   7px 7px 20px 0px rgba(0,0,0,.1),
+   4px 4px 5px 0px rgba(0,0,0,.1);
+  outline: none;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.btn-Cancel{
+  border: none;
+  background-color: #707070;
+  color: #fff;
+  overflow: hidden;
+  width: 100px;
+  margin-left: 20px;
+}
+
+.btn-11 {
+  border: none;
+  background: linear-gradient(0deg, rgb(255 58 58 / 87%) 0%, rgb(229 130 92) 100%);
+  color: #fff;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.btn-11:hover {
+    text-decoration: none;
+    color: #fff;
+}
+.btn-11:before {
+    position: absolute;
+    content: '';
+    display: inline-block;
+    top: -180px;
+    left: 0;
+    width: 30px;
+    height: 100%;
+    background-color: #fff;
+    animation: shiny-btn1 3s ease-in-out infinite;
+}
+.btn-11:hover{
+  opacity: .7;
+}
+.btn-11:active{
+  box-shadow:  4px 4px 6px 0 rgba(255,255,255,.3),
+              -4px -4px 6px 0 rgba(116, 125, 136, .2),
+    inset -4px -4px 6px 0 rgba(255,255,255,.2),
+    inset 4px 4px 6px 0 rgba(0, 0, 0, .2);
+}
+
+
+@keyframes shiny-btn1 {
+    0% { -webkit-transform: scale(0) rotate(45deg); opacity: 0; }
+    80% { -webkit-transform: scale(0) rotate(45deg); opacity: 0.5; }
+    81% { -webkit-transform: scale(4) rotate(45deg); opacity: 1; }
+    100% { -webkit-transform: scale(50) rotate(45deg); opacity: 0; }
+}

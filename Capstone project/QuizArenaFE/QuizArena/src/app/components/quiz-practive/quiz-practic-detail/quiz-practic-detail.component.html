@@ -1,0 +1,154 @@
+<app-header></app-header>
+<div class="hero_area">
+  <section class=" slider_section position-relative">
+    <div class="side_heading" >
+      <h5>
+        Q
+        U
+        I
+        Z
+        A
+        R
+        E
+        N
+        A
+      </h5>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-4 col-md-5 offset-md-1">
+          <p-skeleton *ngIf="!quiz || !isImageLoaded" width="100%" height="100%"></p-skeleton>
+          <div *ngIf="quiz && isImageLoaded" id="carouselExampleIndicators" class="carousel slide " >
+            <div class="img-box b-1">
+              <img *ngIf=" quiz.image && isImageLoaded" [src]="quiz.image" alt="image quiz">
+              <img *ngIf="!quiz.image && isImageLoaded" src="assets/images/quizdefault.jpg" alt="image default quiz">
+            </div>
+
+          </div>
+        </div>
+        <div class=" col-md-5 offset-md-1">
+          <div class="detail-box" >
+            <p-skeleton *ngIf="!quiz" height="2rem" styleClass="mb-2"></p-skeleton>
+            <h3 *ngIf="quiz">
+              {{quiz.title}}
+            </h3>
+
+            <p *ngIf="numDoDay && numDoDay!=0" class="total-doquiz"><fa-icon [icon]="faChartLine"></fa-icon>{{numDoDay}} people studying today</p>
+            <p *ngIf="numDoMonth && numDoMonth!=0" class="total-doquiz"><fa-icon [icon]="faChartLine"></fa-icon>{{numDoMonth}} people studying this month</p>
+
+            <p *ngIf="!quiz" class="describe-quiz" >
+              <p-skeleton width="100%" height="150px"></p-skeleton>
+            </p>
+            <p *ngIf="quiz" class="describe-quiz">
+              {{quiz.description}}
+            </p>
+            <div style="display: flex;">
+              <h6>Total questions: </h6>
+              <span class="number-ques">{{totalQues}}</span>
+            </div>
+            <h6>Created by </h6>
+            <a *ngIf="this.creator && isImageLoaded" [routerLink]="['/profile-orther/',this.creator.userId]">
+              <img *ngIf="this.creator.images" class="created-img" src="{{this.creator.images}}">
+              <img *ngIf="!this.creator.images" class="created-img" src="assets/images/avatar/avatardefault.png">
+            </a>
+            <a *ngIf="!this.creator || !isImageLoaded" >
+              <p-skeleton shape="circle" size="3rem" styleClass="mr-2"></p-skeleton>
+            </a>
+            <div class="btn-box"  *ngIf="quiz">
+              <a  [routerLink]="['/do-quiz',quiz.quizId]" class="btn-1 btn-doquiz">
+                Do Quiz
+              </a>
+              <a *ngIf="quiz.quizId" (click)="createRoomDoQuiz(quiz.quizId)" class="btn-2 btn-domul">
+                <fa-icon [icon]="faUserGroup"></fa-icon>
+                Do with Friends (VIP)
+              </a>
+              <a *ngIf="!quiz.quizId" class="btn-2 btn-domul">
+                <fa-icon [icon]="faUserGroup"></fa-icon>
+                Do with Friends (VIP)
+              </a>
+
+            </div>
+            <p class="mess-error" *ngIf="messError">{{messError}}</p>
+            <div *ngIf="!quiz" class="btn-box" style="display: flex;">
+              <p-skeleton width="100px" height="50px" ></p-skeleton>
+              <p-skeleton   width="200px" height="50px" ></p-skeleton>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- end slider section -->
+</div>
+<div id="portfolio" class="our-portfolio section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-5">
+        <div class="section-heading wow fadeInLeft" data-wow-duration="1s" data-wow-delay="0.3s">
+          <h4>Quiz Popular</h4>
+          <div class="line-dec"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid quiz-popular wow fadeIn" data-wow-duration="1s" data-wow-delay="0.7s">
+    <div class="row">
+      <div class="col-lg-12">
+
+
+        <owl-carousel-o *ngIf="!isDivQuiz" [options]="customOptions">
+          <ng-container *ngFor="let slide of slidesStore">
+
+            <ng-template carouselSlide >
+              <div class="item">
+                <a (click)="redirectDetail(slide.href)">
+                  <div class="portfolio-item">
+                  <div class="thumb">
+                    <p-skeleton *ngIf="!isLoaded" width="100%" height="1100%"></p-skeleton>
+                      <img *ngIf="slide.src && isLoaded" [src]="slide.src" alt="image quiz">
+                      <img *ngIf="!slide.src && isLoaded" src="assets/images/quizdefault.jpg" alt="image default quiz">
+
+                  </div>
+                  <div class="down-content">
+                    <h4>{{slide.title}}</h4>
+                    <span>{{slide.desc}}</span>
+                  </div>
+                </div>
+                </a>
+              </div>
+            </ng-template>
+          </ng-container>
+
+        </owl-carousel-o>
+
+        <div *ngIf="isDivQuiz" class="row">
+          <ng-container *ngFor="let slide of slidesStore" >
+              <div class="item col-lg-4 col-md-6" >
+                <a [href]="slide.href">
+                  <div class="portfolio-item">
+                  <div class="thumb">
+                    <p-skeleton *ngIf="!isLoaded" width="100%" height="1100%"></p-skeleton>
+                      <img *ngIf="slide.src && isLoaded" [src]="slide.src" alt="image quiz">
+                      <img *ngIf="!slide.src && isLoaded" src="assets/images/quizdefault.jpg" alt="image default quiz">
+
+                  </div>
+                  <div class="down-content">
+                    <h4>{{slide.title}}</h4>
+                    <span>{{slide.desc}}</span>
+                  </div>
+                </div>
+                </a>
+              </div>
+          </ng-container>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>
+<p-dialog id="viewport" [(visible)]="showUpgrade" [modal]="true"  [draggable]="false" [resizable]="false">
+  <app-payment></app-payment>
+</p-dialog>

@@ -1,0 +1,146 @@
+<div class="fix-header fix-sidebar card-no-border">
+    <div class="preloader" *ngIf="isLoading">
+        <div class="loader">
+            <div class="loader__figure"></div>
+            <p class="loader__label">Quiz Arena</p>
+        </div>
+    </div>
+    <div id="main-wrapper">
+        <header class="topbar">
+            <nav class="navbar top-navbar navbar-expand-md navbar-light">
+                <div class="navbar-header">
+                    <a class="navbar-brand" [routerLink]="['/home']">
+                        <b>
+                            <img src="/assets/images/logo_web.png" alt="homepage" class="dark-logo" />
+
+                        </b>
+
+                    </a>
+                </div>
+            </nav>
+        </header>
+        <app-left-sidebar></app-left-sidebar>
+        <div class="page-wrapper" style="  padding-top: 17px !important">
+            <div class="container-fluid">
+                <div class="row page-titles">
+                    <div class="col-md-5 align-self-center">
+                        <h3 class="text-themecolor">Earning Money</h3>
+                    </div>
+                </div>
+                <div class="row" style=" display: flex;
+  justify-content: center;">
+
+                    <div class="col-lg-3 col-md-6 col-xs-12">
+                        <div class="box-content"   style="text-align: center;">
+                            <h4 class="box-title fz-20 ">Sale this month</h4>
+                            <div class="content widget-stat" style="margin-left: 38%;">
+                                <div class="percent bg-warning" style="background-color: green !important;">{{saleMonth}}$</div>
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 col-xs-12">
+                        <div class="box-content" style="text-align: center;">
+                            <h4 class="box-title fz-20 ">Lifetime Earnings</h4>
+                            <div class="content widget-stat" style="margin-left: 36%;">
+                                <div class="percent bg-warning" style="background-color: rgb(113, 140, 214) !important;">{{saleLifeTime}}$</div>
+                          </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <!-- Column -->
+                    <div class="col-lg-12 d-flex align-items-stretch">
+                        <div class="card w-100">
+                            <div class="card-body">
+                                <div class="d-flex" style="gap:66%">
+                                    <div style="margin-top: 23px;">
+                                        <h5 class="card-title" style="font-weight: 600;
+                                        font-size: 20px;">LIST BILL </h5>
+                                    </div>
+                                </div>
+                                <div class="table-responsive mt-3 no-wrap">
+                                    <p-table #dt1 [value]="listEarning" dataKey="historyId" [rows]="6"
+                                        [showCurrentPageReport]="true" [loading]="loading" [paginator]="true"
+                                        [rowHover]="true"
+                                        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                                        [globalFilterFields]="['username', 'quizTitle']" class="earning-paginator">
+                                        <ng-template pTemplate="caption">
+                                            <div class="flex">
+                                                <span class="p-input-icon-left ml-auto">
+                                                    <i class="pi pi-search"></i>
+                                                    <input  style="width: 200px; height: 40px; " pInputText type="text"
+                                                        (input)="dt1.filterGlobal($any($event.target).value, 'contains')"
+                                                        placeholder="Search keyword" />
+                                                </span>
+                                            </div>
+                                        </ng-template>
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                <th >
+                                                    <div class="flex align-items-center" type="text"
+                                                        field="questionText">
+                                                        Invoice ID
+                                                    </div>
+                                                </th>
+                                                <th >
+                                                    <div class="flex align-items-center" type="text"
+                                                        field="questionText">
+                                                        User Name
+                                                    </div>
+                                                </th>
+                                                <th >
+                                                    <div class="flex align-items-center th-creator" type="text"
+                                                        field="userId">
+                                                        Buy Date
+                                                    </div>
+                                                </th>
+                                                <th >
+                                                    <div class="flex align-items-center" type="text"
+                                                        field="questionText">
+                                                        Payment Method
+                                                    </div>
+                                                </th>
+                                                <th >
+                                                    <div class="flex align-items-center" type="text"
+                                                        field="questionText">
+                                                        Total
+                                                    </div>
+                                                </th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-item>
+                                            <tr class="row-question">
+                                                <td>
+                                                    {{ item.paymentId }}
+                                                </td>
+                                                <td >
+                                                    {{ item.username }}
+                                                </td>
+                                                <td>
+                                                    {{ item.paymentDate  | date: 'dd/MM/YYYY - HH:mm:ss' }}
+                                                </td>
+                                                <td>
+                                                    {{ item.paymentMethod }}
+                                                </td>
+                                                <td>
+                                                    {{ item.amount }}$
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="emptymessage">
+                                            <tr>
+                                                <td colspan="7">No bill found.</td>
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

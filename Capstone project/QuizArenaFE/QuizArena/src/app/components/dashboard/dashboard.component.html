@@ -1,0 +1,89 @@
+<div class="fix-header fix-sidebar card-no-border">
+    <div class="preloader" *ngIf="isLoading">
+        <div class="loader">
+            <div class="loader__figure"></div>
+            <p class="loader__label">Quiz Arena</p>
+        </div>
+    </div>
+    <div id="main-wrapper">
+        <header class="topbar">
+            <nav class="navbar top-navbar navbar-expand-md navbar-light">
+                <div class="navbar-header">
+                    <a class="navbar-brand" [routerLink]="['/home']">
+                        <b>
+                            <img src="/assets/images/logo_web.png" alt="homepage" class="dark-logo" />
+                        </b>
+                    </a>
+                </div>
+            </nav>
+        </header>
+        <app-left-sidebar></app-left-sidebar>
+        <div class="page-wrapper">
+            <div class="container-fluid">
+                <div class="row page-titles">
+                    <div class="col-md-5 align-self-center">
+                        <h3 class="text-themecolor">DASHBOARD</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="" id="sales-chart" [chart]="linechart" style="height: 355px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 col-xs-12">
+                        <div class="box-content"  style="height: 92%;">
+                            <h4 class="box-title fz-20 " >Total Members</h4>
+                            <div class="content widget-stat">
+                                <div class="percent bg-warning" style="background-color: rgb(216, 116, 28) !important;">
+                                    {{totalMembers}} Member</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 col-xs-12">
+                        <div class="box-content"  style="height: 92%;">
+                            <h4 class="box-title fz-20 " >Total Questions Bank</h4>
+                            <div class="content widget-stat">
+                                <div class="percent bg-warning" style="background-color: rgb(17, 210, 17) !important;">
+                                    {{totalQuestion}} Questions</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-xs-12">
+                        <div class="box-content"  style="height: 92%;">
+                            <h4 class="box-title fz-20 " >Total Sale Month</h4>
+                            <div class="content widget-stat">
+                                <div class="percent bg-warning" style="background-color: rgb(22, 156, 185) !important;">
+                                    {{totalSalesThisMonth}}$</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-xs-12">
+                        <div class="box-content" style="padding-bottom: 18px">
+                            <h4 class="box-title fz-20 " >Total Quizes</h4>
+                            <div class="content widget-stat">
+                                <div style="display: flex;">
+                                    <h3 class="mr-10">Easy Quiz:</h3>
+                                    <h3>{{totalQuizlevel1}} Quizes</h3>
+                                </div>
+                                <div style="display: flex;">
+                                    <h3 class="mr-10">Medium Quiz:</h3>
+                                    <h3>{{totalQuizlevel2}} Quizes</h3>
+                                </div>
+                                <div style="display: flex">
+                                    <h3 class="mr-10">Hard Quiz:</h3>
+                                    <h3>{{totalQuizlevel3}} Quizes</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

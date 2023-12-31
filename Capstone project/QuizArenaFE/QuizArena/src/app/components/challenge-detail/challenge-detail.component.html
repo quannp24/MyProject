@@ -1,0 +1,365 @@
+<app-header></app-header>
+<div class="page-leaderboard">
+
+  <div id="contain-all" class=" slideout-panel">
+
+    <div class="title-header">
+      <h2>CHALLENGE DETAIL</h2>
+    </div>
+
+    <section class="challenge-infor">
+        <div class="single-item-achie" >
+          <div class="row body-single-item">
+            <div class="col-lg-4 col-md-4 d-flex align-items-center img-exam">
+              <img *ngIf="challInfo.image && challInfo.image.length>2" [src]="challInfo.image" alt="image">
+              <img *ngIf="!challInfo.image || challInfo.image.length<2" src="assets/images/examdefault.png" alt="image">
+            </div>
+            <div class="col-lg-8 col-md-8 d-flex align-items-center">
+              <div class="mid-area">
+                <div class="top-chall">
+                  <h4 *ngIf="challInfo.examName && challInfo.examName.length>0">{{challInfo.examName}}</h4>
+                  <h4 *ngIf="!challInfo.examName || challInfo.examName.length<1">N/A</h4>
+                  <div class="box-date">
+                    <div class="date-area-achie bg">
+                      <span class="date" *ngIf="challInfo.date">{{ challInfo.date | date: 'MMM dd YYYY - HH:mm' }}</span>
+                      <span class="date" *ngIf="!challInfo.date">N/A</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="title-bottom-achie d-flex">
+                  <div class="single-box-achie d-flex">
+                    <div class="box-item">
+                      <span class="head">User</span>
+                      <span class="sub" *ngIf="challInfo.numberUser">{{challInfo.numberUser}} users</span>
+                      <span class="sub" *ngIf="!challInfo.numberUser">N/A users</span>
+                    </div>
+                    <div class="box-item">
+                      <span class="head">Time</span>
+                      <span class="sub" *ngIf="challInfo.timeLimit">{{challInfo.timeLimit}} minutes</span>
+                      <span class="sub" *ngIf="!challInfo.timeLimit">N/A minutes</span>
+                    </div>
+                    <div class="box-item">
+                      <span class="head">Question</span>
+                      <span class="sub" *ngIf="challInfo.numberQuestion">{{challInfo.numberQuestion}} question</span>
+                      <span class="sub" *ngIf="!challInfo.numberQuestion">N/A question</span>
+                    </div>
+                    <div class="box-item">
+                      <span class="head">Type</span>
+                      <span class="sub" *ngIf="challInfo.examType && challInfo.examType == 1">Main challenge</span>
+                      <span class="sub" *ngIf="challInfo.examType && challInfo.examType == 2">Event challenge</span>
+                      <span class="sub" *ngIf="!challInfo.examType">N/A</span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+    </section>
+
+
+    <section class="leaderboard-progress">
+      <div class="contain text-center">
+          <h2>Ranking board</h2>
+          <p class="lead">Leaderboard for challenge participants, judged based on each person's score and completion time</p>
+      </div>
+    </section>
+
+
+
+    <section class="ranking">
+        <div class="contain">
+            <div class="ranking-table">
+              <div *ngIf="myRank && myRank.positionRank">
+                <h5> My Rank</h5>
+                <div
+                 [ngClass]="{ 'ranking-table-row-leader-1': myRank.positionRank === 1, 'ranking-table-row-leader-2': myRank.positionRank === 2,
+                 'ranking-table-row-leader-3': myRank.positionRank === 3,
+                 'ranking-table-body': myRank.positionRank > 3}">
+
+                  <div *ngIf="myRank.positionRank === 1" class="ranking-table-data-leader-1">
+                      <div class="medal-gold"></div>
+                  </div>
+
+                  <div *ngIf="myRank.positionRank === 2"  class="ranking-table-data-leader-2">
+                    <div class="medal-silver"></div>
+                  </div>
+
+                  <div *ngIf="myRank.positionRank === 3" class="ranking-table-data-leader-3">
+                    <div class="medal-bronze"></div>
+                  </div>
+
+                  <div *ngIf="myRank.positionRank >3" class="ranking-table-data">
+                    4
+                  </div>
+
+                  <div *ngIf="myRank.positionRank === 0" class="ranking-table-data">
+                    N/A
+                  </div>
+
+                  <div class="ranking-table-data name">
+                    <div class="img-avatar">
+                      <img *ngIf="user&& user.images && user.images.length>0" [src]="user.images" alt="img">
+                      <img *ngIf="!user || !user.images || user.images.length<2" src="assets/images/avatar/avatardefault.png" alt="img">
+                    </div>
+                      {{user?.fullname}}
+                  </div>
+                  <div class="ranking-table-data">
+                      <div class="complete">
+                        <span *ngIf="myRank.score">{{myRank.score}} Score</span>
+                        <span *ngIf="!myRank.score">0 Score</span>
+                      </div>
+                  </div>
+                  <div class="ranking-table-data">
+                    <div class="timer">
+                      <span *ngIf="myRank.timeSubmit">{{ myRank.timeSubmit | date: 'HH:mm:ss' }}</span>
+                      <span *ngIf="!myRank.timeSubmit">N/A</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="ranking-table-header-row">
+                  <div class="ranking-table-header-data h6">Rank</div>
+                  <div class="ranking-table-header-data h6">Name</div>
+                  <div class="ranking-table-header-data h6">Progress</div>
+                  <div class="ranking-table-header-data h6">Time</div>
+              </div>
+
+
+
+              <!-- Leader 1 -->
+              <div *ngIf="usersRank.length > 0" class="ranking-table-row-leader-1">
+                <div class="ranking-table-data-leader-1">
+                  <div class="medal-gold"></div>
+                </div>
+                <div class="ranking-table-data name">
+                  <div class="img-avatar">
+                    <img *ngIf="usersRank[0]&& usersRank[0].images && usersRank[0].images.length>0" [src]="usersRank[0].images" alt="img">
+                    <img *ngIf="!usersRank[0] || !usersRank[0].images || usersRank[0].images.length<2" src="assets/images/avatar/avatardefault.png" alt="img">
+                  </div>
+                  {{ usersRank[0].fullname }}
+                </div>
+                <div class="ranking-table-data">
+                  <div class="complete">
+                    <span>{{ usersRank[0].score }} Score</span>
+                  </div>
+                </div>
+                <div class="ranking-table-data">
+                  <div class="timer">
+                    <span>{{ usersRank[0].timeSubmit | date: 'HH:mm:ss' }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Leader 2 -->
+              <div *ngIf="usersRank.length > 1" class="ranking-table-row-leader-2">
+                <div class="ranking-table-data-leader-2">
+                  <div class="medal-silver"></div>
+                </div>
+                <div class="ranking-table-data name">
+                  <div class="img-avatar">
+                    <img *ngIf="usersRank[1]&& usersRank[1].images && usersRank[1].images.length>1" [src]="usersRank[1].images" alt="img">
+                    <img *ngIf="!usersRank[1] || !usersRank[1].images || usersRank[1].images.length<2" src="assets/images/avatar/avatardefault.png" alt="img">
+                  </div>
+                  {{ usersRank[1].fullname }}
+                </div>
+                <div class="ranking-table-data">
+                  <div class="complete">
+                    <span>{{ usersRank[1].score }} Score</span>
+                  </div>
+                </div>
+                <div class="ranking-table-data">
+                  <div class="timer">
+                    <span>{{ usersRank[1].timeSubmit | date: 'HH:mm:ss' }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Leader 3 -->
+              <div *ngIf="usersRank.length > 2" class="ranking-table-row-leader-3">
+                <div class="ranking-table-data-leader-3">
+                  <div class="medal-bronze"></div>
+                </div>
+                <div class="ranking-table-data name">
+                  <div class="img-avatar">
+                    <img *ngIf="usersRank[2]&& usersRank[2].images && usersRank[2].images.length>2" [src]="usersRank[2].images" alt="img">
+                    <img *ngIf="!usersRank[2] || !usersRank[2].images || usersRank[2].images.length<2" src="assets/images/avatar/avatardefault.png" alt="img">
+                  </div>
+                  {{ usersRank[2].fullname }}
+                </div>
+                <div class="ranking-table-data">
+                  <div class="complete">
+                    <span>{{ usersRank[2].score }} Score</span>
+                  </div>
+                </div>
+                <div class="ranking-table-data">
+                  <div class="timer">
+                    <span>{{ usersRank[2].timeSubmit | date: 'HH:mm:ss' }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Body -->
+              <div *ngFor="let user of usersRank.slice(3)" class="ranking-table-body">
+                <div class="ranking-table-row">
+                  <div class="ranking-table-data">
+                    {{ user.positionRank?user.positionRank:'N/A' }}
+                  </div>
+                  <div class="ranking-table-data name">
+                    <div class="img-avatar">
+                      <img *ngIf=" user.images && user.images.length>0" [src]="user.images" alt="img">
+                      <img *ngIf="!user || !user.images || user.images.length<2" src="assets/images/avatar/avatardefault.png" alt="img">
+                    </div>
+                    {{ user.fullname }}
+                  </div>
+                  <div class="ranking-table-data">
+                    <div class="complete">
+                      <!-- Handle case when user has no score -->
+                      <span *ngIf="user.score !== undefined">{{ user.score }} Score</span>
+                      <span *ngIf="user.score === undefined">N/A</span>
+                    </div>
+                  </div>
+                  <div class="ranking-table-data">
+                    <div class="timer">
+                      <span *ngIf="user.timeSubmit">{{ user.timeSubmit | date: 'HH:mm:ss' }}</span>
+                      <span *ngIf="!user.timeSubmit">N/A</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+                <!-- <div class="ranking-table-row-leader-1">
+                    <div class="ranking-table-data-leader-1">
+                        <div class="medal-gold"></div>
+                    </div>
+                    <div class="ranking-table-data">
+                        Steven A
+                    </div>
+                    <div class="ranking-table-data">
+                        <div class="complete">
+                          <span>110 Score</span>
+                        </div>
+                    </div>
+                    <div class="ranking-table-data">
+                      <div class="timer">
+                        <span>20:10:23</span>
+                      </div>
+                    </div>
+                </div>
+                <div class="ranking-table-row-leader-2">
+                    <div class="ranking-table-data-leader-2">
+                        <div class="medal-silver"></div>
+                    </div>
+                    <div class="ranking-table-data">
+                        Raghav M
+                    </div>
+                    <div class="ranking-table-data">
+                        <div class="complete">100 Score</div>
+                    </div>
+                    <div class="ranking-table-data">
+                      <div class="timer">
+                        <span>20:10:23</span>
+                      </div>
+                    </div>
+                </div>
+                <div class="ranking-table-row-leader-3">
+                    <div class="ranking-table-data-leader-3">
+                        <div class="medal-bronze"></div>
+                    </div>
+                    <div class="ranking-table-data">
+                        Ryan Z
+                    </div>
+                    <div class="ranking-table-data">
+                        <div class="complete"></div>
+                    </div>
+                </div>
+                <div class="ranking-table-body">
+                    <div class="ranking-table-row">
+                        <div class="ranking-table-data">
+                            4
+                        </div>
+                        <div class="ranking-table-data">
+                            Joseph R
+                        </div>
+                        <div class="ranking-table-data">
+                            <div class="complete"></div>
+                        </div>
+                    </div>
+                    <div class="ranking-table-row">
+                        <div class="ranking-table-data">
+                            5
+                        </div>
+                        <div class="ranking-table-data">
+                            Muwaffaq I
+                        </div>
+                        <div class="ranking-table-data">
+                            <div class="complete"></div>
+                        </div>
+                    </div>
+                    <div class="ranking-table-row">
+                        <div class="ranking-table-data">
+                            6
+                        </div>
+                        <div class="ranking-table-data">
+                            Joshua L
+                        </div>
+                        <div class="ranking-table-data">
+                            <div class="complete"></div>
+                        </div>
+                    </div>
+                    <div class="ranking-table-row">
+                        <div class="ranking-table-data">
+                            7
+                        </div>
+                        <div class="ranking-table-data">
+                            Nick M
+                        </div>
+                        <div class="ranking-table-data">
+                            <div class="complete"></div>
+                        </div>
+                    </div>
+                    <div class="ranking-table-row">
+                        <div class="ranking-table-data">
+                            8
+                        </div>
+                        <div class="ranking-table-data">
+                            Ravindra R
+                        </div>
+                        <div class="ranking-table-data">
+                            <div class="complete"></div>
+                        </div>
+                    </div>
+                    <div class="ranking-table-row">
+                        <div class="ranking-table-data">
+                            9
+</div>
+                        <div class="ranking-table-data">
+                            Ricardo M
+</div>
+                        <div class="ranking-table-data">
+                            <div class="complete"></div>
+                        </div>
+                    </div>
+                    <div class="ranking-table-row">
+                        <div class="ranking-table-data">
+                            10
+</div>
+                        <div class="ranking-table-data">
+                            Shubham R
+</div>
+                        <div class="ranking-table-data">
+                            <div class="complete"></div>
+                        </div>
+                    </div>
+
+                </div> -->
+            </div>
+        </div>
+    </section>
+
+  </div>
+</div>

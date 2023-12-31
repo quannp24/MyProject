@@ -1,0 +1,181 @@
+
+<header class="header-quiz" >
+  <div >
+      <div class="row">
+          <div class="col-3 col-lg-2 left-header">
+            <div class="img-logo">
+              <a [routerLink]="['/home']">
+                <img src="assets/images/logo_web.png" alt="logo">
+              </a>
+            </div>
+          </div>
+          <div class="col-6 col-lg-8 center-header" style="text-align: center;">
+              <h6 class="my-4 " >CHALLENGE FALL23</h6>
+          </div>
+          <div class="col-3 col-lg-2 right-header">
+            <div class="right-icon">
+              <div class="icon-exit" (click)="confirmExit()">
+                <fa-icon [icon]="faTimes" ></fa-icon>
+              </div>
+            </div>
+          </div>
+      </div>
+  </div>
+</header>
+
+
+<div class="container" [@fadeOutIn] [@fadeIn] *ngIf="!finishQuiz">
+  <div class="row body-quiz">
+
+    <div class="div-time">
+
+      <div id="time">
+        <div class="circle" style="--clr: #42d3ff;">
+          <div class="dots sec_dot" #sec_dot></div>
+          <svg>
+            <circle cx="70" cy="70" r="70"></circle>
+            <circle cx="70" cy="70" r="70" id="ss"  #ss></circle>
+          </svg>
+          <div id="seconds">{{timeDisplay}}</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="bubble-score">
+      <div class="bubble x3">
+        <span>{{totalScore}}<p>Score</p></span>
+        <div class="score-plus">
+          <p class="update-exp" *ngIf="scoreUpdate!=0">+{{scoreUpdate}} Score</p>
+        </div>
+
+      </div>
+    </div>
+
+
+    <div class="col-md-9 content-quiz">
+      <div class="card-quiz" >
+          <div class="card-body" *ngIf="question" (window:keydown)="handleKeyPress($event)">
+            <div class="title-text-quiz">
+              <h5 >Question</h5>
+            </div>
+              <pre class="custom-pre" >{{question[currentQuestion].questionText}}</pre>
+              <div class="mess-text">
+                <span class="correct" *ngIf="correctAnswer == 1">Correct answer! You are fantastic</span>
+                <span class="incorrect" *ngIf="correctAnswer == 0">It's not right, please try!</span>
+                <span class="time-out" *ngIf="timeOut">Oops, time out!</span>
+              </div>
+              <div class="options-answer">
+
+                <ng-container *ngFor="let option of question[currentQuestion].optionsSRC002; let i = index">
+                  <ng-container *ngIf="i % 2 === 0">
+                    <div class="row row-answer">
+                      <div class="col-12 col-md-6">
+                        <button  (click)="checkAnswer(i+1)" [disabled]="correctAnswer !=2 || timeOut" class="quizlet-button" #quizletButton [ngClass]="{'correct': (correctAnswer == 1 && i + 1 == question[currentQuestion].correctAnswer) || (correctAnswer == 0 && i + 1 == question[currentQuestion].correctAnswer), 'incorrect': correctAnswer==0 && i + 1 == selectedOption, 'hidden':(correctAnswer==0 && i + 1 != question[currentQuestion].correctAnswer && i+1 != selectedOption) || timeOut}">
+                          <span class="quizlet-content">
+                            <span class="quizlet-number">{{i + 1}}</span>
+                            <div class="quizlet-text">{{option}}</div>
+                          </span>
+                        </button>
+                      </div>
+                      <div class="col-12 col-md-6" *ngIf="question[currentQuestion]!.optionsSRC002![i + 1]">
+                        <button (click)="checkAnswer(i+2)" [disabled]="correctAnswer !=2 || timeOut" class="quizlet-button" #quizletButton [ngClass]="{'correct': (correctAnswer == 1 && i + 2 == question[currentQuestion].correctAnswer) || (correctAnswer == 0 && i + 2 == question[currentQuestion].correctAnswer), 'incorrect': correctAnswer==0 && i + 2 == selectedOption, 'hidden':(correctAnswer==0 && i + 2 != question[currentQuestion].correctAnswer && i+2 != selectedOption) || timeOut}">
+                          <span class="quizlet-content">
+                            <span class="quizlet-number">{{i + 2}}</span>
+                            <div class="quizlet-text">{{question[currentQuestion]!.optionsSRC002![i + 1]}}</div>
+                          </span>
+                        </button>
+                      </div>
+                    </div>
+                  </ng-container>
+                </ng-container>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="container finish-quiz" [@fadeIn] style="background-color: #fff;" *ngIf="finishQuiz">
+  <div class="row body-finish">
+    <div class="header-result">
+      <h4>COMPLETE CHALLENGE</h4>
+      <p>Congratulations on completing the challenge, let's see your results and wait for the rating after the challenge ends</p>
+      <img src="assets/images/result-img.png" alt="image">
+      <div class="btn-finish">
+        <div class="div-detail">
+          <button class="btn-detail" [routerLink]="['/challenge']">Back Challenge</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12 content-finish-left">
+      <div class="number-box">
+        <div class="top-bar-wrapper">
+          <div class="your-score">
+            <span>Score </span>
+            <span> {{totalScore}}</span>
+          </div>
+          <div class="numbers">
+            <span>Numbers</span>
+            <span>{{numberCorrect}} of {{questionResult.length}}</span>
+          </div>
+          <div class="top-bar">
+            <p-progressBar [ngClass]="'customProgress'" [value]="percentCorrect" [style]="{'height': '6px'}" unit="" [showValue]="false"></p-progressBar>
+          </div>
+        </div>
+        <div class="r_number_list">
+          <ng-container *ngFor="let ques of questionResult; let i = index">
+            <span [ngClass]="{'active': ques.result}">{{i+1}}</span>
+          </ng-container>
+
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+<div id="myModal" [@fadeOutIn] [@fadeIn] class="modal" style="display: none;">
+  <div class="modal-content">
+      <img src="assets/images/sticker-duck/duck-oai.gif">
+      <div class="text-random">
+        <h2 >Wow! You are so smart.</h2>
+        <p class="m-0">Press any button to continue!</p>
+      </div>
+  </div>
+</div>
+<div class="footer ">
+  <div class="progess-score">
+      <p-progressBar [ngClass]="'customProgress'" [value]="percentProgress" [style]="{'height': '6px'}" unit="" [showValue]="false"></p-progressBar>
+  </div>
+</div>
+
+<p-dialog  [(visible)]="showModalExit" [modal]="true" [breakpoints]="{ '960px': '55vw' }" [style]="{ width: '25vw' }" [draggable]="false" [resizable]="false">
+  <div class="image-error">
+    <img src="assets/images/exit-img.png" alt="img-error">
+  </div>
+  <div class="modal-options">
+    <h6 >When you exit, your points will be lost. Are you sure you want to exit?.</h6>
+  </div>
+  <div class="div-notebtn">
+    <button class="custom-btn btn-11" [routerLink]="['/challenge']">Exit<div class="dot"></div></button>
+  </div>
+</p-dialog>
+
+<p-dialog  [(visible)]="expiredChallenge" [closable]="false" [modal]="true" [breakpoints]="{ '960px': '55vw' }" [style]="{ width: '25vw' }" [draggable]="false" [resizable]="false">
+  <div class="image-error">
+    <img src="assets/images/stop-img.png" alt="img-error">
+  </div>
+  <div class="modal-options">
+    <h6 >The challenge has expired, please join next time.</h6>
+  </div>
+  <div class="div-notebtn">
+    <button class="custom-btn btn-11" [routerLink]="['/challenge']">Exit<div class="dot"></div></button>
+  </div>
+</p-dialog>
+

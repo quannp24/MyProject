@@ -1,0 +1,348 @@
+/*
+---------------------------------------------
+Portfolio
+---------------------------------------------
+*/
+
+.our-portfolio {
+  padding-top: 50px;
+  overflow: hidden;
+  position: relative;
+}
+
+.our-portfolio:before {
+  content: '';
+  background-image: url(/assets/images/portfolio-right-dec.jpg);
+  background-repeat: no-repeat;
+  position: absolute;
+  right: 0;
+  top: 0px;
+  width: 414px;
+  height: 861px;
+  z-index: 1;
+}
+
+.our-portfolio:after {
+  content: '';
+  background-image: url(/assets/images/portfolio-left-dec.jpg);
+  background-repeat: no-repeat;
+  position: absolute;
+  left: 0;
+  top: 0px;
+  width: 677px;
+  height: 759px;
+  z-index: 1;
+}
+
+.our-portfolio .section-heading {
+  margin-bottom: 80px;
+}
+
+.our-portfolio .container-fluid {
+  padding-right: 15px;
+  padding-left: 15px;
+  position: relative;
+  z-index: 2;
+}
+
+.our-portfolio .item {
+  position: relative;
+  z-index: 222;
+}
+
+.custom-slide{
+  padding: 20px;
+}
+
+.portfolio-item {
+  border-radius: 25px;
+  box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
+  margin: 15px;
+}
+
+.portfolio-item .thumb {
+  position: relative;
+  border-radius: 50px;
+  height: 250px;
+}
+
+.portfolio-item:hover .down-content h4,
+.portfolio-item:hover .down-content span {
+  color: #4da6e7;
+}
+
+.portfolio-item .thumb img {
+  border-top-right-radius: 23px;
+  border-top-left-radius: 23px;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.portfolio-item .down-content {
+  background-color: #fff;
+  text-align: center;
+  padding: 18px 0px;
+  border-bottom-right-radius: 23px;
+  border-bottom-left-radius: 23px;
+}
+
+.portfolio-item .down-content h4 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #2a2a2a;
+  margin-bottom: 8px;
+  transition: all .3s;
+  padding:0 10px ;
+  max-height: 1.2em; /* Chiều cao tối đa tương đương khoảng 2 dòng văn bản */
+  overflow: hidden;
+  text-overflow: ellipsis; /* Hiển thị dấu ba chấm cho nội dung ẩn */
+  white-space: nowrap; /* Ngăn nội dung xuống dòng */
+}
+
+.portfolio-item .down-content span {
+  font-size: 15px;
+  color: #afafaf;
+  transition: all .3s;
+  display: block;
+  padding:0 10px ;
+  max-height: 1.2em; /* Chiều cao tối đa tương đương khoảng 2 dòng văn bản */
+  overflow: hidden;
+  text-overflow: ellipsis; /* Hiển thị dấu ba chấm cho nội dung ẩn */
+  white-space: nowrap; /* Ngăn nội dung xuống dòng */
+}
+
+.our-portfolio .owl-nav {
+  display: inline-block!important;
+  position: absolute;
+  top: -125px;
+  right: 15%;
+  max-width: 1320px;
+}
+
+.our-portfolio .owl-nav .owl-next {
+  margin-left: 10px;
+}
+
+.our-portfolio .owl-nav span {
+  width: 46px;
+  height: 46px;
+  display: inline-block;
+  text-align: center;
+  line-height: 46px;
+  font-size: 30px;
+  background-color: #eee;
+  border-radius: 50%;
+  color: #fff;
+  transition: all 0.5s;
+}
+
+.our-portfolio .owl-nav span:hover {
+  color: #fff;
+  background-color: #4da6e7;
+}
+
+
+/*
+---------------------------------------------
+Blog
+---------------------------------------------
+*/
+
+.blog:before {
+  content: '';
+  background-image: url(/assets/images/blog-left-dec.jpg);
+  background-repeat: no-repeat;
+  position: absolute;
+  left: 0;
+  top: 0px;
+  width: 961px;
+  height: 1020px;
+  z-index: -1;
+}
+
+.blog {
+  position: relative;
+  padding-top: 130px;
+}
+
+.blog .section-heading {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.blog .section-heading .line-dec {
+  margin: 0 auto;
+}
+
+.blog-post {
+  box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
+  border-radius: 25px;
+  position: relative;
+  z-index: 2;
+}
+
+.show-up {
+  position: relative;
+  z-index: 2;
+}
+
+
+
+.blog-post .thumb img {
+  border-top-right-radius: 23px;
+  border-top-left-radius: 23px;
+}
+
+.blog-post .down-content {
+  border-bottom-right-radius: 23px;
+  border-bottom-left-radius: 23px;
+  background-color: #fff;
+  padding: 30px;
+}
+
+.blog-post .down-content span.category {
+  font-size: 15px;
+  color: #fff;
+  padding: 8px 12px;
+  background-color: #4da6e7;
+  border-radius: 18px;
+  display: inline-block;
+}
+
+.blog-post .down-content span.date {
+  font-size: 15px;
+  color: #afafaf;
+  text-align: right;
+  float: right;
+  margin-top: 4px;
+}
+
+.blog-post .down-content h4 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #2a2a2a;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  line-height: 30px;
+}
+
+.blog-post .down-content p {
+  margin-bottom: 30px;
+}
+
+.blog-post .down-content span.author {
+  font-size: 15px;
+  color: #2a2a2a;
+}
+
+.blog-post .down-content span.author img {
+  max-width: 56px;
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+.blog-post .down-content .border-first-button {
+  display: inline-block;
+  float: right;
+}
+
+.blog-posts {
+  margin-left: 30px;
+}
+
+.post-item {
+  margin-bottom: 62px;
+  background-color: rgb(215 232 235 / 36%);
+  padding: 20px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.last-post-item {
+  margin-bottom: 0px;
+}
+
+.post-item .thumb {
+  display: inline-block;
+  float: left;
+  margin-right: 30px;
+  width: 320px;
+  height: 280px;
+}
+
+.post-item .thumb img {
+  border-radius: 23px;
+  display: inline-block;
+  object-fit: cover;
+  height: 80%;
+}
+
+.post-item .right-content {
+  padding-top: 20px;
+}
+
+.post-item .right-content span.category {
+  font-size: 15px;
+  color: #fff;
+  padding: 8px 12px;
+  background-color: #4da6e7;
+  border-radius: 18px;
+  display: inline-block;
+}
+
+.post-item .right-content span.date {
+  font-size: 15px;
+  color: #afafaf;
+  text-align: right;
+  float: right;
+  margin-top: 4px;
+}
+
+.post-item .right-content h4 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #2a2a2a;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  line-height: 30px;
+}
+
+//font style
+.section-heading h4 em {
+  font-style: normal;
+  color: #4da6e7;
+}
+
+.section-heading h4 {
+  color: #2a2a2a;
+  font-size: 35px;
+  font-weight: 700;
+  text-transform: capitalize;
+  margin-bottom: 25px;
+}
+
+.section-heading .line-dec {
+  width: 50px;
+  height: 2px;
+  background-color: #4da6e7;
+}
+
+
+.page-section {
+  margin-top: 120px;
+}
+
+.section-heading {
+  position: relative;
+  z-index: 2;
+}
+
+.section-heading h6 {
+  font-size: 15px;
+  font-weight: 700;
+  color: #4da6e7;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}

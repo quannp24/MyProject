@@ -1,0 +1,429 @@
+<div class="fix-header fix-sidebar card-no-border">
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    <div class="preloader" *ngIf="isLoading">
+        <div class="loader">
+            <div class="loader__figure"></div>
+            <p class="loader__label">Quiz Arena</p>
+        </div>
+    </div>
+    <div id="main-wrapper">
+        <header class="topbar">
+            <nav class="navbar top-navbar navbar-expand-md navbar-light">
+                <div class="navbar-header">
+                    <a class="navbar-brand" [routerLink]="['/home']">
+                        <b>
+                            <img src="/assets/images/logo_web.png" alt="homepage" class="dark-logo" />
+
+                        </b>
+
+                    </a>
+                </div>
+            </nav>
+        </header>
+        <app-left-sidebar></app-left-sidebar>
+        <div class="page-wrapper">
+            <div class="container-fluid">
+                <div class="row page-titles">
+                    <div class="col-md-5 align-self-center">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item active" style=" font-size: 25px;">Quiz Manage</li>
+                        </ol>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                  <div class="col-lg-3 col-md-6 col-xs-12">
+                      <div class="box-content">
+                          <h4 class="box-title fz-20 ">Total Quizes</h4>
+                          <div class="content widget-stat">
+                              <div class="percent bg-warning" style="background-color: green !important;">{{totalQuizzes}} Quizes</div>
+                        </div>
+                      </div>
+                  </div>
+
+                  <div class="col-lg-3 col-md-6 col-xs-12">
+                      <div class="box-content">
+                          <h4 class="box-title fz-20 ">Total Quiz Easy</h4>
+                          <div class="content widget-stat">
+                              <div class="percent bg-warning" style="background-color: red !important;">{{totalQuizlevel1}} Quizes</div>
+                        </div>
+                      </div>
+                  </div>
+                  <div class="col-lg-3 col-md-6 col-xs-12">
+                      <div class="box-content">
+                          <h4 class="box-title fz-20 ">Total Quiz Medium</h4>
+                          <div class="content widget-stat">
+                              <div class="percent bg-warning" style="background-color: rgb(113, 140, 214) !important;">{{totalQuizlevel2}} Quizes</div>
+                        </div>
+                      </div>
+                  </div>
+                  <div class="col-lg-3 col-md-6 col-xs-12">
+                      <div class="box-content">
+                          <h4 class="box-title fz-20 ">Total Quiz Hard</h4>
+                          <div class="content widget-stat">
+                              <div class="percent bg-warning" >{{totalQuizlevel3}} Quizes</div>
+                        </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="row">
+                  <!-- Column -->
+                  <div class="col-lg-6 d-flex align-items-stretch">
+                      <div class="card w-100">
+                          <div class="card-body">
+                              <div class="d-flex">
+                                  <div class="header-table-list">
+                                      <h5 class="card-title"  style="font-weight: 600;
+                                      font-size: 20px;">UNAPPROVE QUIZES </h5>
+                                  </div>
+                                 <div>
+                                    <button id="manageCategorybtn" (click)="openCategoryManage()">Category Manage</button>
+                                  </div>
+                              </div>
+                              <div class="table-responsive mt-3 no-wrap">
+                                <p-table #dt1 [value]="listUnapproveQuiz" dataKey="quizId" [rows]="5"
+                                        [showCurrentPageReport]="true" [loading]="loading" [paginator]="true"
+                                        [rowHover]="true"
+                                        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                                        [globalFilterFields]="['title', 'username']" class="custom-paginator">
+                                        <ng-template pTemplate="caption">
+                                            <div class="flex">
+                                                <span class="p-input-icon-left ml-auto">
+                                                    <i class="pi pi-search"></i>
+                                                    <input style="width: 200px; height: 40px; " pInputText type="text"
+                                                        (input)="dt1.filterGlobal($any($event.target).value, 'contains')"
+                                                        placeholder="Search keyword" />
+                                                </span>
+                                            </div>
+                                        </ng-template>
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                <th>
+                                                    <div class="flex align-items-center" type="text"
+                                                        field="questionText">
+                                                        Title
+                                                    </div>
+                                                </th>
+                                                <th>
+                                                    <div class="flex align-items-center" type="text"
+                                                        field="questionText">
+                                                        Create
+                                                    </div>
+                                                </th>
+                                                <th>
+                                                    <div class="flex align-items-center th-creator" type="text"
+                                                        field="userId">
+                                                        Type
+                                                    </div>
+                                                </th>
+                                                <th>
+                                                    <div class="flex align-items-center th-creator" type="text"
+                                                        field="userId">
+                                                        Action
+                                                    </div>
+                                                </th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-quiz>
+                                            <tr class="row-question">
+                                                <td style="white-space: nowrap;
+                                                overflow: hidden;
+                                                text-overflow: ellipsis;
+                                                max-width: 200px;">
+                                                    {{ quiz.title }}
+                                                </td>
+                                                <td class="colum-creator">
+                                                    <span class="ml-1 vertical-align-middle">{{quiz.createDate  | date: 'dd/MM/YYYY'}}</span>
+                                                </td>
+                                                <td style="padding: 0.5rem 1rem;">
+                                                    <div style="font-size: 13px;" *ngIf="quiz.quizType === 1">Practice</div>
+                                                <div style="font-size: 13px;" *ngIf="quiz.quizType === 2">Challenge</div>
+                                                </td>
+                                                <td>
+                                                    <a class="btn btn-light btn-round me-1 mb-1 mb-md-0" [routerLink]="['/approve-quiz',quiz.quizId]">
+                                                        <fa-icon [icon]="faPenToSquare"></fa-icon>
+                                                    </a>
+                                                    <a href="#" class="btn btn-light btn-round me-1 mb-1 mb-md-0" data-bs-toggle="modal" data-bs-target="#quizModal" (click)="openQuizModal(quiz)">
+                                                        <fa-icon [icon]="faCircleInfo"></fa-icon>
+                                                    </a>
+
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="emptymessage">
+                                            <tr>
+                                                <td colspan="7">No quiz found.</td>
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="col-lg-6 d-flex align-items-stretch">
+                    <div class="card w-100">
+                        <div class="card-body">
+                            <div class="d-flex">
+                                <div class="header-table-list">
+                                    <h5 class="card-title"  style="font-weight: 600;
+                                    font-size: 20px;">APPROVED QUIZES</h5>
+                                </div>
+                            </div>
+                            <div class="table-responsive mt-3 no-wrap quiz">
+                                <p-table #dt3 [value]="listApproveQuiz" dataKey="quizId" [rows]="5"
+                                        [showCurrentPageReport]="true" [loading]="loading" [paginator]="true"
+                                        [rowHover]="true"
+                                        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                                        [globalFilterFields]="['title', 'username']"  class="custom-paginator">
+                                        <ng-template pTemplate="caption">
+                                            <div class="flex">
+                                                <span class="p-input-icon-left ml-auto">
+                                                    <i class="pi pi-search"></i>
+                                                    <input style="width: 200px; height: 40px; " pInputText type="text"
+                                                        (input)="dt3.filterGlobal($any($event.target).value, 'contains')"
+                                                        placeholder="Search keyword" />
+                                                </span>
+                                            </div>
+                                        </ng-template>
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                <th>
+                                                    <div class="flex align-items-center" type="text"
+                                                        field="questionText">
+                                                        Title
+                                                    </div>
+                                                </th>
+                                                <th>
+                                                    <div class="flex align-items-center th-creator" type="text"
+                                                        field="userId">
+                                                        Type
+                                                    </div>
+                                                </th>
+                                                <th>
+                                                    <div class="flex align-items-center th-creator" type="text"
+                                                        field="userId">
+                                                        Status
+                                                    </div>
+                                                </th>
+                                                <th>
+                                                    <div class="flex align-items-center th-creator" type="text"
+                                                        field="userId">
+                                                        Action
+                                                    </div>
+                                                </th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-quiz>
+                                            <tr class="row-question">
+                                                <td style="width: 39%; white-space: nowrap;
+                                                overflow: hidden;
+                                                text-overflow: ellipsis;
+                                                max-width: 200px;">
+                                                    {{ quiz.title }}
+                                                </td>
+                                                <td>
+                                                    <div style="font-size: 13px;" *ngIf="quiz.quizType === 1">Practice</div>
+                                                <div style="font-size: 13px;" *ngIf="quiz.quizType === 2">Challenge</div>
+                                                </td>
+                                                <td >
+                                                    <div class="tag-active" *ngIf="quiz.status === 1">Active</div>
+                                                    <div class="tag-unactive" *ngIf="quiz.status === 3">Unactive</div>
+
+                                                </td>
+                                                <td>
+                                                    <!-- <a class="btn btn-light btn-round me-1 mb-1 mb-md-0" [routerLink]="['/approve-quiz',quiz.quizId]">
+                                                        <fa-icon [icon]="faPenToSquare"></fa-icon>
+                                                    </a>
+                                                    <a href="#" class="btn btn-light btn-round me-1 mb-1 mb-md-0" data-bs-toggle="modal" data-bs-target="#quizModal" (click)="openQuizModal(quiz)">
+                                                        <fa-icon [icon]="faCircleInfo"></fa-icon>
+                                                    </a> -->
+
+                                                    <button style="color: #20aee3;" *ngIf="quiz.status === 3"  class="btn btn-light btn-round me-1 mb-1 mb-md-0" (click)="changeQuizStatus(quiz.quizId, quiz.status)">
+                                                      <fa-icon [icon]="faEye"></fa-icon>
+                                                    </button>
+                                                    <button style="color: #20aee3;" *ngIf="quiz.status === 1" class="btn btn-light btn-round me-1 mb-1 mb-md-0"(click)="changeQuizStatus(quiz.quizId, quiz.status)">
+                                                        <fa-icon [icon]="faEyeSlash"></fa-icon>
+                                                    </button>
+                                                      <a class="btn btn-light btn-round me-1 mb-1 mb-md-0" data-bs-toggle="modal" data-bs-target="#quizModal" (click)="openQuizModal(quiz)">
+                                                          <fa-icon [icon]="faCircleInfo"></fa-icon>
+                                                      </a>
+                                                    <button *ngIf="quiz.status === 3" style="color: #20aee3;" class="btn btn-light btn-round me-1 mb-1 mb-md-0" (click)="showDeleteConfirmation(quiz)">
+                                                      <fa-icon [icon]="faTrashAlt"></fa-icon>
+                                                    </button>
+
+
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="emptymessage">
+                                            <tr>
+                                                <td colspan="7">No quiz found.</td>
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="quizModal" tabindex="-1" aria-labelledby="quizModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content custom-modal" *ngIf="selectedQuiz">
+            <div class="modal-header">
+                <h5 class="modal-title" id="quizModalLabel">Information Quiz</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="quiz-info">
+                    <div class="info-item">
+                        <span class="info-label">Quiz Name:</span>
+                        <span class="info-value">{{ selectedQuiz.title }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Added Date:</span>
+                        <span class="info-value">{{ selectedQuiz.createDate }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Difficulty Level:</span>
+                        <span class="info-value">Level {{ selectedQuiz.difficultyLevel }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Description:</span>
+                        <span class="info-value">{{ selectedQuiz.description }}</span>
+                    </div>
+                    <!-- Thêm các thông tin khác bạn muốn hiển thị -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p-dialog [(visible)]="displayDialog" [closable]="false" [modal]="true" [breakpoints]="{ '960px': '50vw' }" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false">
+    <div class="confirmation-dialog-content">
+        <div class="confirmation-message">
+            <span>Are you sure you want to delete this item?</span>
+        </div>
+        <div class="confirmation-actions">
+            <button class="btn btn-secondary" style="color: rgb(255, 255, 255);background-color:#67757c" (click)="displayDialog = false">Cancel</button>
+            <button class="btn btn-danger" (click)="deleteQuiz()">Delete</button>
+        </div>
+    </div>
+</p-dialog>
+
+<p-dialog [(visible)]="displayAddCategory" [modal]="true" [breakpoints]="{ '960px': '50vw' }" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false">
+    <div>
+        <label for="categoryName" style="display: block; margin-bottom: 8px; font-weight: bold;">Category Name:</label>
+        <input type="text" class="inputCateName" [(ngModel)]="newCategoryName" />
+    </div>
+    <div>
+        <div class="addCategorybtn" >
+            <button  *ngIf="!edit" style="position: static !important" id="addCategorybtn" (click)="addCategory()">Add Category</button>
+            <button *ngIf="edit" style="position: static !important" id="addCategorybtn" (click)="updateCategoy()">Update Category</button>
+      </div>
+    </div>
+</p-dialog>
+
+<p-dialog [(visible)]="showResultApprove"  [modal]="true" [breakpoints]="{ '960px': '50vw' }"
+        [style]="{ width: '50vw' , 'max-height': '100%'}" [draggable]="false" [resizable]="false" dismissable="true" class="category-paginator">
+        <div class="table-responsive no-wrap">
+          <p-table
+            #dt1
+            [value]="listCategory"
+            dataKey="categoryId"
+            [rows]="5"
+            [showCurrentPageReport]="true"
+            [loading]="loading"
+            [paginator]="true"
+            [rowHover]="true"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [globalFilterFields]="['categoryName']"
+            >
+            <ng-template pTemplate="caption">
+                <div class="flex">
+                    <span class="p-input-icon-left ml-auto">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" (input)="dt1.filterGlobal($any($event.target).value, 'contains')" placeholder="Search keyword" />
+                    </span>
+                    <div class="addCategorybtn">
+                          <button id="addCategorybtn" (click)="addCategoryButton()">Add Category</button>
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                  <th style="min-width:15rem; padding-left: 8%;">
+                    <div class="flex align-items-center" type="text" field="questionText" >
+                        Category ID
+                    </div>
+                </th>
+                    <th style="min-width:15rem">
+                        <div class="flex align-items-center" type="text" field="questionText" >
+                            Category Name
+                        </div>
+                    </th>
+                    <th style="min-width:15rem; padding-left: 18%;">
+                        <div class="flex align-items-center th-creator" type="text" field="userId">
+                           Action
+                        </div>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-category>
+                <tr class="row-question">
+                  <td style="padding-left: 12%;">
+                    {{ category.categoryId }}
+                </td>
+                    <td style="white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    max-width: 300px;">
+                        {{ category.categoryName }}
+                    </td>
+                    <td class="colum-creator" style="padding-left: 18%;">
+                        <button class="btn btn-light btn-round me-1 mb-1 mb-md-0" (click)="editCategoryButton(category)">
+                            <fa-icon style="color: #20aee3;" [icon]="faPenToSquare"></fa-icon>
+                        </button>
+                    </td>
+
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="7">No customers found.</td>
+                </tr>
+            </ng-template>
+        </p-table>
+      </div>
+    </p-dialog>
+
+    <p-dialog  [(visible)]="showResult" [modal]="true" [breakpoints]="{ '960px': '50vw' }" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false">
+        <ng-template pTemplate="header">
+          <span class="title-note">Result</span>
+        </ng-template>
+        <div class="line-br">
+          <div class="inside-line"></div>
+        </div>
+        <!-- <div class="modal-options" *ngIf="!resultAdd">
+          <h6 style="color: #db2323;" >Add Category fail, error something.</h6>
+        </div> -->
+        <div class="modal-options" *ngIf="resultAdd">
+          <h6 style="color: #07a302;">Add Category successful.</h6>
+        </div>
+        <div class="modal-options" *ngIf="resultUpdate">
+            <h6 style="color: #07a302;">Update Category successful.</h6>
+          </div>
+      </p-dialog>
+
+

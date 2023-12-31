@@ -1,0 +1,173 @@
+<app-header></app-header>
+<div class="hero_area">
+  <section class=" slider_section position-relative">
+    <div class="side_heading" >
+      <h5>
+        Q
+        U
+        I
+        Z
+        A
+        R
+        E
+        N
+        A
+      </h5>
+    </div>
+    <div class="container-fluid">
+      <div class="body-quiz">
+        <div class="row header-title">
+
+          <div class="col-12 col-md-6">
+            <div class="detail-box" >
+              <div class="d-flex">
+                <h3 *ngIf="quizData && quizData.quizz.title">{{quizData.quizz.title}}</h3>
+                <p-skeleton *ngIf="!quizData.quizz.title" width="200px"  height="45px" styleClass="mb-2"></p-skeleton>
+
+
+                <div class="div-button" *ngIf="this.quizData.quizz.creatorId == this.user?.userId">
+                  <p-menu  appendTo="body" #menu [model]="items" [popup]="true"></p-menu>
+                  <button pTooltip="Options" (click)="menu.toggle($event)" class="btn-options"><i class="pi pi-ellipsis-h"></i></button>
+                </div>
+
+              </div>
+
+              <p *ngIf="numDoDay && numDoDay!=0" class="total-doquiz"><fa-icon [icon]="faChartLine"></fa-icon>{{numDoDay}} people studying today</p>
+              <p *ngIf="!numDoDay && numDoMonth && numDoMonth!=0" class="total-doquiz"><fa-icon [icon]="faChartLine"></fa-icon>{{numDoMonth}} people studying this month</p>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="body-detail">
+          <div class="header-detail">
+
+            <div class="row">
+
+              <div class="col-12 col-md-7">
+                <p class="describe-quiz">
+                  {{quizData.quizz.description}}
+                </p>
+                <div class="infor-creator">
+
+                  <div class="img-infor">
+                    <a><img class="created-img" *ngIf="creator && creator.images.length>2" [src]="creator.images"></a>
+                    <a><img class="created-img" *ngIf="creator && (!creator.images || creator.images.length<2)" src="assets/images/avatar/avatardefault.png"></a>
+                    <p-skeleton shape="circle" *ngIf="!creator" size="3rem" styleClass="mr-2"></p-skeleton>
+
+                  </div>
+
+                  <div class="text-infor">
+                    <span>Created by</span>
+                    <h6 *ngIf="creator && creator.fullname">{{creator.fullname}}</h6>
+                    <p-skeleton *ngIf="!creator" width="100px"  height="25px" styleClass="mb-2"></p-skeleton>
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="col-12 col-md-5">
+                <div id="carouselExampleIndicators" class="carousel slide " >
+                  <div class="img-box b-1">
+                    <img *ngIf="quizData.quizz.image && quizData.quizz.image.length>2" [src]="quizData.quizz.image" alt="image default quiz">
+                    <img *ngIf="!isLoadingQuiz && (!quizData.quizz.image || quizData.quizz.image.length<2)" src="assets/images/quizdefault.jpg" alt="image default quiz">
+                    <p-skeleton *ngIf="isLoadingQuiz" width="355px" height="200px"></p-skeleton>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+
+            <div class="btn-box">
+              <button  class="btn-1 btn-doquiz" [routerLink]="['/do-quiz',quizId]">
+                Do Quiz
+              </button>
+              <button  class="btn-2 btn-domul" (click)="createRoomDoQuiz()">
+                <fa-icon [icon]="faUserGroup"></fa-icon>
+                Do with Friends (VIP)
+              </button>
+            </div>
+            <p class="mess-error" *ngIf="messError">{{messError}}</p>
+          </div>
+
+
+          <div class="container-item">
+            <div class="title-item">
+              <h6>Question in this quiz ({{quizData.questions.length}})</h6>
+            </div>
+
+            <div class="list-item">
+
+              <div class="item" *ngFor="let question of quizData.questions">
+                <div class="row">
+
+                  <div class="col-12 col-md-5 text-question">
+                    <pre class="custom-pre">{{question.questionText}}</pre>
+                  </div>
+
+                  <div class="col-12 col-md-7 options-question">
+                    <div class="div-options">
+
+                      <ng-container *ngFor="let option of question.optionsSRC002; let last = last">
+                        <div class="option-row">
+                          <p>{{ option }}</p>
+                        </div>
+
+                        <div class="line-hr" *ngIf="!last">
+                          <hr>
+                        </div>
+
+                      </ng-container>
+
+
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+      </div>
+    </div>
+  </section>
+  <!-- end slider section -->
+</div>
+
+<app-footer></app-footer>
+<p-dialog id="viewport" [(visible)]="showUpgrade" [modal]="true"  [draggable]="false" [resizable]="false">
+  <app-payment></app-payment>
+</p-dialog>
+
+<p-dialog  [(visible)]="modalRemove" [closable]="false" [modal]="true" [breakpoints]="{ '960px': '55vw' }" [style]="{ width: '25vw' }" [draggable]="false" [resizable]="false">
+  <div class="image-error">
+    <img src="assets/images/delete-img.png " alt="img-error">
+  </div>
+  <div class="modal-options">
+    <h6 >Are you sure want remove this quiz?</h6>
+  </div>
+  <div class="div-notebtn">
+    <button class="custom-btn btn-11" (click)="removeQuiz()">Remove<div class="dot"></div></button>
+    <button class="custom-btn btn-Cancel" (click)="modalRemove=false" >Cancel<div class="dot"></div></button>
+  </div>
+</p-dialog>
+
+
+<p-dialog  [(visible)]="notPermission" [closable]="false" [modal]="true" [breakpoints]="{ '960px': '55vw' }" [style]="{ width: '25vw' }" [draggable]="false" [resizable]="false">
+  <div class="image-error">
+    <img src="assets/images/error-dialog.png " alt="img-error">
+  </div>
+  <div class="modal-options">
+    <h6 >You dont have permission join this quiz, creator not your friend.</h6>
+  </div>
+  <div class="div-notebtn">
+    <button class="custom-btn btn-11" (click)="goBack()">Back<div class="dot"></div></button>
+  </div>
+</p-dialog>

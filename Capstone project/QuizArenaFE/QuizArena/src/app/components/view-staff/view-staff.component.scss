@@ -1,0 +1,404 @@
+.container {
+    margin: 0;
+    padding-right: 15px;
+    padding-left: 15px;
+    width: 95%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.banner-staff img{
+  object-fit: cover;
+  width: 100%;
+  height: 520px;
+}
+
+.banner-staff{
+  position: relative;
+}
+
+.left-content h5{
+  color: #20aee3;
+  border-bottom: 2px solid #20aee3;
+  font-size: 30px;
+  font-weight: bold;
+}
+.left-content p{
+  color: #20aee3;
+
+}
+
+.right-header h5{
+  font-size: 30px;
+  font-weight: 600;
+  color: #3babdc;
+  text-align: center;
+  border-bottom: 1px solid #3babdc;
+}
+
+.left-content{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.left-content button{
+  background-color: #20aee3;
+  border: 4px solid #2b9bc5;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+::ng-deep .p-menu-list{
+  padding-left: 0;
+}
+
+.left-content button:hover{
+  background-color: #078bbb;
+}
+
+.body-create{
+  min-height: 550px;
+}
+
+.img-right img{
+  width: 360px;
+}
+
+.img-right{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.grid-quiz{
+  padding: 30px 0 0 68px;
+}
+
+.item-grid{
+  position: relative;
+  display: inline-block;
+  width: 23%;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.img-grid{
+  height: 300px;
+  position: relative;
+}
+
+.img-grid img{
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.right-content{
+  margin-top: 30px;
+}
+
+.banner-staff h4{
+  position: absolute;
+  top: 20%;
+  left: 30%;
+  font-size: 65px;
+  font-weight: bold;
+  color: #fff;
+  border-bottom: 2px solid #fff;
+}
+
+.section-padding{
+    padding-top: 75px;
+}
+
+.slideshow {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+    height: 600px;
+}
+
+.slideshow img {
+    width: 100%;
+    height: 480px;;
+    object-fit: cover;
+  }
+
+.prev-btn{
+    position: absolute;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url(/assets/images/prev-btn.png);
+    width: 60px;
+    height: 60px;
+    top: 200px;
+    left: 0px;
+    cursor: pointer;
+  }
+
+.next-btn{
+    position: absolute;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url(/assets/images/next-btn.png);
+    width: 60px;
+    height: 60px;
+    top: 200px;
+    right: 0;
+    cursor: pointer;
+  }
+  .main-banner {
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+  }
+
+  .filter-buttons {
+    display: flex;
+    gap: 3%;
+    justify-content: center;  /* Căn giữa theo chiều ngang */
+    margin-top: 20px;  /* Thêm margin nếu cần */
+  }
+
+  .filter-buttons button {
+    padding: 10px 20px;
+    border: 4px solid #657dd8;
+    border-radius: 5px;
+    background-color: #f0f0f000;
+    cursor: pointer;
+    font-weight: 600;
+  }
+
+  .filter-buttons button.active {
+    background-color: #20afe38c;
+    color: #fff;
+    /* Các thiết lập CSS khác cho trạng thái active nếu cần */
+  }
+
+  .col-md-3 {
+    position: relative;
+    overflow: hidden;
+}
+
+.col-md-3 img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.col-md-3:hover img {
+    transform: scale(1.1);
+}
+
+.item-grid .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgb(83 178 178 / 50%);
+    color: white; /* Màu chữ trong overlay */
+    font-weight: bold;
+    font-size: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.item-grid:hover .overlay {
+    opacity: 1;
+}
+
+.item-grid .overlay span {
+    margin-top: 10px;
+}
+
+.color {
+    background-color: #4b63c49d !important;
+    color: #fffdfd;
+}
+
+
+//=================slide quiz==================
+
+
+.our-portfolio {
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 200px;
+}
+
+.our-portfolio:before {
+  content: '';
+  background-image: url(/assets/images/portfolio-right-dec.jpg);
+  background-repeat: no-repeat;
+  position: absolute;
+  right: 0;
+  top: 0px;
+  width: 414px;
+  height: 861px;
+  z-index: -1;
+}
+
+.our-portfolio:after {
+  content: '';
+  background-image: url(/assets/images/portfolio-left-dec.jpg);
+  background-repeat: no-repeat;
+  position: absolute;
+  left: 0;
+  top: 0px;
+  width: 677px;
+  height: 759px;
+  z-index: -1;
+}
+
+.our-portfolio .section-heading {
+  margin-bottom: 60px;
+  margin-left: 50px;
+}
+
+.our-portfolio .section-heading h4{
+  margin-bottom: 60px;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 1.7rem;
+  color: #4da6e7;
+}
+
+.our-portfolio .container-fluid {
+  padding-right: 15px;
+  padding-left: 15px;
+  position: relative;
+  z-index: 2;
+}
+
+.our-portfolio .item {
+  position: relative;
+  z-index: 222;
+}
+
+.custom-slide{
+  padding: 20px;
+}
+
+.portfolio-item {
+  border-radius: 25px;
+  box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
+  margin: 15px;
+}
+
+.portfolio-item .thumb {
+  position: relative;
+  border-radius: 50px;
+  height: 250px;
+}
+
+.portfolio-item:hover .down-content h4,
+.portfolio-item:hover .down-content span {
+  color: #4da6e7;
+}
+
+.portfolio-item .thumb img {
+  border-top-right-radius: 23px;
+  border-top-left-radius: 23px;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.portfolio-item .down-content {
+  background-color: #fff;
+  text-align: center;
+  padding: 18px 0px;
+  border-bottom-right-radius: 23px;
+  border-bottom-left-radius: 23px;
+}
+
+.portfolio-item .down-content h4 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #2a2a2a;
+  margin-bottom: 8px;
+  transition: all .3s;
+  padding:0 10px ;
+  max-height: 1.2em; /* Chiều cao tối đa tương đương khoảng 2 dòng văn bản */
+  overflow: hidden;
+  text-overflow: ellipsis; /* Hiển thị dấu ba chấm cho nội dung ẩn */
+  white-space: nowrap; /* Ngăn nội dung xuống dòng */
+  display: block;
+}
+
+.portfolio-item .down-content span {
+  font-size: 15px;
+  display: block;
+  color: #afafaf;
+  transition: all .3s;
+  padding:0 10px ;
+  max-height: 1.2em; /* Chiều cao tối đa tương đương khoảng 2 dòng văn bản */
+  overflow: hidden;
+  text-overflow: ellipsis; /* Hiển thị dấu ba chấm cho nội dung ẩn */
+  white-space: nowrap; /* Ngăn nội dung xuống dòng */
+}
+
+.our-portfolio .owl-nav {
+  display: inline-block!important;
+  position: absolute;
+  top: -125px;
+  right: 15%;
+  max-width: 1320px;
+}
+
+.our-portfolio .owl-nav .owl-next {
+  margin-left: 10px;
+}
+
+.our-portfolio .owl-nav span {
+  width: 46px;
+  height: 46px;
+  display: inline-block;
+  text-align: center;
+  line-height: 46px;
+  font-size: 30px;
+  background-color: #eee;
+  border-radius: 50%;
+  color: #fff;
+  transition: all 0.5s;
+}
+
+.our-portfolio .owl-nav span:hover {
+  color: #fff;
+  background-color: #4da6e7;
+}
+.table-responsive {
+  max-height: 850px; /* Adjust the height based on your needs */
+  overflow-x: initial;
+}
+
+.row-question td{
+  font-size: 15px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 550px;
+  line-height: 1.2;
+}
+
+.row-question .colum-creator{
+  text-align: center;
+}
+
+.th-creator{
+  text-align: center;
+}

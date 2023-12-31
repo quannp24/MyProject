@@ -1,0 +1,259 @@
+<app-header></app-header>
+<section class="backgound-style">
+  <div class="container py-5">
+    <div class="row">
+      <div class="col">
+        <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+          <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a [routerLink]="['/home']">Home</a></li>
+            <!-- <li class="breadcrumb-item"><a href="#">User</a></li> -->
+            <li class="breadcrumb-item active" aria-current="page">User Profile</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+
+    <div class="row" style="padding: 0 20%;">
+      <div class="col-lg-4 mb-4">
+        <div class="card mb-4" style="height: 100%;">
+          <div class="card-body text-center">
+
+            <div class="avatar avatar-large">
+              <div class="body-avatar" [ngClass]="{ 'gold': friend && friend.exp >= 10000 }">
+
+                <img *ngIf="friend && friend.images" src="{{friend.images}}" alt="avatar" class="avatar-image">
+                <img *ngIf="friend && !friend.images" src="assets/images/avatar/avatardefault.png" alt="avatar"
+                  class="avatar-image">
+
+                <img *ngIf="friend && friend.exp >= 0 && friend.exp < 1000" src="assets/images/frameBzone.png"
+                  alt="Moldura" class="avatar-frame anim-spin">
+                <img *ngIf="friend && friend.exp >= 1000 && friend.exp < 10000" src="assets/images/frameSilver.png"
+                  alt="Moldura" class="avatar-frame anim-spin">
+                <img *ngIf="friend && friend.exp >= 10000" src="assets/images/frameGold.png" alt="Moldura"
+                  class="avatar-frame frame-gold anim-spin">
+              </div>
+            </div>
+
+            <h5 *ngIf="friend" class="my-3">{{friend.fullname}}</h5>
+            <!-- <p class="text-muted mb-4">Bay Area, San Francisco, CA</p> -->
+            <div class="d-flex justify-content-center mb-2 div-btn-friend">
+              <button type="button" (click)="handleFriendAction()" class="btn"
+                [ngClass]="{ 'btn-primary btn-sm': friendAction === 0 || friendAction === 1, 'btn-success btn-sm': friendAction === 3, 'btn-danger btn-sm': friendAction === 2}">
+                <!-- <i *ngIf="friendAction === 2" class="fas fa-times"></i> -->
+                <!-- Thêm biểu tượng "X" -->
+                {{ friendAction === 0 ? 'Add friend' :
+                friendAction === 3 ? 'Accept' :
+                friendAction === 2 ? 'Cancel request' :
+                friendAction === 1 ? 'Friend' :
+                ''}}
+              </button>
+              <button *ngIf="friendAction === 3" type="button" (click)="DeleteRequestAction()" class="btn btn-danger btn-sm"
+                > Delete Request
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8 mb-4">
+        <div class="card mb-4" style="padding: 6% 3%; height: 100%;">
+          <h3 class="right-section-header">
+            PROFILE INFORMATION
+          </h3>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Full Name</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0" *ngIf="friend">
+                  <span>{{ friend.fullname }}</span>
+                </p>
+              </div>
+
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Email</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0" *ngIf="friend">
+                  <span>{{ friend.email }}</span>
+                </p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Description</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0" *ngIf="friend">
+                  <span>{{friend.description}}</span>
+                </p>
+              </div>
+            </div>
+            <hr>
+          </div>
+        </div>
+      </div>
+      <div class="row" >
+        <div class="col-md-6" >
+          <div class="card mb-4 mb-md-0" style="height: 100%;">
+            <div class="card-body customer">
+              <h6 class="mb-4">Level</h6>
+
+              <div class="div-center">
+                <div class="div-level">
+                  <div class="img-exp">
+                    <img *ngIf="friend  && friend.exp >= 0 && friend.exp < 1000" src="assets/images/bzoneIcon.png"
+                      style="width: 100px;" alt="logo">
+                    <img *ngIf="friend  && friend.exp >= 1000 && friend.exp < 10000" src="assets/images/silverIcon.png"
+                      style="width: 150px;" alt="logo">
+                    <img *ngIf="friend  && friend.exp >= 10000 " src="assets/images/goldIcon.png" style="width: 160px;"
+                      alt="logo">
+
+                  </div>
+
+                  <div class="progress orange">
+                    <div class="progress-bar" [style.width.%]="rankingPercent"
+                      style=" background:#fe3b3b;overflow: visible;">
+                      <div *ngIf="friend" class="progress-value">{{friend.exp}}</div>
+                      <div *ngIf="friend && friend.exp >= 10000 " class="progress-value">Max</div>
+                    </div>
+                  </div>
+                  <div class="d-flex text-level">
+                    <div class="left" *ngIf="friend && friend.exp >= 0 && friend.exp < 1000">
+                      <p  >Bronze </p>
+                    </div>
+                    <div class="right" *ngIf="friend && friend.exp >= 0 && friend.exp < 1000" >
+                      <p  >Silver</p>
+                    </div>
+                    <div class="left" *ngIf="friend && friend.exp >= 1000 && friend.exp < 10000">
+                      <p class="" >Silver</p>
+                    </div>
+                    <div class="right" *ngIf="friend && friend.exp >= 1000 && friend.exp < 10000" >
+                      <p  >Gold</p>
+                    </div>
+                    <div class="left" *ngIf="friend && friend.exp >= 10000">
+                      <p>Gold</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card mb-4 mb-md-0" style="height: 100%;">
+
+            <div class="card-body customer" >
+              <h6 class="mb-4">Achievement last session</h6>
+
+              <div class="img-rank" [ngClass]="{'border-img':!isloading && achievements.image && achievements.image.length>2}">
+                <img class="banner-chall" *ngIf="!isloading && (achievements.topUser && achievements.score) && achievements.image && achievements.image.length>2" [src]="achievements.image" alt="logo">
+                <img class="banner-chall" *ngIf="!isloading && (achievements.topUser && achievements.score) && (!achievements.image || achievements.image.length<2)" src="assets/images/examdefault.png" alt="logo">
+                <img *ngIf="!isloading && (!achievements.topUser && !achievements.score)" style="width: 120px;" src="assets/images/rankicon.png" alt="logo">
+                <p-skeleton *ngIf="isloading" width="220px"  height="150px" styleClass="mb-2"></p-skeleton>
+
+              </div>
+
+              <div class="text-achie">
+
+                <div class="text-center" *ngIf="!achievements.topUser">
+                  <p>Join challenge and get some achievement.</p>
+                </div>
+
+                <div class="text-center" *ngIf="!isloading && achievements.examName">
+                  <p>{{achievements.examName}}</p>
+                </div>
+                <div class="infor-achie" *ngIf="!isloading && achievements.topUser && achievements.score">
+                  <div class="tag-achie">
+                    <span>Top {{achievements.topUser}}</span>
+                  </div>
+                  <div class="tag-achie">
+                    <span>{{achievements.score}} Score</span>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+
+
+          </div>
+        </div>
+      </div>
+
+
+        <div class="container-library" *ngIf="friendAction === 1">
+          <div class="div-body">
+            <div class="header-container row">
+              <div class="col-12 col-md-6">
+                <h4>Library</h4>
+              </div>
+              <div class="right-content col-12 col-md-6">
+                <span class="p-input-icon-left ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt1.filterGlobal($any($event.target).value, 'contains')" placeholder="Search title quiz" />
+                </span>
+              </div>
+            </div>
+
+            <div class="content-body">
+              <p-table [value]="groupDataByMonth(quizlist)"
+              #dt1
+              [loading]="loading"
+              [globalFilterFields]="['title']"
+              rowGroupMode="subheader" groupRowsBy="monthYear">
+
+                <ng-template pTemplate="groupheader" let-rowData>
+                  <tr pRowGroupHeader>
+                      <td >
+                        <div class="title-rowgroup">
+                          <h4>{{rowData.monthYear}}</h4>
+                          <div class="div-br">
+                            <hr>
+                          </div>
+                        </div>
+                      </td>
+                  </tr>
+                </ng-template>
+
+                <ng-template pTemplate="body" let-rowData>
+                  <tr>
+                    <td class="row-item">
+                      <div class="content-item" [routerLink]="['/quiz-private-detail',rowData.quizId]">
+                        <div>
+                          <span>{{rowData.numberQues}} Question</span>
+                        </div>
+                        <div>
+                          <h6 field="title">{{rowData.title}}</h6>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </ng-template>
+
+                <ng-template pTemplate="emptymessage">
+                  <tr>
+                      <td style="text-align: center;font-size: 20px;" colspan="7">No quiz found.</td>
+                  </tr>
+              </ng-template>
+
+              </p-table>
+
+
+            </div>
+
+          </div>
+        </div>
+
+
+    </div>
+  </div>
+</section>
+

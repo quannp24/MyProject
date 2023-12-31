@@ -1,0 +1,156 @@
+<app-header-do-quiz [quizData]="quiz" (showOptionsEvent)="openOptionsDialog()" ></app-header-do-quiz>
+<div class="container" [@fadeOutIn] [@fadeIn] *ngIf="!finishQuiz">
+  <div class="row body-quiz">
+       <div class="col-md-9 content-quiz">
+          <div class="card card-quiz" >
+              <div class="card-body" *ngIf="question" (window:keydown)="handleKeyPress($event)">
+                <div class="title-text-quiz">
+                  <h5 >Question</h5>
+                  <div *ngIf="isReceivedExp" class="div-textExp">
+                    <h6 class="exp-text" *ngIf="question[currentQuestion].difficultyLevel == 1">+2 Exp</h6>
+                    <h6 class="exp-text" *ngIf="question[currentQuestion].difficultyLevel == 2">+4 Exp</h6>
+                    <h6 class="exp-text" *ngIf="question[currentQuestion].difficultyLevel == 3">+6 Exp</h6>
+                  </div>
+                </div>
+                  <pre class="custom-pre" >{{question[currentQuestion].questionText}}</pre>
+                  <div class="mess-text">
+                    <span class="correct" *ngIf="correctAnswer == 1">Correct answer! You are fantastic</span>
+                    <span class="incorrect" *ngIf="correctAnswer == 0">It's not right, please try!</span>
+                  </div>
+                  <div class="options-answer">
+
+                    <ng-container *ngFor="let option of question[currentQuestion].optionsSRC002; let i = index">
+                      <ng-container *ngIf="i % 2 === 0">
+                        <div class="row row-answer">
+                          <div class="col-12 col-md-6">
+                            <button  (click)="checkAnswer(i+1)" [disabled]="correctAnswer !=2" class="quizlet-button" #quizletButton [ngClass]="{'correct': (correctAnswer == 1 && i + 1 == question[currentQuestion].correctAnswer) || (correctAnswer == 0 && i + 1 == question[currentQuestion].correctAnswer), 'incorrect': correctAnswer==0 && i + 1 == selectedOption, 'hidden':correctAnswer==0 && i + 1 != question[currentQuestion].correctAnswer && i+1 != selectedOption}">
+                              <span class="quizlet-content">
+                                <span class="quizlet-number">{{i + 1}}</span>
+                                <div class="quizlet-text">{{option}}</div>
+                              </span>
+                            </button>
+                          </div>
+                          <div class="col-12 col-md-6" *ngIf="question[currentQuestion]!.optionsSRC002![i + 1]">
+                            <button (click)="checkAnswer(i+2)" [disabled]="correctAnswer !=2" class="quizlet-button" #quizletButton [ngClass]="{'correct': (correctAnswer == 1 && i + 2 == question[currentQuestion].correctAnswer) || (correctAnswer == 0 && i + 2 == question[currentQuestion].correctAnswer), 'incorrect': correctAnswer==0 && i + 2 == selectedOption, 'hidden':correctAnswer==0 && i + 2 != question[currentQuestion].correctAnswer && i+2 != selectedOption}">
+                              <span class="quizlet-content">
+                                <span class="quizlet-number">{{i + 2}}</span>
+                                <div class="quizlet-text">{{question[currentQuestion]!.optionsSRC002![i + 1]}}</div>
+                              </span>
+                            </button>
+                          </div>
+                        </div>
+                      </ng-container>
+                    </ng-container>
+                </div>
+              </div>
+          </div>
+        </div>
+  </div>
+</div>
+
+
+
+<div class="container finish-quiz" [@fadeIn] style="background-color: #fff;" *ngIf="finishQuiz">
+  <div class="row body-finish">
+    <div class="col-md-7 content-finish-left">
+      <div class="img-right">
+        <img src="assets/images/phaohoa.gif">
+      </div>
+      <div class="text-complete">
+        <h2>You have completed the quiz, great job!</h2>
+        <p *ngIf="isReceivedExp">With <span>{{question?.length}}</span> questions you received <span>{{totalExp}} exp</span>.</p>
+        <p *ngIf="user && user.role==5">You are a VIP so you get double exp, total exp received is <span>{{totalExp*2}} exp</span>.</p>
+        <p *ngIf="!isReceivedExp">Please do it again to confirm your knowledge.</p>
+        <div class="btn-finish row">
+          <div class="col-6 col-md-12 div-again">
+            <button class="btn-again" (click)="doAgain()">Do Again</button>
+          </div>
+          <div class="col-6 col-md-12 div-detail">
+            <button class="btn-detail" (click)="redirectBack()">Back Detail</button>
+          </div>
+        </div>
+        <img src="assets/images/phaohoa2.gif">
+      </div>
+    </div>
+    <div class="col-md-4 content-finish-right">
+      <img src="assets/images/tryhard.png">
+    </div>
+  </div>
+</div>
+
+
+
+<div id="myModal" [@fadeOutIn] [@fadeIn] class="modal" *ngIf="numberCorrect === 4">
+  <div class="modal-content">
+      <img src="assets/images/sticker-duck/duck-oai.gif">
+      <div class="text-random">
+        <h2 >Wow! You are so smart.</h2>
+        <p class="m-0">Press any button to continue!</p>
+      </div>
+  </div>
+</div>
+<div class="footer ">
+  <div *ngIf="!finishQuiz" class="row content-footer">
+    <div class="col-3 footer-left">
+      <fa-icon [icon]="faHashtag" class="icon-index"></fa-icon>
+      <h6>Question {{currentQuestion+1}} in {{question?.length}}</h6>
+    </div>
+    <div *ngIf="isReceivedExp && totalExp!=0" class="col-4 footer-right">
+      <span>+{{totalExp}} Exp</span>
+      <p class="update-exp" *ngIf="expUpdate!=0">+{{expUpdate}} Exp</p>
+    </div>
+  </div>
+</div>
+
+
+<p-dialog  [(visible)]="showOptions" [modal]="true" [breakpoints]="{ '960px': '75vw' }" [style]="{ width: '40vw' }" [draggable]="false" [resizable]="false">
+  <ng-template pTemplate="header">
+    <span class="title-options">Options</span>
+  </ng-template>
+  <div class="line-br">
+    <div class="inside-line"></div>
+  </div>
+  <div class="row modal-options">
+    <div class="fun-random row">
+      <h6 class="col-6">Random question</h6>
+      <div class="col-6 switch-random">
+        <p-inputSwitch [(ngModel)]="isRandom" [disabled]="isRandom" (onChange)="randomQuestion()"></p-inputSwitch>
+    </div>
+    </div>
+  </div>
+  <div class="line-br">
+    <div class="inside-line" ></div>
+  </div>
+  <div class="row modal-options">
+    <div class="fun-reset">
+      <h6 (click)="showNoteModal()">Reset Quiz</h6>
+    </div>
+  </div>
+</p-dialog>
+
+<p-dialog  [(visible)]="showNote" [modal]="true" [breakpoints]="{ '960px': '75vw' }" [style]="{ width: '40vw' }" [draggable]="false" [resizable]="false">
+  <ng-template pTemplate="header">
+    <span class="title-note">Note</span>
+  </ng-template>
+  <div class="line-br">
+    <div class="inside-line"></div>
+  </div>
+  <div class="modal-options">
+    <h6 style="color: #db2323;">Resetting will cause you to lose your current experience, are you sure you want to reset?</h6>
+  </div>
+  <div class="div-notebtn">
+    <button class="btn-surenote" (click)="resetQuiz()">Reset Now</button>
+  </div>
+</p-dialog>
+
+<p-dialog  [(visible)]="notPermission" [closable]="false" [modal]="true" [breakpoints]="{ '960px': '55vw' }" [style]="{ width: '25vw' }" [draggable]="false" [resizable]="false">
+  <div class="image-error">
+    <img src="assets/images/error-dialog.png " alt="img-error">
+  </div>
+  <div class="modal-options2">
+    <h6 >You dont have permission join this quiz, creator not your friend.</h6>
+  </div>
+  <div class="div-notebtn2">
+    <button class="custom-btn btn-11" (click)="goBack()">Back<div class="dot"></div></button>
+  </div>
+</p-dialog>

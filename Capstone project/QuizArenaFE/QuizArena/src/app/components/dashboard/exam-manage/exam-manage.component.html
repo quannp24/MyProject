@@ -1,0 +1,179 @@
+<div class="fix-header fix-sidebar card-no-border">
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    <div class="preloader" *ngIf="isLoading">
+        <div class="loader">
+            <div class="loader__figure"></div>
+            <p class="loader__label">Quiz Arena</p>
+        </div>
+    </div>
+    <div id="main-wrapper">
+        <header class="topbar">
+            <nav class="navbar top-navbar navbar-expand-md navbar-light">
+                <div class="navbar-header">
+                    <a class="navbar-brand" [routerLink]="['/home']">
+                        <b>
+                            <img src="/assets/images/logo_web.png" alt="homepage" class="dark-logo" />
+
+                        </b>
+                    </a>
+                </div>
+            </nav>
+        </header>
+        <app-left-sidebar></app-left-sidebar>
+        <div class="page-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <!-- Column -->
+                    <div class="col-lg-12 d-flex align-items-stretch">
+                        <div class="card w-100">
+                            <div class="card-body">
+
+                                <div class="header-table">
+                                  <div class="header-title">
+                                      <h5 class="card-title"  style="font-weight: 600;
+                                      font-size: 20px;">LIST CHALLENGE</h5>
+                                      <div class="btn-challenge">
+                                        <button class="create-exam-button" [routerLink]="['/create-challenge']">Create Challenge</button>
+                                      </div>
+                                  </div>
+                                </div>
+                                <div class="table-responsive mt-3 no-wrap">
+                                    <p-table #dt1 [value]="listExam" dataKey="historyId" [rows]="9"
+                                        [showCurrentPageReport]="true" [loading]="loading" [paginator]="true"
+                                        [rowHover]="true" 
+                                        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                                        [globalFilterFields]="['examName']" class="challenge-paginator">
+                                        <ng-template pTemplate="caption">
+                                            <div class="flex">
+                                                <span class="p-input-icon-left ml-auto">
+                                                    <i class="pi pi-search"></i>
+                                                    <input  style="width: 200px; height: 40px; " pInputText type="text"
+                                                        (input)="dt1.filterGlobal($any($event.target).value, 'contains')"
+                                                        placeholder="Search keyword" />
+                                                </span>
+                                            </div>
+                                        </ng-template>
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                <th style="padding-left: 5%; min-width:15rem">
+                                                    <div class="flex align-items-center" type="text"
+                                                        field="questionText">
+                                                        Challenge Name
+                                                    </div>
+                                                </th>
+                                                <th>
+                                                    <div class="flex align-items-center" type="text"
+                                                        field="questionText">
+                                                        Type Name
+                                                    </div>
+                                                </th>
+                                                <th >
+                                                    <div class="flex align-items-center th-creator" type="text">
+                                                        Start
+                                                    </div>
+                                                </th>
+                                                <th >
+                                                    <div class="flex align-items-center" type="text"
+                                                        field="questionText">
+                                                        Status
+                                                    </div>
+                                                </th>
+                                                <th style="padding-left: 6%;">
+                                                    <div class="flex align-items-center" type="text"
+                                                        field="questionText">
+                                                        Action
+                                                    </div>
+                                                </th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-item>
+                                            <tr class="row-question">
+                                                <td style="white-space: nowrap;
+                                                overflow: hidden;
+                                                text-overflow: ellipsis;
+                                                max-width: 550px;">
+                                                    {{ item.examName }}
+                                                </td>
+                                                <td >
+                                                    {{item.examType==1?'Main':'Event'}}
+                                                </td>
+                                                <td>
+                                                    {{item.date | date: 'dd/MM/YYYY HH:mm'}}
+                                                </td>
+                                                <td >
+                                                    <div class="tag-active" *ngIf="item.status === 1">Active</div>
+                                                    <div class="tag-active" *ngIf="item.status === 2">Lobby</div>
+                                                    <div class="tag-active" *ngIf="item.status === 4">In progress</div>
+                                                    <div class="tag-done" *ngIf="item.status === 5">Done</div>
+                                                    <div class="tag-unactive" *ngIf="item.status === 0">Unactive</div>
+                                                </td>
+                                                <td style="padding-left: 4%;">
+
+                                                    <a *ngIf="item.status === 0"
+                                                        class="btn btn-light btn-round me-1 mb-1 mb-md-0"
+                                                        [routerLink]="['/edit-challenge',item.examId]">
+                                                        <fa-icon style="color: #20aee3;"
+                                                            [icon]="faPenToSquare"></fa-icon>
+                                                    </a>
+                                                    <a *ngIf="item.status === 1"
+                                                        class="btn btn-light btn-round me-1 mb-1 mb-md-0"
+                                                        [routerLink]="['/edit-challenge', item.examId]"
+                                                        [style.pointer-events]="isDisabled ? 'none' : 'auto'">
+                                                        <fa-icon style="color: #b6b9bb;"
+                                                            [icon]="faPenToSquare"></fa-icon>
+                                                    </a>
+
+                                                    <button style="color: #20aee3;" *ngIf="item.status === 0"
+                                                        class="btn btn-light btn-round me-1 mb-1 mb-md-0"
+                                                        (click)="changeQuizStatus(item.examId, item.status)">
+                                                        <fa-icon [icon]="faEye"></fa-icon>
+                                                    </button>
+                                                    <button style="color: #20aee3;" *ngIf="item.status === 1"
+                                                        class="btn btn-light btn-round me-1 mb-1 mb-md-0"
+                                                        (click)="changeQuizStatus(item.examId, item.status)">
+                                                        <fa-icon [icon]="faEyeSlash"></fa-icon>
+                                                    </button>
+
+                                                    <button *ngIf="item.status === 1" [disabled]="true"
+                                                        style="color: #b6b9bb;"
+                                                        class="btn btn-light btn-round me-1 mb-1 mb-md-0">
+                                                        <fa-icon [icon]="faTrashAlt"></fa-icon>
+                                                    </button>
+                                                    <button *ngIf="item.status === 0" style="color: #20aee3;"
+                                                        class="btn btn-light btn-round me-1 mb-1 mb-md-0"
+                                                        (click)="showDeleteConfirmation(item)">
+                                                        <fa-icon [icon]="faTrashAlt"></fa-icon>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="emptymessage">
+                                            <tr>
+                                                <td colspan="7">No challenge found.</td>
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<p-dialog [(visible)]="displayDialog" [closable]="false" [modal]="true" [breakpoints]="{ '960px': '50vw' }"
+    [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false">
+    <div class="confirmation-dialog-content">
+        <div class="confirmation-message">
+            <span>Are you sure you want to delete this item?</span>
+        </div>
+        <div class="confirmation-actions">
+            <button class="btn btn-secondary" style="color: rgb(255, 255, 255);background-color:#67757c"
+                (click)="displayDialog = false">Cancel</button>
+            <button class="btn btn-danger" (click)="deleteExam()">Delete</button>
+        </div>
+    </div>
+</p-dialog>

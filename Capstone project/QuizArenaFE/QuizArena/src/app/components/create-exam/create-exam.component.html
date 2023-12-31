@@ -1,0 +1,243 @@
+<div class="fix-header fix-sidebar card-no-border">
+  <!-- ============================================================== -->
+  <!-- Preloader - style you can find in spinners.css -->
+  <!-- ============================================================== -->
+  <div class="preloader" *ngIf="isLoading">
+      <div class="loader">
+          <div class="loader__figure"></div>
+          <p class="loader__label">Quiz Arena</p>
+      </div>
+  </div>
+  <div id="main-wrapper">
+      <header class="topbar">
+          <nav class="navbar top-navbar navbar-expand-md navbar-light">
+              <div class="navbar-header">
+                  <a class="navbar-brand" [routerLink]="['/home']">
+                      <b>
+                          <img src="/assets/images/logo_web.png" alt="homepage" class="dark-logo" />
+
+                      </b>
+
+                  </a>
+              </div>
+              <div class="navbar-collapse">
+                  <ul class="navbar-nav me-auto">
+                      <li class="nav-item"> <a class="nav-link nav-toggler hidden-md-up waves-effect waves-dark"
+                              href="javascript:void(0)"><i class="fa fa-bars"></i></a> </li>
+                      <li class="nav-item hidden-xs-down search-box"> <a
+                              class="nav-link hidden-sm-down waves-effect waves-dark" href="javascript:void(0)"><i
+                                  class="fa fa-search"></i></a>
+                          <form class="app-search">
+                              <input type="text" class="form-control" placeholder="Search & enter"> <a
+                                  class="srh-btn"><i class="fa fa-times"></i></a>
+                          </form>
+                      </li>
+                  </ul>
+              </div>
+          </nav>
+      </header>
+      <app-left-sidebar></app-left-sidebar>
+      <div class="page-wrapper">
+        <div class="container-fluid">
+            <div class="row page-titles">
+              <div class="col-md-5 align-self-center">
+                <h3 class="text-themecolor">Dashboard</h3>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a [routerLink]="['/challenge-manage']">Challenge Manage</a></li>
+                    <li class="breadcrumb-item active">Create Challenge</li>
+                </ol>
+              </div>
+            </div>
+
+            <div class="body-create">
+              <div class="CreateSetPage">
+                  <div class="c1dg9ds9">
+                      <div class="c1xpced">
+                          <div class="c5ozvp9">
+                              <div class="UIContainer">
+                                  <div class="cqy7lq4">
+                                      <div class="row">
+                                          <div class="col-6">
+                                              <div class="c11u1mbs">
+                                                  <div class="title-create">
+                                                      <span>CREATE CHALLENGE</span>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="col-6 text-right">
+                                              <div class="c1lzqd91">
+                                                  <button type="button" aria-label="Tạo"
+                                                      class="AssemblyButtonBase AssemblyPrimaryButton--default AssemblyButtonBase--medium AssemblyButtonBase--padding"
+                                                      (click)="addExam()">
+                                                      <span>Create</span>
+                                                  </button>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+
+                      <div class="UIContainer">
+                          <div class="c6vigde row">
+                              <div class="col-12 col-md-6">
+                                  <div id="image-container" (click)="openFileInput()">
+                                      <div id="image-slot" #imageSlot>
+                                          Image
+                                          <input type="file" id="image-upload" multiple #fileInput style="display: none;"
+                                              (change)="handleFileInput($event)">
+                                      </div>
+                                  </div>
+                              </div>
+
+                              <!-- Tiêu d? -->
+                              <div class="col-12 col-md-6">
+                                  <div class="c3go502 c13fxvv8">
+                                      <div class="SpecialCharacterTextarea">
+                                          <label class="UITextarea">
+                                              <div class="UITextarea-content">
+                                                  <div
+                                                      class="AutoExpandTextarea UITextarea-textarea UITextarea-autoExpandTextarea">
+                                                      <div class="AutoExpandTextarea-sizer"></div>
+                                                      <div class="AutoExpandTextarea-wrapper">
+                                                          <textarea [(ngModel)]="name" aria-label="title" maxlength="255"
+                                                              placeholder="Enter a challenge name"
+                                                              tabindex="5" variant="default"
+                                                              class="AutoExpandTextarea-textarea"></textarea>
+                                                      </div>
+                                                  </div>
+                                                  <span class="UITextarea-border"
+                                                      [ngStyle]="{'background-color': messQuiz.title?'red':'#07bfff','height': messQuiz.title?'2px':'1px'}"></span>
+                                              </div>
+                                              <span class="UITextarea-label"><span>Challenge name</span></span>
+                                          </label>
+                                          <div class="hideBelow--s"></div>
+                                      </div>
+                                  </div>
+
+                                  <!-- Mô tả -->
+                                  <div class="c3go502 cturxaw">
+                                      <div class="SpecialCharacterTextarea">
+                                          <label class="UITextarea">
+                                              <div class="UITextarea-content">
+                                                  <div
+                                                      class="AutoExpandTextarea UITextarea-textarea UITextarea-autoExpandTextarea">
+                                                      <div class="AutoExpandTextarea-sizer"></div>
+                                                      <div class="AutoExpandTextarea-wrapper">
+                                                          <textarea [(ngModel)]="description" aria-label="description"
+                                                              placeholder="Enter a description..." tabindex="6" variant="default"
+                                                              class="AutoExpandTextarea-textarea"></textarea>
+                                                      </div>
+                                                  </div>
+                                                  <span class="UITextarea-border"
+                                                      [ngStyle]="{'background-color': messQuiz.description?'red':'#07bfff','height': messQuiz.description?'2px':'1px'}"></span>
+                                              </div>
+                                              <span class="UITextarea-label"><span>Description</span></span>
+                                          </label>
+                                          <div class="hideBelow--s"></div>
+                                      </div>
+                                  </div>
+
+                                  <div class="c3go502" style="margin-bottom: 0% !important;">
+                                      <div class="c3go502 c13fxvv8" style="margin-bottom: 0% !important;">
+                                          <div class="SpecialCharacterTextarea">
+                                              <label class="UITextarea">
+                                                  <div class="UITextarea-content">
+                                                      <div
+                                                          class="AutoExpandTextarea UITextarea-textarea UITextarea-autoExpandTextarea">
+                                                          <div class="AutoExpandTextarea-sizer"></div>
+                                                          <div class="AutoExpandTextarea-wrapper">
+                                                              <select id="categoryId" [(ngModel)]="selectedQuizId"
+                                                                  name="categoryId">
+                                                                  <option *ngFor="let quiz of listQuiz"
+                                                                      [value]="quiz.quizId">{{
+                                                                      quiz.title }}</option>
+                                                              </select>
+                                                          </div>
+                                                      </div>
+                                                      <span class="UITextarea-border"></span>
+                                                  </div>
+                                                  <span class="UITextarea-label"><span>Quiz</span></span>
+                                              </label>
+                                              <div class="hideBelow--s"></div>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="row">
+                                      <div class="col-md-6" style="margin-bottom: 0% !important;">
+                                        <div class="c3go502" style="margin-bottom: 0% !important;">
+                                          <div class="c3go502 c13fxvv8" style="margin-bottom: 0% !important;">
+                                            <div class="SpecialCharacterTextarea">
+                                              <label class="UITextarea" style="width: 100%;">
+                                                <div class="UITextarea-content">
+                                                  <div class="AutoExpandTextarea UITextarea-textarea UITextarea-autoExpandTextarea">
+                                                    <div class="AutoExpandTextarea-sizer"></div>
+                                                    <div class="AutoExpandTextarea-wrapper">
+                                                      <select id="difficultyLevel" [(ngModel)]="selectedTypeExam">
+                                                        <option value=1>Main</option>
+                                                        <option value=2>Event</option>
+                                                      </select>
+                                                    </div>
+                                                  </div>
+                                                  <span class="UITextarea-border"></span>
+                                                </div>
+                                                <span class="UITextarea-label"><span>Type</span></span>
+                                              </label>
+                                              <div class="hideBelow--s"></div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+
+                                      <div class="col-md-6" style="margin-bottom: 0% !important;">
+                                        <div class="c3go502" style="margin-bottom: 0% !important;">
+                                          <div class="c3go502 c13fxvv8" style="margin-bottom: 0% !important;">
+                                            <div class="SpecialCharacterTextarea">
+                                              <label class="UITextarea" style="width: 100%;">
+                                                <div class="UITextarea-content">
+                                                  <div class="AutoExpandTextarea UITextarea-textarea UITextarea-autoExpandTextarea">
+                                                    <div class="AutoExpandTextarea-sizer"></div>
+                                                    <div class="AutoExpandTextarea-wrapper">
+                                                      <input style="padding: 8px !important;width: 100%; color: #5abbff;border: 1px solid #ccc;border-radius: 4px;"
+                                                        [(ngModel)]="selectedDateTime" type="datetime-local" id="datetime" name="datetime">
+                                                    </div>
+                                                  </div>
+                                                  <span class="UITextarea-border"></span>
+                                                </div>
+                                                <span class="UITextarea-label"><span>Date Start</span></span>
+                                              </label>
+                                              <div class="hideBelow--s"></div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+
+
+          </div>
+      </div>
+
+
+<p-dialog [(visible)]="showResult" [modal]="true" [breakpoints]="{ '960px': '50vw' }" [style]="{ width: '30vw' }"
+    [draggable]="false" [resizable]="false">
+    <ng-template pTemplate="header">
+        <span class="title-note">Result</span>
+    </ng-template>
+    <div class="line-br">
+        <div class="inside-line"></div>
+    </div>
+    <div class="modal-options" *ngIf="!resultAdd">
+        <h6 style="color: #db2323;">Add quiz fail, error something.</h6>
+    </div>
+    <div class="modal-options" *ngIf="resultAdd">
+        <h6 style="color: #07a302;">Add quiz successful.</h6>
+    </div>
+</p-dialog>

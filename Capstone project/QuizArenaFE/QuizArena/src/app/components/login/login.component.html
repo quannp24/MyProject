@@ -1,0 +1,168 @@
+<!-- SQUARE FORM LOGIN -->
+<div class="square" style="--i:0;">
+  <div class="centered">
+    <img src="assets/images/iconlogin1.gif" alt="Icon">
+  </div>
+</div>
+<div class="square" style="--i:1;">
+  <div class="centered">
+    <img src="assets/images/iconlogin3.gif" alt="Icon">
+  </div>
+</div>
+<div class="square" style="--i:2;"></div>
+<div class="square" style="--i:3;"></div>
+<div class="square" style="--i:4;"></div>
+<div class="square" style="--i:5;">
+  <div class="centered">
+    <img src="assets/images/iconlogin2.gif" alt="Icon">
+  </div>
+</div>
+
+
+  <div class="container" *ngIf="isLoginForm; else notLoginForm">
+    <input type="checkbox" id="flip">
+    <div class="cover">
+      <div class="front">
+        <img src="assets/images/banner2.jpg" alt="">
+        <div class="text">
+          <span class="text-1">Every new friend is a <br> new adventure</span>
+          <span class="text-2">Let's get connected</span>
+        </div>
+      </div>
+      <div class="back">
+        <img class="backImg" src="assets/images/banner2.jpg" alt="">
+        <div class="text">
+          <span class="text-1">Complete miles of journey <br> with one step</span>
+          <span class="text-2">Let's get started</span>
+        </div>
+      </div>
+    </div>
+    <div class="forms">
+        <div class="form-content">
+          <div class="login-form">
+            <a href="/home" class="logo-cover">
+              <img class="img-logo-cover" src="assets/images/logo_web.png" alt="">
+            </a>
+            <div class="title">Login</div>
+
+          <form [formGroup]="loginForm" (ngSubmit)="login()" action="#">
+            <div class="input-boxes">
+              <div class="input-box">
+                <fa-icon [icon]="faUser"></fa-icon>
+                <input formControlName="username" name="username" type="text" placeholder="Enter your username" required>
+              </div>
+              <div *ngIf="formloginSubmitted && loginForm.get('username')?.hasError('required')" class="error-message">
+                Username is required.
+              </div>
+              <div class="input-box">
+                <fa-icon [icon]="faLock"></fa-icon>
+                <input formControlName="password" name="password" type="password" placeholder="Enter your password" required>
+              </div>
+              <div *ngIf="formloginSubmitted && loginForm.get('password')?.hasError('required')" class="error-message">
+                Password is required.
+              </div>
+              <div *ngIf="errorMess" class="error-message">
+                {{ errorMess }}
+              </div>
+              <div class="text"><a class="forgot-text" (click)="changeForm()">Forgot password?</a></div>
+
+              <div class="button input-box">
+                <input type="submit"  value="Submit">
+              </div>
+              <div class="text sign-up-text">Don't have an account? <label for="flip">Sigup now</label></div>
+            </div>
+        </form>
+      </div>
+        <div class="signup-form">
+          <a href="/home" class="logo-cover">
+            <img class="img-logo-cover" src="assets/images/logo_web.png" alt="">
+          </a>
+          <div class="title">Signup</div>
+        <form [formGroup]="signupForm" (ngSubmit)="signup()">
+            <div class="input-boxes">
+
+              <div class="input-box">
+                <fa-icon [icon]="faUser"></fa-icon>
+                <input (blur)="checkUsername()" (focus)="clearMessUsername()" type="text" formControlName="username"  placeholder="Enter your username" required>
+              </div>
+              <div *ngIf="messUsername" class="error-message">
+                {{messUsername}}
+              </div>
+
+              <div class="input-box">
+                <fa-icon [icon]="faUser"></fa-icon>
+                <input type="text" (blur)="checkFullname()" formControlName="fullname"  placeholder="Enter your fullname" required>
+              </div>
+
+
+              <div class="input-box">
+                <fa-icon [icon]="faEnvelope"></fa-icon>
+                <input type="text" (blur)="checkEmail()" (focus)="clearMessEmail()" formControlName="email"  placeholder="Enter your email" required>
+              </div>
+              <div *ngIf="messEmail" class="error-message">
+                {{messEmail}}
+              </div>
+
+              <div class="input-box">
+                <fa-icon [icon]="faLock"></fa-icon>
+                <input type="password" (blur)="checkPassword()" (focus)="clearMessPassword()" formControlName="password" placeholder="Enter your password" required>
+              </div>
+              <div *ngIf="messPassword " class="error-message">
+                {{messPassword}}
+              </div>
+
+              <div class="input-box" [ngClass]="formsignupSubmitted ? 'button-signup-active' : 'button-signup'">
+                <input type="submit" [disabled]="!formsignupSubmitted"  value="Submit">
+              </div>
+              <div class="text sign-up-text">Already have an account? <label for="flip">Login now</label></div>
+            </div>
+      </form>
+    </div>
+    </div>
+    </div>
+  </div>
+
+  <ng-template #notLoginForm>
+<div class="container">
+  <div class="cover-forgot">
+    <div class="front">
+      <img src="assets/images/bannerForgotPass.png" alt="">
+      <div class="text">
+        <span class="text-1">Forgetting your password<br> is normal!</span>
+        <span class="text-2">Let's reset password now</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="forms">
+    <div class="form-forgot-content">
+
+      <div class="forgot-form">
+        <div class="title-forgot">Reset password</div>
+        <div class="text"><a class="forgot-text" (click)="changeFormBack()">Back to login</a></div>
+      <form *ngIf="!resetPassSuccess"  [formGroup]="forgotForm" (ngSubmit)="forgot()" action="#">
+        <div class="input-boxes-forgot">
+          <div class="input-box">
+            <fa-icon [icon]="faUser"></fa-icon>
+            <input formControlName="email" name="email" type="text" placeholder="Enter your email" required>
+          </div>
+          <div *ngIf="messEmailForgot"  class="error-message">
+           {{messEmailForgot}}
+          </div>
+
+
+          <div class="button input-box">
+            <input type="submit"  value="Sumbit">
+          </div>
+        </div>
+    </form>
+    <div *ngIf="resetPassSuccess" class="input-boxes-forgot">
+      <span class="mess-reset">The new password has been sent to your email, please check and log in with the new password</span>
+    </div>
+  </div>
+
+    </div>
+  </div>
+</div>
+  </ng-template>

@@ -1,0 +1,14 @@
+*.log
+*.dll
+/.vs
+/.vs/QuizArena/v17/*.suo
+/.vs/QuizArena/v17/
+/.vs/QuizArena/FileContentIndex/
+/TestResults/
+*.editorconfig
+/bin/
+/obj/
+# Bỏ qua tệp cụ thể
+config.ini
+build/
+!build/important.txt  

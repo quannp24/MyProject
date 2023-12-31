@@ -1,0 +1,19 @@
+<div class="notification-dropdown">
+
+  <div class="notification-icon right" (click)="toggleDropdown()">
+    <i class="material-icons dp48">notifications</i>
+    <!-- <span class="num-count">13</span> -->
+  </div>
+
+
+  <div class="notification-container" *ngIf="isDropdownOpen">
+    <h3>Notifications
+      <!-- <i class="material-icons dp48 right">settings</i> -->
+    </h3>
+    <ng-container *ngFor="let item of notifyList">
+      <input class="checkbox" type="checkbox" id="size_1" value="small" checked/>
+      <label class="notification" for="size_1" *ngIf="item"><a [routerLink]="[item.value]">{{item.contentNotification}}</a></label>
+    </ng-container>
+
+
+  </div>

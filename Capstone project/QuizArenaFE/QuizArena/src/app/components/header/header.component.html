@@ -1,0 +1,133 @@
+<header class="header-area header-sticky wow slideInDown"  data-wow-duration="0.75s" data-wow-delay="0s">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <nav class="main-nav">
+          <!-- ***** Logo Start ***** -->
+          <a [routerLink]="['/home']" class="logo">
+            <img class="img-logo" src="assets/images/logo_web.png" alt="">
+          </a>
+
+          <!-- ***** Logo End ***** -->
+          <!-- ***** Menu Start ***** -->
+          <ul class="nav">
+            <div class="text-white col text-center div-search">
+              <form class="search">
+                <input type="text" id="search" class="search__input text-white" placeholder="Search...." [(ngModel)]="searchTerm" [ngModelOptions]="{standalone: true}" (input)="onSearch()"/>
+                <button type="button" class="search__button">
+                  <fa-icon [icon]="faMagnifyingGlass" style="color: #ffffff;"></fa-icon>
+                </button>
+              </form>
+
+              <div class="search-results" *ngIf="showResults">
+                <h6>User</h6>
+                <div class="result" *ngFor="let result of searchResultsUser" >
+                  <div class="result-content" (click)="closeResultSearch()" [routerLink]="['/profile-orther',result.userId]">
+                    <div style="display: flex;">
+                      <img *ngIf="result.image" [src]="result.image" alt="banner-vs" >
+                      <img *ngIf="!result.image" src="assets/images/avatar/avatardefault.png" alt="banner-vs" >
+                      <div class="result-details">
+                        <span class="result-name">{{result.name}}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <h6>Quiz</h6>
+                <div class="result" *ngFor="let result of searchResultsQuiz" >
+                  <div class="result-content" (click)="closeResultSearch()" [routerLink]="['/quiz-detail',result.quizId]">
+                    <div style="display: flex;">
+                      <div class="result-details">
+                        <span  class="result-name">{{result.name}}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <h6>Challenge</h6>
+                <div class="result" *ngFor="let result of searchResultsExam" >
+                  <div class="result-content" (click)="closeResultSearch()">
+                    <div style="display: flex;">
+                      <div class="result-details">
+                        <span class="result-name">{{result.name}}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+            <li class="scroll-to-section"><a [routerLink]="['/list-quiz']" routerLinkActive="active">Quiz</a></li>
+            <li class="scroll-to-section"><a [routerLink]="['/challenge']" routerLinkActive="active">Challenge</a></li>
+            <div *ngIf="isLoggedIn && userData; else notLoggedInContent" class="scroll-to-section row" style="margin-left: 50px;margin-right: 10px;">
+              <div class="col-md-2">
+                <app-notification></app-notification>
+              </div>
+              <div class="user-dropdown col-md-10">
+                <div class="user-info">
+                  <img class="avt-img" [ngClass]="{'border-vip':userData.role==5}" *ngIf="userData.images" src="{{userData.images}}" alt="Avatar">
+                  <img class="avt-img"  [ngClass]="{'border-vip':userData.role==5}" *ngIf="!userData.images" src="assets/images/avatar/avatardefault.png" alt="Avatar">
+                  <div class="text-fullname">
+                    <span>{{userData.fullname}}</span>
+                    <img *ngIf="userData.role==5" src="assets/images/vip-font.png" alt="vip">
+                  </div>
+                </div>
+                <div class="dropdown-content">
+                  <ul>
+                    <li><a [routerLink]="['/profile']"><fa-icon [icon]="faIdBadge"></fa-icon>  Profile</a></li>
+                    <li *ngIf="userData.role == 1 || userData.role == 2"><a [routerLink]="['/dashboard']" ><fa-icon [icon]="faBarsProgress"></fa-icon> Dashboard</a></li>
+                    <li *ngIf="userData.role == 3"><a [routerLink]="['/staff-view']"><fa-icon [icon]="faUserTie"></fa-icon> Staff</a></li>
+                    <li><a [routerLink]="['/create-quiz']"><fa-icon [icon]="faFolderPlus"></fa-icon> Create Quiz Set</a></li>
+                    <li><a [routerLink]="['/your-library']"><fa-icon [icon]="faBook"></fa-icon> Your Library</a></li>
+                    <li *ngIf="userData.role == 4"><a (click)="showModalPay()" ><fa-icon [icon]="faAngleDoubleUp" ></fa-icon> Upgrade VIP</a></li>
+                    <li><a (click)="logout()"><fa-icon [icon]="faArrowRightFromBracket"></fa-icon>  Logout</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <ng-template #notLoggedInContent>
+              <div class="scroll-to-section row" style="margin-left: 50px;margin-right: 10px;">
+
+                <a href="#myModal" class="trigger-btn btn-login" data-bs-toggle="modal" type="button" (click)="changeForm()">Login</a>
+              </div>
+            </ng-template>
+          </ul>
+
+          <a class='menu-trigger'>
+              <span>Menu</span>
+          </a>
+          <!-- ***** Menu End ***** -->
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="notify-invite-quiz" *ngIf="isNotifyInvite" [@fadeOutIn] [@slideInFromBottom]>
+  <div class="relative-box">
+    <div class="icon-exit-invite">
+      <fa-icon [icon]="faXmark" style="cursor: pointer;font-size: 18px;"></fa-icon>
+    </div>
+    <div class="content-invite-quiz">
+      <div class="row">
+        <div class="col-3 img-invite">
+          <img src="assets/images/invite-img.gif" alt="image">
+        </div>
+        <div class="col-9 textbox-invite">
+          <h5>Invite Do Quiz</h5>
+          <div class="row">
+            <p class="col-8"><span>{{inforInvite.user_infor.fullname}}</span> invites you to take a quiz <span>{{inforInvite.quiz.title}}</span> together</p>
+            <div class="col-4">
+              <button class="btn-accept-inivte" (click)="AcceptInvite(inforInvite.roomId, inforInvite.quiz.quizId)">Accept</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-modal-login></app-modal-login>
+<p-dialog id="viewport" [(visible)]="showUpgrade" [modal]="true"  [draggable]="false" [resizable]="false">
+  <app-payment></app-payment>
+</p-dialog>

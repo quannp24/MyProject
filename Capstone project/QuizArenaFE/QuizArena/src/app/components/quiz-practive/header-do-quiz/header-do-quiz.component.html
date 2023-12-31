@@ -1,0 +1,30 @@
+<header class="header-quiz" >
+  <div class="container">
+      <div class="row">
+          <div class="col-3 col-lg-2 left-header">
+            <div class="img-logo">
+              <a href="/home">
+                <img src="assets/images/logo_web.png" alt="logo">
+              </a>
+            </div>
+          </div>
+          <div class="col-6 col-lg-8 center-header" style="text-align: center;">
+              <h6 class="my-4 " *ngIf="quizData">{{quizData.title}}</h6>
+          </div>
+          <div class="col-3 col-lg-2 right-header">
+            <div class="right-icon">
+              <div class="icon-friend" (click)="showOptions()">
+                <fa-icon [icon]="faSlidersH" class="icon-option" ></fa-icon>
+                <span>Options</span>
+              </div>
+
+              <div class="icon-exit" (click)="backDetail()">
+                <fa-icon [icon]="faTimes" ></fa-icon>
+              </div>
+            </div>
+          </div>
+      </div>
+  </div>
+</header>
+
+

@@ -1,0 +1,440 @@
+<app-header></app-header>
+<div class="body-create">
+    <div class="CreateSetPage">
+        <div class="c1dg9ds9">
+            <div class="c1xpced">
+                <div class="c5ozvp9">
+                    <div class="UIContainer">
+                        <div class="cqy7lq4">
+                          <div class="row">
+                            <div class="col-6">
+                              <div class="c11u1mbs">
+                                <div class="title-create">
+                                  <span>CREATE QUIZ</span>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-6 text-right">
+                              <div class="c1lzqd91">
+                                <button type="button" aria-label="Tạo"
+                                  class="AssemblyButtonBase AssemblyPrimaryButton--default AssemblyButtonBase--medium AssemblyButtonBase--padding"
+                                  (click)="addQuiz()">
+                                  <span>Create</span>
+                                </button>
+                                <button type="button" style="margin-left: 15px;" aria-label="Tạo" (click)="showGenerateQues()"
+                                class="generate">
+                                <span>Random Question</span>
+                                </button>
+                                <button type="button" style="margin-left: 15px;" aria-label="Tạo" [routerLink]="['/staff-view']"
+                                class="back">
+                                <span>Back</span>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="UIContainer">
+                <div class="c6vigde row">
+                  <div class="col-12 col-md-6">
+                    <div id="image-container" (click)="openFileInput()">
+                      <div id="image-slot" #imageSlot>
+                          Image
+                          <input type="file" id="image-upload" multiple  #fileInput style="display: none;" (change)="handleFileInput($event)">
+                      </div>
+                    </div>
+                  </div>
+
+                    <!-- Tiêu d? -->
+                  <div class="col-12 col-md-6">
+                      <div class="c3go502 c13fxvv8">
+                          <div class="SpecialCharacterTextarea">
+                              <label class="UITextarea">
+                                  <div class="UITextarea-content">
+                                      <div
+                                          class="AutoExpandTextarea UITextarea-textarea UITextarea-autoExpandTextarea">
+                                          <div class="AutoExpandTextarea-sizer"></div>
+                                          <div class="AutoExpandTextarea-wrapper">
+                                              <textarea [(ngModel)]="title" aria-label="title" maxlength="255"
+                                                  placeholder="Enter a title, for example &quot;Biology - Chapter 22: Evolution&quot;"
+                                                  tabindex="5" variant="default"
+                                                  class="AutoExpandTextarea-textarea"></textarea>
+                                          </div>
+                                      </div>
+                                      <span class="UITextarea-border" [ngStyle]="{'background-color': messQuiz.title?'red':'#07bfff','height': messQuiz.title?'2px':'1px'}"></span>
+                                  </div>
+                                  <span class="UITextarea-label"><span>Title</span></span>
+                              </label>
+                              <div class="hideBelow--s"></div>
+                          </div>
+                      </div>
+
+                      <!-- Mô tả -->
+                      <div class="c3go502 cturxaw">
+                          <div class="SpecialCharacterTextarea">
+                              <label class="UITextarea">
+                                  <div class="UITextarea-content">
+                                      <div
+                                          class="AutoExpandTextarea UITextarea-textarea UITextarea-autoExpandTextarea">
+                                          <div class="AutoExpandTextarea-sizer"></div>
+                                          <div class="AutoExpandTextarea-wrapper">
+                                              <textarea [(ngModel)]="description" aria-label="description"
+                                                  placeholder="Enter a description..." tabindex="6" variant="default"
+                                                  class="AutoExpandTextarea-textarea"></textarea>
+                                          </div>
+                                      </div>
+                                      <span class="UITextarea-border" [ngStyle]="{'background-color': messQuiz.description?'red':'#07bfff','height': messQuiz.description?'2px':'1px'}"></span>
+                                  </div>
+                                  <span class="UITextarea-label"><span>Description</span></span>
+                              </label>
+                              <div class="hideBelow--s"></div>
+                          </div>
+                      </div>
+
+                    <div class="c3go502" style="margin-bottom: 0% !important;" *ngIf="selectedTypeQuiz == '1'">
+                        <div class="c3go502 c13fxvv8" style="margin-bottom: 0% !important;">
+                            <div class="SpecialCharacterTextarea">
+                                <label class="UITextarea">
+                                    <div class="UITextarea-content">
+                                        <div
+                                            class="AutoExpandTextarea UITextarea-textarea UITextarea-autoExpandTextarea">
+                                            <div class="AutoExpandTextarea-sizer"></div>
+                                            <div class="AutoExpandTextarea-wrapper">
+                                                <select id="categoryId" [(ngModel)]="selectedCategoryId" name="categoryId">
+                                                    <option *ngFor="let category of categoryList" [value]="category.categoryId">{{
+                                                        category.categoryName }}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <span class="UITextarea-border"></span>
+                                    </div>
+                                    <span class="UITextarea-label"><span>Category</span></span>
+                                </label>
+                                <div class="hideBelow--s"></div>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-12" style="margin: 40px;">
+                    <div class="row">
+
+                      <!-- Difficulty Level -->
+                      <div class="c3go502 col-3" >
+                        <label for="difficultyLevel">Difficulty Level</label>
+                        <select id="difficultyLevel" [(ngModel)]="selectedDifficultyLevel">
+                            <option value=1>Easy</option>
+                            <option value=2>Medium</option>
+                            <option value=3>Hard</option>
+                        </select>
+                      </div>
+
+                      <!-- Type quiz -->
+                      <div class="c3go502 col-3" >
+                          <label for="difficultyLevel">Type quiz</label>
+                          <select id="typequiz" [(ngModel)]="selectedTypeQuiz" (change)="onQuizTypeChange()">
+                              <option value="1">Quiz practice</option>
+                              <option value="2">Quiz challenge</option>
+                          </select>
+                      </div>
+
+                      <!-- Time Limit -->
+                      <div class="c3go502 cturxaw col-3" *ngIf="displayTimeLimit">
+                        <label for="difficultyLevel">Time limit</label>
+                          <input [(ngModel)]="timeLimit" aria-label="description" [ngStyle]="{'border': messQuiz.timeLimit?'2px solid red':''}"
+                              placeholder="Enter minute" tabindex="6" variant="default"
+                              class="AutoExpandTextarea-textarea">
+                      </div>
+
+                    </div>
+
+
+                  </div>
+                </div>
+            </div>
+        </div>
+
+        <div *ngFor="let item of numberQuestionCreate; let i = index" class="CreateSetQuestion">
+            <div class="c1dg9ds9">
+                <div class="UIContainer">
+                  <div>
+                    <span>{{i + 1}}.</span>
+                    <span class="messError-ques" *ngIf="item.messError.length>0">{{item.messError}}</span>
+                  </div>
+                    <div class="c6vigde" style="display: flex;gap: 8%;">
+                        <div style="width: 57%;">
+                            <div class="c3go502 c13fxvv8">
+                                <div class="SpecialCharacterTextarea">
+                                    <label class="UITextarea">
+                                        <div class="UITextarea-content">
+                                            <div
+                                                class="AutoExpandTextarea UITextarea-textarea UITextarea-autoExpandTextarea">
+                                                <div class="AutoExpandTextarea-sizer"></div>
+                                                <div class="AutoExpandTextarea-wrapper">
+                                                    <textarea disabled [(ngModel)]="item.all4question"
+                                                        aria-label="title" maxlength="255"
+                                                        placeholder="Enter question ..." tabindex="5" variant="default"
+                                                        class="AutoExpandTextarea-textarea"></textarea>
+                                                </div>
+                                            </div>
+                                            <span class="UITextarea-border"></span>
+                                        </div>
+                                        <span class="UITextarea-label"><span>Question</span></span>
+                                    </label>
+                                    <div class="hideBelow--s"></div>
+                                </div>
+                            </div>
+
+                            <!-- Difficulty Level -->
+                            <div class="row">
+                              <div class="c3go502 col-12 col-md-6" style="margin-bottom: 0% !important;">
+                                <div class="c3go502 c13fxvv8" style="margin-bottom: 0% !important;">
+                                    <div class="SpecialCharacterTextarea">
+                                        <label class="UITextarea">
+                                            <div class="UITextarea-content">
+                                                <div
+                                                    class="AutoExpandTextarea UITextarea-textarea UITextarea-autoExpandTextarea">
+                                                    <div class="AutoExpandTextarea-sizer"></div>
+                                                    <div class="AutoExpandTextarea-wrapper">
+                                                        <select disabled [(ngModel)]="item.difficultyLevel">
+                                                            <option value=1>Easy</option>
+                                                            <option value=2>Medium</option>
+                                                            <option value=3>Hard</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <span class="UITextarea-border"></span>
+                                            </div>
+                                            <span class="UITextarea-label"><span>Difficulty Level</span></span>
+                                        </label>
+                                        <div class="hideBelow--s"></div>
+                                    </div>
+                                </div>
+                              </div>
+
+
+                              <div class="c3go502 col-12 col-md-6" style="margin-bottom: 0% !important;">
+                                <div class="c3go502 c13fxvv8" style="margin-bottom: 0% !important;">
+                                    <div class="SpecialCharacterTextarea">
+                                        <label class="UITextarea">
+                                            <div class="UITextarea-content">
+                                                <div
+                                                    class="AutoExpandTextarea UITextarea-textarea UITextarea-autoExpandTextarea">
+                                                    <div class="AutoExpandTextarea-sizer"></div>
+                                                    <div class="AutoExpandTextarea-wrapper">
+                                                        <select disabled [(ngModel)]="item.categoryId ">
+                                                          <option *ngFor="let category of categoryList" [value]="category.categoryId">{{
+                                                            category.categoryName }}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <span class="UITextarea-border"></span>
+                                            </div>
+                                            <span class="UITextarea-label"><span>Category</span></span>
+                                        </label>
+                                        <div class="hideBelow--s"></div>
+                                    </div>
+                                </div>
+                              </div>
+
+                            </div>
+
+
+
+                        </div>
+                        <div>
+                            <div *ngFor="let itemChild of item.radioTextItems; let j = index;" class="c3go502">
+                                <div class="radio-with-text">
+
+                                    <input disabled type="radio" [id]="'timeLimits' + i + j" [name]="'timeLimit' + i" [checked]="itemChild.radio.value === 'correct'" (change)="onRadioValueChange(i, j, $event)">
+
+                                    <div class="text-input">
+
+                                        <input disabled type="text" [id]="'customTime' + i + j" name="customTime" [(ngModel)]="itemChild.textInput.name">
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <button class="delete-button-xmark" (click)="deleteQuestion(i)"><fa-icon
+                                [icon]="faXmark"></fa-icon></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="add-button-question" (click)="ShowaddQuestion()"> <fa-icon
+                [icon]="faSquarePlus"></fa-icon></button>
+    </div>
+  </div>
+
+  <p-dialog  [(visible)]="showResult" [closable]="!resultAdd" [modal]="true" [breakpoints]="{ '960px': '55vw' }" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false">
+    <div class="image-error">
+      <img *ngIf="resultAdd" src="assets/images/thanks-img.png" alt="img-add">
+      <img *ngIf="!resultAdd" src="assets/images/error-dialog.png" alt="img-add">
+    </div>
+    <div class="modal-options">
+      <h6>Result Add</h6>
+      <span style="color: #db2323;" *ngIf="!resultAdd">Add quiz fail, error something.</span>
+      <span *ngIf="resultAdd" style="color: #07a302;">Add quiz successful, thank you for contributing your knowledge to the system.</span>
+    </div>
+    <div class="div-notebtn">
+      <button *ngIf="resultAdd" class="custom-btn btn-11" [routerLink]="['/staff-view']" >Staff View<div class="dot"></div></button>
+      <button *ngIf="!resultAdd" class="custom-btn btn-Cancel" (click)="showResult=false" >Back<div class="dot"></div></button>
+    </div>
+  </p-dialog>
+
+  <p-dialog  [(visible)]="showGenModal" [modal]="true" [breakpoints]="{ '960px': '50vw' }" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false">
+    <ng-template pTemplate="header">
+      <span class="title-gen">Generate</span>
+    </ng-template>
+    <div class="line-br">
+      <div class="inside-line"></div>
+    </div>
+    <div class="modal-genques">
+
+      <div class="c3go502 c13fxvv8" style="margin-bottom: 30px !important;">
+        <div class="SpecialCharacterTextarea">
+            <label class="UITextarea">
+                <div class="UITextarea-content">
+                    <div
+                        class="AutoExpandTextarea UITextarea-textarea UITextarea-autoExpandTextarea" style="min-height: 50px;">
+                        <div class="AutoExpandTextarea-sizer"></div>
+                        <div class="AutoExpandTextarea-wrapper">
+                            <select id="categoryId" [(ngModel)]="categoryGenQues" name="categoryId">
+                                <option *ngFor="let category of categoryList" [value]="category.categoryId">{{category.categoryName }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <span class="UITextarea-border"></span>
+                </div>
+                <span class="UITextarea-label"><span>Category</span></span>
+            </label>
+            <div class="hideBelow--s"></div>
+        </div>
+      </div>
+
+      <div class="input-modal row">
+
+        <div class="c3go502 cturxaw col-4">
+          <label for="difficultyLevel">Question Easy</label>
+            <input aria-label="description" [(ngModel)]="numLv1" placeholder="Enter number" tabindex="6" variant="default" class="AutoExpandTextarea-textarea">
+        </div>
+
+        <div class="c3go502 cturxaw col-4">
+          <label for="difficultyLevel">Question Medium</label>
+            <input aria-label="description" [(ngModel)]="numLv2" placeholder="Enter number" tabindex="6" variant="default" class="AutoExpandTextarea-textarea">
+        </div>
+
+        <div class="c3go502 cturxaw col-4">
+          <label for="difficultyLevel">Question Hard</label>
+            <input aria-label="description" [(ngModel)]="numLv3" placeholder="Enter number" tabindex="6" variant="default" class="AutoExpandTextarea-textarea">
+        </div>
+
+      </div>
+
+      <div class="btn-modal">
+        <button type="button" aria-label="Tạo" (click)="generateQuestions()" class="generate">
+          <span>Generate</span>
+        </button>
+        <button *ngIf="undoGenQues" type="button" aria-label="Tạo" pTooltip="Undo" (click)="undoGen()" class="undo">
+          <fa-icon [icon]="faRotateLeft"></fa-icon>
+        </button>
+      </div>
+
+    </div>
+  </p-dialog>
+
+  <p-dialog  [(visible)]="showAddQuestion" [modal]="true" [breakpoints]="{ '960px': '70vw' }" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
+    <ng-template pTemplate="header">
+      <span class="title-gen">Add Question</span>
+    </ng-template>
+    <div class="line-br">
+      <div class="inside-line"></div>
+    </div>
+    <div class="modal-genques">
+
+      <div class="card">
+        <p-toolbar styleClass="mb-4 gap-2">
+          <ng-template pTemplate="left">
+          </ng-template>
+          <ng-template pTemplate="right">
+              <button pButton pRipple label="Add Question" icon="pi pi-plus" (click)="addQuestionBank()" class="p-button-info mr-2" [disabled]="!selectedQuestion || !selectedQuestion.length"></button>
+          </ng-template>
+      </p-toolbar>
+
+
+        <p-table
+            #dt1
+            [value]="questionList"
+            dataKey="questionId"
+            [rows]="10"
+            [showCurrentPageReport]="true"
+            [loading]="loading"
+            [paginator]="true"
+            [rowHover]="true"
+            [(selection)]="selectedQuestion"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [globalFilterFields]="['questionText', 'username']"
+            >
+            <ng-template pTemplate="caption">
+                <div class="flex">
+                    <span class="p-input-icon-left ml-auto">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" (input)="dt1.filterGlobal($any($event.target).value, 'contains')" placeholder="Search keyword" />
+                    </span>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="min-width:15rem">
+                        <div class="flex align-items-center" type="text" field="questionText" >
+                            Question
+                        </div>
+                    </th>
+                    <th style="min-width:15rem">
+                        <div class="flex align-items-center th-creator" type="text" field="userId">
+                            Creator
+                        </div>
+                    </th>
+                    <th style="width: 4rem">
+                      <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                    </th>
+
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-question>
+                <tr class="row-question">
+                    <td>
+                        {{ question.questionText }}
+                    </td>
+                    <td class="colum-creator">
+                        <span class="ml-1 vertical-align-middle">{{ question.username }}</span>
+                    </td>
+                    <td>
+                      <p-tableCheckbox [value]="question"></p-tableCheckbox>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="7">No questions found.</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+    </div>
+  </p-dialog>
+
+
+<button *ngIf="showScrollToTopButton" class="btn-scroll-top" (click)="scrollToTop()" [@fadeOutIn]>^</button>
+

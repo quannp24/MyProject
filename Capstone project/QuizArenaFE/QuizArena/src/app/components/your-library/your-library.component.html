@@ -1,0 +1,85 @@
+<app-header></app-header>
+<div class="body-library">
+  <div class="container-library">
+    <div class="div-body">
+      <div class="header-container">
+        <div class="text-title">
+          <h4>Your library</h4>
+        </div>
+        <div class="btn-title">
+          <button [routerLink]="['/create-quiz']" type="button" class="AssemblyButtonBase AssemblyPrimaryButton--default AssemblyButtonBase--medium AssemblyButtonBase--padding">
+            <span>Create quiz set</span>
+          </button>
+        </div>
+      </div>
+      <div class="content-body">
+
+        <p-table [value]="groupDataByMonth(quizlist)"
+        #dt1
+        [loading]="loading"
+        [globalFilterFields]="['title']"
+        rowGroupMode="subheader" groupRowsBy="monthYear">
+
+          <ng-template pTemplate="caption">
+            <div class="row">
+              <div class="left-content col-12 col-md-6">
+                <div class="img-avatar">
+                  <img *ngIf="user?.images" [src]="user?.images" alt="img">
+                  <img *ngIf="!user?.images" src="assets/images/avatar/avatardefault.png" alt="img">
+                </div>
+                <div class="infor-user">
+                  <span class="fullname">{{user?.fullname}}</span>
+                  <span class="username">@{{user?.username}}</span>
+                </div>
+              </div>
+              <div class="right-content col-12 col-md-6">
+                  <span class="p-input-icon-left ml-auto">
+                      <i class="pi pi-search"></i>
+                      <input pInputText type="text" (input)="dt1.filterGlobal($any($event.target).value, 'contains')" placeholder="Search title quiz" />
+                  </span>
+              </div>
+            </div>
+          </ng-template>
+
+          <ng-template pTemplate="groupheader" let-rowData>
+            <tr pRowGroupHeader>
+                <td >
+                  <div class="title-rowgroup">
+                    <h4>{{rowData.monthYear}}</h4>
+                    <div class="div-br">
+                      <hr>
+                    </div>
+                  </div>
+                </td>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="body" let-rowData>
+            <tr>
+              <td class="row-item">
+                <div class="content-item" [routerLink]="['/quiz-private-detail',rowData.quizId]">
+                  <div>
+                    <span>{{rowData.numberQues}} Question</span>
+                  </div>
+                  <div>
+                    <h6 field="title">{{rowData.title}}</h6>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="emptymessage">
+            <tr>
+                <td style="text-align: center;font-size: 20px;" colspan="7">No quiz found.</td>
+            </tr>
+        </ng-template>
+
+        </p-table>
+
+
+      </div>
+
+    </div>
+  </div>
+</div>

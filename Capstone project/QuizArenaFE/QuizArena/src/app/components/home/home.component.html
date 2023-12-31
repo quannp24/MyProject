@@ -1,0 +1,59 @@
+<app-header></app-header>
+<div *ngIf="isLoggedIn; else notLoggedInContent" class="main-banner wow fadeIn" id="top" data-wow-duration="1s" data-wow-delay="0.5s">
+  <app-contentlogin-home></app-contentlogin-home>
+</div>
+
+
+
+<ng-template #notLoggedInContent>
+<div class="main-banner wow fadeIn" id="top" data-wow-duration="1s" data-wow-delay="0.5s">
+  <div class="slideshow">
+    <img [src]="currentImage" alt="Banner Image">
+    <a class="prev-btn" (click)="prevSlide()"></a>
+    <a class="next-btn" (click)="nextSlide()"></a>
+    <button hidden (click)="toggleAutoPlay()">AutoPlay</button>
+  </div>
+
+  <div class="main-banner wow fadeIn" id="top" data-wow-duration="1s" data-wow-delay="0.5s">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="row">
+            <div class="col-lg-6 align-self-center">
+              <div class="left-content show-up header-text wow fadeInLeft" data-wow-duration="1s" data-wow-delay="1s">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <h6>Learn Arena</h6>
+                    <h2>QuizArena Learning System</h2>
+                    <p>Our QuizArena will allow educators to effortlessly create quizzes, track student progress, and provide students a platform for easier study and foster healthy competition between students.</p>
+                  </div>
+                  <div class="col-lg-12">
+                    <div class="border-first-button scroll-to-section">
+                      <a href="#myModal" data-bs-toggle="modal" (click)="changeForm()">Join now</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="right-image wow fadeInRight" data-wow-duration="1s" data-wow-delay="0.5s">
+                <img src="assets/images/banner.png" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" >
+    <div class="row">
+
+
+      <app-content-service></app-content-service>
+    </div>
+  </div>
+</div>
+
+</ng-template>
+<app-footer></app-footer>

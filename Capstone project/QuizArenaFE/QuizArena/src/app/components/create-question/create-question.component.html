@@ -1,0 +1,178 @@
+<app-header></app-header>
+<div class="body-create">
+    <div class="CreateSetPage">
+        <div class="c1dg9ds9">
+            <div class="c1xpced">
+                <div class="c5ozvp9">
+                    <div class="UIContainer">
+                        <div class="cqy7lq4">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="c11u1mbs" style="display: flex;gap: 30px;">
+                                        <div class="title-create">
+                                            <span>CREATE QUESTION</span>
+                                        </div>
+                                        <div class="c3go502 col-3" >
+                                            <select style="padding: 5px !important;margin-top: 10% !important" id="categoryId" [(ngModel)]="selectedCategoryId" name="categoryId">
+                                                <option *ngFor="let category of categoryList" [value]="category.categoryId">{{
+                                                    category.categoryName }}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-6 text-right">
+                                    <div class="c1lzqd91">
+                                        <button type="button" aria-label="Tạo"
+                                            class="AssemblyButtonBase AssemblyPrimaryButton--default AssemblyButtonBase--medium AssemblyButtonBase--padding"
+                                            (click)="addQuestion()">
+                                            <span>Create</span>
+                                        </button>
+                                        <button type="button" style="margin-left: 15px;" aria-label="Tạo"
+                                            [routerLink]="['/staff-view']" class="back">
+                                            <span>Back</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="cmt-content" >
+              <div class="body-cmt">
+                <span class="p-float-label">
+                  <textarea id="float-input" placeholder="Example : 'Create 2 questions about java language'" [(ngModel)]="textQuestion" rows="5" pInputTextarea></textarea>
+                  <label for="float-input">Generate question AI</label>
+                </span>
+                <div class="mess-genAi">
+                  <span [ngClass]="{'loading':statusGenAI == 1 , 'fail': statusGenAI == 3, 'success': statusGenAI == 2, 'nothing': statusGenAI == 0}">
+                    {{statusGenAI==1?'Loading...':(statusGenAI==2?'Genarate question success.':'Genarate question faild.')}}
+                  </span>
+                </div>
+              </div>
+              <div class="btn-genAI">
+                <button (click)="genarateAI()">Generate</button>
+              </div>
+            </div>
+        </div>
+
+        <div *ngFor="let item of numberQuestionCreate; let i = index" class="CreateSetQuestion">
+            <div class="c1dg9ds9">
+                <div class="UIContainer">
+                    <div>
+                        <span>{{i + 1}}.</span>
+                        <span class="messError-ques" *ngIf="item.messError.length>0">{{item.messError}}</span>
+                    </div>
+                    <div class="c6vigde" style="display: flex;gap: 8%;">
+                        <div style="width: 57%;">
+                            <div class="c3go502 c13fxvv8">
+                                <div class="SpecialCharacterTextarea">
+                                    <label class="UITextarea">
+                                        <div class="UITextarea-content">
+                                            <div
+                                                class="AutoExpandTextarea UITextarea-textarea UITextarea-autoExpandTextarea">
+                                                <div class="AutoExpandTextarea-sizer"></div>
+                                                <div class="AutoExpandTextarea-wrapper">
+                                                    <textarea [(ngModel)]="item.all4question" aria-label="title"
+                                                        maxlength="255" placeholder="Enter question ..." tabindex="5"
+                                                        variant="default"
+                                                        class="AutoExpandTextarea-textarea"></textarea>
+                                                </div>
+                                            </div>
+                                            <span class="UITextarea-border"></span>
+                                        </div>
+                                        <span class="UITextarea-label"><span>Question</span></span>
+                                    </label>
+                                    <div class="hideBelow--s"></div>
+                                </div>
+                            </div>
+
+                            <!-- Difficulty Level -->
+                            <div class="c3go502" style="margin-bottom: 0% !important;">
+                                <div class="c3go502 c13fxvv8" style="margin-bottom: 0% !important;">
+                                    <div class="SpecialCharacterTextarea">
+                                        <label class="UITextarea">
+                                            <div class="UITextarea-content">
+                                                <div
+                                                    class="AutoExpandTextarea UITextarea-textarea UITextarea-autoExpandTextarea">
+                                                    <div class="AutoExpandTextarea-sizer"></div>
+                                                    <div class="AutoExpandTextarea-wrapper">
+                                                        <select [(ngModel)]="item.difficultyLevel">
+                                                            <option value=1>Easy</option>
+                                                            <option value=2>Medium</option>
+                                                            <option value=3>Hard</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <span class="UITextarea-border"></span>
+                                            </div>
+                                            <span class="UITextarea-label"><span>Difficulty Level</span></span>
+                                        </label>
+                                        <div class="hideBelow--s"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div *ngFor="let itemChild of item.radioTextItems; let j = index;" class="c3go502">
+                                <div class="radio-with-text">
+
+                                    <input type="radio" [id]="'timeLimits' + i + j" [name]="'timeLimit' + i"
+                                        [checked]="itemChild.radio.value === 'correct'"
+                                        (change)="onRadioValueChange(i, j, $event)">
+
+                                    <div class="text-input">
+
+                                        <input type="text" [id]="'customTime' + i + j" name="customTime"
+                                            [(ngModel)]="itemChild.textInput.name">
+
+                                        <button *ngIf="item.radioTextItems.length > 1" class="delete-button"
+                                            (click)="deleteRadioWithText(i, j)">
+                                            <fa-icon [icon]="faTrash"></fa-icon>
+                                        </button>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button class="add-button" *ngIf="numberQuestionCreate[i].radioTextItems.length > 1"
+                                (click)="addRadioTextEmpty(i)"> <fa-icon [icon]="faSquarePlus"></fa-icon></button>
+
+                            <button class="add-button" *ngIf="numberQuestionCreate[i].radioTextItems.length == 1"
+                                style="margin: 0% 8% !important;" (click)="addRadioTextEmpty(i)"> <fa-icon
+                                    [icon]="faSquarePlus"></fa-icon></button>
+                        </div>
+                        <button class="delete-button-xmark" (click)="deleteQuestion(i)"><fa-icon
+                                [icon]="faXmark"></fa-icon></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="add-button-question" (click)="addQuestionEmpty()"> <fa-icon
+                [icon]="faSquarePlus"></fa-icon></button>
+    </div>
+</div>
+
+<p-dialog  [(visible)]="showResult" [closable]="!resultAdd" [modal]="true" [breakpoints]="{ '960px': '55vw' }" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false">
+  <div class="image-error">
+    <img *ngIf="resultAdd" src="assets/images/thanks-img.png" alt="img-add">
+    <img *ngIf="!resultAdd" src="assets/images/error-dialog.png" alt="img-add">
+  </div>
+  <div class="modal-options">
+    <h6>Result Add</h6>
+    <span style="color: #db2323;" *ngIf="!resultAdd">Add questions fail, error something.</span>
+    <span *ngIf="resultAdd" style="color: #07a302;">Add questions successful, thank you for contributing your knowledge to the system.</span>
+  </div>
+  <div class="div-notebtn">
+    <button *ngIf="resultAdd" class="custom-btn btn-11" [routerLink]="['/staff-view']" >Staff View<div class="dot"></div></button>
+    <button *ngIf="!resultAdd" class="custom-btn btn-Cancel" (click)="showResult=false" >Back<div class="dot"></div></button>
+  </div>
+</p-dialog>
+
+
+
+<button *ngIf="showScrollToTopButton" class="btn-scroll-top" (click)="scrollToTop()" [@fadeOutIn]>^</button>

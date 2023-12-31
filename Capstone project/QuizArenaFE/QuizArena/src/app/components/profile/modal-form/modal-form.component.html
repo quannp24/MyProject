@@ -1,0 +1,48 @@
+
+<!-- Modal HTML -->
+<div  class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-login">
+		<div class="modal-content">
+      <div class="container p-0">
+        <section class="ftco-section">
+          <div class="container p-0">
+            <div class="row justify-content-center">
+              <div class="col-md-12 col-lg-12">
+                <div class="wrap">
+                  <div class="img" style="background-image: url(assets/images/bannerChangepass.jpg);"></div>
+                  <div class="login-wrap pe-5 ps-5 pb-2">
+                    <div class="d-flex">
+                      <div class="w-100">
+                        <h3 class="mb-2 mt-2">Change Password</h3>
+                      </div>
+                    </div>
+                    <form [formGroup]="passForm" (ngSubmit)="checkValid()" class="signin-form">
+                      <div class="form-group mt-3">
+                        <input type="text" class="form-control mt-4" formControlName="oldPass" placeholder="Enter old password" required>
+                        <!-- <label class="form-control-placeholder" >Old Password</label> -->
+                      </div>
+                      <div class="form-group">
+                        <input  (blur)="checkPassword()" (focus)="clearMessPassword()" type="password" formControlName="newPass" class="form-control mt-4" placeholder="Enter new password" required>
+                        <label class="form-control-placeholder" style="color: red;font-size: 14px;" for="password" *ngIf="messNewPass">{{messNewPass}}</label>
+                      </div>
+                      <div class="form-group">
+                        <input  (blur)="checkConfirmPassword()" (focus)="clearMessConfirmPassword()" type="password" formControlName="confirmPass" placeholder="Enter confirm password" class="form-control mt-4" required>
+                        <label class="form-control-placeholder" style="color: red;font-size: 14px;"  *ngIf="messConfirmPass">{{messConfirmPass}}</label>
+                      </div>
+                      <label class="form-control-placeholder" style="color: red;font-size: 14px;"  *ngIf="mess">{{mess}}</label>
+                      <label class="form-control-placeholder" style="color: rgb(42, 231, 73);font-size: 14px;"  *ngIf="messSucc">{{messSucc}}</label>
+                      <div class="form-group">
+                        <button type="submit" class="form-control btn btn-primary rounded submit m-2 mt-4">Submit</button>
+                      </div>
+
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+		</div>
+	</div>
+</div>

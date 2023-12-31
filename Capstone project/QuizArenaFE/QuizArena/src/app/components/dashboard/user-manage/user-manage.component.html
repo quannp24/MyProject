@@ -1,0 +1,547 @@
+<div class="fix-header fix-sidebar card-no-border">
+    <div class="preloader" *ngIf="isLoading">
+        <div class="loader">
+            <div class="loader__figure"></div>
+            <p class="loader__label">Quiz Arena</p>
+        </div>
+    </div>
+    <div id="main-wrapper">
+        <header class="topbar">
+            <nav class="navbar top-navbar navbar-expand-md navbar-light">
+                <div class="navbar-header">
+                    <a class="navbar-brand" [routerLink]="['/home']">
+                        <b><img src="/assets/images/logo_web.png" alt="homepage" class="dark-logo" /></b>
+                    </a>
+                </div>
+            </nav>
+        </header>
+        <app-left-sidebar></app-left-sidebar>
+        <div class="page-wrapper">
+            <div class="container-fluid">
+                <div class="page-titles">
+
+                </div>
+                <div class="row">
+                    <div id="services" class="services section">
+                        <div class="container">
+                            <div class="row content-body">
+                                <div class="col-lg-12 ">
+                                    <div class="naccs">
+                                        <div class="grid">
+                                            <div class="menu">
+                                                <div class="first-thumb " [class.active]="currentContent === 0"
+                                                    (click)="onMenuItemClick(0)">
+                                                    <div class="thumb">
+                                                        ALL USERS
+                                                    </div>
+                                                </div>
+                                                <div [class.active]="currentContent === 1" (click)="onMenuItemClick(1)">
+                                                    <div class="thumb">
+                                                        USUALLY ACTIVE
+                                                    </div>
+                                                </div>
+                                                <div [class.active]="currentContent === 2" (click)="onMenuItemClick(2)">
+                                                    <div class="thumb">
+                                                        LESS ACTIVE
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <div *ngIf="currentContent === 0">
+                                                    <div class="table-responsive mt-3 no-wrap">
+                                                        <div class="row" style=" margin-right: 0 !important">
+                                                            <div class="col-lg-12 d-flex align-items-stretch">
+                                                                <div class="card w-100">
+                                                                    <div class="card-body">
+                                                                        <div class="d-flex" style="gap:66%">
+                                                                            <div>
+                                                                                <h5 style="font-weight: 600;
+                                                                                font-size: 20px;
+                                                                                padding-bottom: 8%;
+                                                                                margin-top: 7%;">LIST ALL USERS </h5>
+                                                                            </div>
+                                                                            <div class="align-self-center"
+                                                                                style="margin-left: 20px;">
+                                                                                <button class="btn-reset"
+                                                                                    (click)="showDialogReset()">Reset
+                                                                                    Rank & VIP</button>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <p-table #dt1 [value]="listAllUsers"
+                                                                            dataKey="userId" [rows]="5"
+                                                                            [showCurrentPageReport]="true"
+                                                                            [loading]="loading" [paginator]="true"
+                                                                            [rowHover]="true"
+                                                                            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                                                                            [globalFilterFields]="['fullname', 'role']"
+                                                                            class="user-paginator">
+                                                                            <ng-template pTemplate="caption">
+                                                                                <div class="flex">
+                                                                                    <span
+                                                                                        class="p-input-icon-left ml-auto">
+                                                                                        <i class="pi pi-search"></i>
+                                                                                        <input
+                                                                                            style="width: 200px; height: 40px; "
+                                                                                            pInputText type="text"
+                                                                                            (input)="dt1.filterGlobal($any($event.target).value, 'contains')"
+                                                                                            placeholder="Search keyword" />
+                                                                                    </span>
+                                                                                </div>
+                                                                            </ng-template>
+                                                                            <ng-template pTemplate="header">
+                                                                                <tr>
+                                                                                    <th colspan="2"
+                                                                                        style="padding-left: 5%; min-width:15rem">
+                                                                                        <div class="flex align-items-center"
+                                                                                            type="text"
+                                                                                            field="questionText">
+                                                                                            Full Name
+                                                                                        </div>
+                                                                                    </th>
+                                                                                    <th>
+                                                                                        <div class="flex align-items-center"
+                                                                                            type="text"
+                                                                                            field="questionText">
+                                                                                            Score
+                                                                                        </div>
+                                                                                    </th>
+                                                                                    <th>
+                                                                                        <div class="flex align-items-center th-creator"
+                                                                                            type="text">
+                                                                                            Exp
+                                                                                        </div>
+                                                                                    </th>
+                                                                                    <th>
+                                                                                        <div class="flex align-items-center"
+                                                                                            type="text"
+                                                                                            field="questionText">
+                                                                                            Enrolled date
+                                                                                        </div>
+                                                                                    </th>
+                                                                                    <th>
+                                                                                        <div class="flex align-items-center"
+                                                                                            type="text"
+                                                                                            field="questionText">
+                                                                                            Role
+                                                                                        </div>
+                                                                                    </th>
+                                                                                    <th>
+                                                                                        <div class="flex align-items-center"
+                                                                                            type="text"
+                                                                                            field="questionText">
+                                                                                            Action
+                                                                                        </div>
+                                                                                    </th>
+                                                                                </tr>
+                                                                            </ng-template>
+                                                                            <ng-template pTemplate="body" let-item>
+                                                                                <tr class="row-question">
+                                                                                    <td style="width:80px;">
+                                                                                        <a class="avatar"
+                                                                                            *ngIf="item.images"><img
+                                                                                                [src]="item.images"
+                                                                                                alt="user"
+                                                                                                class="" /></a>
+                                                                                        <a class="avatar"
+                                                                                            *ngIf="!item.images || item.images.length<2"><img
+                                                                                                src="assets/images/avatar/avatardefault.png"
+                                                                                                alt="user"
+                                                                                                class="" /></a>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <h6>{{item.fullname}}</h6><small
+                                                                                            class="text-muted">{{item.email}}</small>
+                                                                                    </td>
+                                                                                    <td>{{item.score}}</td>
+                                                                                    <td>{{item.exp}}</td>
+                                                                                    <td>{{item.createdAt  | date: 'dd/MM/YYYY - HH:mm'}}</td>
+                                                                                    <td>
+                                                                                        <div *ngIf="item.role == 1">
+                                                                                            Admin</div>
+                                                                                        <div *ngIf="item.role == 2">
+                                                                                            Manage</div>
+                                                                                        <div *ngIf="item.role == 3">
+                                                                                            Staff</div>
+                                                                                        <div *ngIf="item.role == 4">
+                                                                                            Common User</div>
+                                                                                        <div *ngIf="item.role == 5">VIP
+                                                                                            User</div>
+
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <a href="#"
+                                                                                            class="btn btn-light btn-round me-1 mb-1 mb-md-0"
+                                                                                            data-bs-toggle="modal"
+                                                                                            data-bs-target="#quizModal"
+                                                                                            (click)="openQuizModal(item)">
+                                                                                            <fa-icon
+                                                                                                [icon]="faPencil"></fa-icon>
+                                                                                        </a>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </ng-template>
+                                                                            <ng-template pTemplate="emptymessage">
+                                                                                <tr>
+                                                                                    <td colspan="7">No user found.
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </ng-template>
+                                                                        </p-table>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-12">
+                                                <div *ngIf="currentContent === 1">
+                                                    <div class="table-responsive mt-3 no-wrap">
+                                                        <div class="row" style=" margin-right: 0 !important">
+                                                            <div class="col-lg-12 d-flex align-items-stretch">
+                                                                <div class="card w-100">
+                                                                    <div class="card-body">
+                                                                        <div class="d-flex" style="gap:66%">
+                                                                            <div>
+                                                                                <h5 style="font-weight: 600;
+                                                                                font-size: 20px;
+                                                                                padding-bottom: 4%;
+                                                                                margin-top: 4%;">LIST USUALLY ACTIVE
+                                                                                    USERS </h5>
+                                                                            </div>
+                                                                            <div class="align-self-center"
+                                                                                style="margin-left: 20px;">
+                                                                                <button class="btn-send-mail"
+                                                                                    (click)="sendActivityReminderEmail()">Send
+                                                                                    Mail Encourage</button>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <p-table #dt2 [value]="listRecentActivity"
+                                                                            dataKey="userId" [rows]="5"
+                                                                            [showCurrentPageReport]="true"
+                                                                            [loading]="loading" [paginator]="true"
+                                                                            [rowHover]="true"
+                                                                            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                                                                            [globalFilterFields]="['fullname', 'role']"
+                                                                            class="user-paginator">
+                                                                            <ng-template pTemplate="caption">
+                                                                                <div class="flex">
+                                                                                    <span
+                                                                                        class="p-input-icon-left ml-auto">
+                                                                                        <i class="pi pi-search"></i>
+                                                                                        <input
+                                                                                            style="width: 200px; height: 40px; "
+                                                                                            pInputText type="text"
+                                                                                            (input)="dt2.filterGlobal($any($event.target).value, 'contains')"
+                                                                                            placeholder="Search keyword" />
+                                                                                    </span>
+                                                                                </div>
+                                                                            </ng-template>
+                                                                            <ng-template pTemplate="header">
+                                                                                <tr>
+                                                                                    <th colspan="2"
+                                                                                        style="padding-left: 5%; min-width:15rem">
+                                                                                        <div class="flex align-items-center"
+                                                                                            type="text"
+                                                                                            field="questionText">
+                                                                                            Full Name
+                                                                                        </div>
+                                                                                    </th>
+                                                                                    <th>
+                                                                                        <div class="flex align-items-center"
+                                                                                            type="text"
+                                                                                            field="questionText">
+                                                                                            Date Action
+                                                                                        </div>
+                                                                                    </th>
+                                                                                    <th>
+                                                                                        <div class="flex align-items-center th-creator"
+                                                                                            type="text">
+                                                                                            Total Activities
+                                                                                        </div>
+                                                                                    </th>
+                                                                                    <th>
+                                                                                        <div class="flex align-items-center"
+                                                                                            type="text"
+                                                                                            field="questionText"
+                                                                                            style="padding-left: 4%;">
+                                                                                            Action </div>
+                                                                                    </th>
+                                                                                </tr>
+                                                                            </ng-template>
+                                                                            <ng-template pTemplate="body" let-item>
+                                                                                <tr class="row-question">
+                                                                                    <td style="width:80px;">
+                                                                                        <a class="avatar"
+                                                                                            *ngIf="item.images"><img
+                                                                                                [src]="item.images"
+                                                                                                alt="user"
+                                                                                                class="" /></a>
+                                                                                        <a class="avatar"
+                                                                                            *ngIf="!item.images || item.images.length<2"><img
+                                                                                                src="assets/images/avatar/avatardefault.png"
+                                                                                                alt="user"
+                                                                                                class="" /></a>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <h6>{{item.fullname}}</h6><small
+                                                                                            class="text-muted">{{item.email}}</small>
+                                                                                    </td>
+                                                                                    <td>{{item.dateAction  | date: 'dd/MM/YYYY - HH:mm'}}</td>
+                                                                                    <td style="padding-left: 4%;">
+                                                                                        {{item.totalActivities}}
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <a (click)="mailCustomeButton(item.email)"
+                                                                                            class="btn btn-light btn-round me-1 mb-1 mb-md-0"
+                                                                                            style="padding: 9px 30px;">
+                                                                                            <fa-icon
+                                                                                                [icon]="faPaperPlane"></fa-icon>
+                                                                                        </a>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </ng-template>
+                                                                            <ng-template pTemplate="emptymessage">
+                                                                                <tr>
+                                                                                    <td colspan="7">No user found.
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </ng-template>
+                                                                        </p-table>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-12">
+                                                <div *ngIf="currentContent === 2">
+                                                    <div class="table-responsive mt-3 no-wrap">
+                                                        <div class="row" style=" margin-right: 0 !important">
+                                                            <div class="col-lg-12 d-flex align-items-stretch">
+                                                                <div class="card w-100">
+                                                                    <div class="card-body">
+                                                                        <div class="d-flex" style="gap:66%">
+                                                                            <div>
+                                                                                <h5 style="font-weight: 600;
+                                                                                font-size: 20px;
+                                                                                padding-bottom: 4%;
+                                                                                margin-top: 4%;">LIST LESS ACTIVE USERS
+                                                                                </h5>
+                                                                            </div>
+                                                                            <div class="align-self-center"
+                                                                                style="margin-left: 20px;">
+                                                                                <button class="btn-send-mail"
+                                                                                    (click)="sendInActivityReminderEmail()">Send
+                                                                                    Mail Notification</button>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <p-table #dt3 [value]="listInfrequentActivity"
+                                                                            dataKey="userId" [rows]="5"
+                                                                            [showCurrentPageReport]="true"
+                                                                            [loading]="loading" [paginator]="true"
+                                                                            [rowHover]="true"
+                                                                            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                                                                            [globalFilterFields]="['fullname', 'role']"
+                                                                            class="user-paginator">
+                                                                            <ng-template pTemplate="caption">
+                                                                                <div class="flex">
+                                                                                    <span
+                                                                                        class="p-input-icon-left ml-auto">
+                                                                                        <i class="pi pi-search"></i>
+                                                                                        <input
+                                                                                            style="width: 200px; height: 40px; "
+                                                                                            pInputText type="text"
+                                                                                            (input)="dt3.filterGlobal($any($event.target).value, 'contains')"
+                                                                                            placeholder="Search keyword" />
+                                                                                    </span>
+                                                                                </div>
+                                                                            </ng-template>
+                                                                            <ng-template pTemplate="header">
+                                                                                <tr>
+                                                                                    <th colspan="2"
+                                                                                        style="padding-left: 5%; min-width:15rem">
+                                                                                        <div class="flex align-items-center"
+                                                                                            type="text"
+                                                                                            field="questionText">
+                                                                                            Full Name
+                                                                                        </div>
+                                                                                    </th>
+                                                                                    <th>
+                                                                                        <div class="flex align-items-center"
+                                                                                            type="text"
+                                                                                            field="questionText">
+                                                                                            Date Action
+                                                                                        </div>
+                                                                                    </th>
+                                                                                    <th>
+                                                                                        <div class="flex align-items-center th-creator"
+                                                                                            type="text">
+                                                                                            Total Activities
+                                                                                        </div>
+                                                                                    </th>
+                                                                                    <th>
+                                                                                        <div class="flex align-items-center"
+                                                                                            type="text"
+                                                                                            field="questionText"
+                                                                                            style="padding-left: 4%;">
+                                                                                            Action </div>
+                                                                                    </th>
+                                                                                </tr>
+                                                                            </ng-template>
+                                                                            <ng-template pTemplate="body" let-item>
+                                                                                <tr class="row-question">
+                                                                                    <td style="width:80px;">
+                                                                                        <a class="avatar"
+                                                                                            *ngIf="item.images"><img
+                                                                                                [src]="item.images"
+                                                                                                alt="user"
+                                                                                                class="" /></a>
+                                                                                        <a class="avatar"
+                                                                                            *ngIf="!item.images || item.images.length<2"><img
+                                                                                                src="assets/images/avatar/avatardefault.png"
+                                                                                                alt="user"
+                                                                                                class="" /></a>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <h6>{{item.fullname}}</h6><small
+                                                                                            class="text-muted">{{item.email}}</small>
+                                                                                    </td>
+                                                                                    <td>{{item.dateAction  | date: 'dd/MM/YYYY - HH:mm'}}</td>
+                                                                                    <td style="padding-left: 4%;">
+                                                                                        {{item.totalActivities}}
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <a (click)="mailCustomeButton(item.email)"
+                                                                                            class="btn btn-light btn-round me-1 mb-1 mb-md-0"
+                                                                                            style="padding: 9px 30px;">
+                                                                                            <fa-icon
+                                                                                                [icon]="faPaperPlane"></fa-icon>
+                                                                                        </a>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </ng-template>
+                                                                            <ng-template pTemplate="emptymessage">
+                                                                                <tr>
+                                                                                    <td colspan="7">No user found.
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </ng-template>
+                                                                        </p-table>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="quizModal" tabindex="-1" aria-labelledby="quizModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content custom-modal" *ngIf="selectedUser">
+            <div class="modal-header">
+                <h5 class="modal-title" id="quizModalLabel">Update User</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <label for="role">Role:</label>
+                <select id="role" [(ngModel)]="selectedUser.role">
+                    <option value="3">Staff</option>
+                    <option value="2">Manage</option>
+                    <option value="4">Common User</option>
+                    <option value="5">VIP User</option>
+                </select>
+                <br>
+                <label for="exp">Exp:</label>
+                <input type="text" id="exp" [(ngModel)]="selectedUser.exp">
+
+                <br>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-save-close" data-bs-dismiss="modal" id="saveButton"
+                    (click)="updateUser(selectedUser.userId, selectedUser.exp, selectedUser.role)">Save</button>
+                <button type="button" class="btn btn-secondary btn-save-close" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p-dialog [(visible)]="displayDialog" [closable]="false" [modal]="true" [breakpoints]="{ '960px': '50vw' }"
+    [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false">
+    <div class="confirmation-dialog-content">
+        <div class="confirmation-message">
+            <span>Are you sure you want reset rank and VIP?</span>
+        </div>
+        <div class="confirmation-actions">
+            <button class="btn btn-secondary" style="color: rgb(255, 255, 255);background-color:#67757c"
+                (click)="displayDialog = false">Cancel</button>
+            <button class="btn btn-danger" (click)="resetSession()">Reset</button>
+        </div>
+    </div>
+</p-dialog>
+
+<p-dialog [(visible)]="showResultReset" [closable]="false" [modal]="true" [breakpoints]="{ '960px': '50vw' }"
+    [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false">
+    <div class="confirmation-dialog-content">
+        <div class="confirmation-message">
+            <span style="color: green;">Reset rank and VIP account success.</span>
+        </div>
+        <div class="confirmation-actions">
+            <button class="btn btn-secondary" style="color: rgb(255, 255, 255);background-color:#67757c"
+                (click)="displayDialog = false">Cancel</button>
+        </div>
+    </div>
+</p-dialog>
+
+<p-dialog [(visible)]="showResult" [modal]="true" [breakpoints]="{ '960px': '50vw' }" [style]="{ width: '30vw' }"
+    [draggable]="false" [resizable]="false">
+    <ng-template pTemplate="header">
+        <span class="title-note">Result</span>
+    </ng-template>
+    <div class="line-br">
+        <div class="inside-line"></div>
+    </div>
+    <div class="modal-options" *ngIf="resultAdd ||resultSend">
+        <h6 style="color: #07a302;">Send Mail successful.</h6>
+    </div>
+</p-dialog>
+
+<p-dialog [(visible)]="displaySendMailCustom" [modal]="true" [breakpoints]="{ '960px': '50vw' }"
+    [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false">
+    <div class="dialog-header">
+        <h2>Send Mail Custom</h2>
+    </div>
+    <div class="dialog-content">
+        <label class="title-label" for="subject">Subject:</label>
+        <input class="subject" type="text" id="subject" [(ngModel)]="emailSubject" />
+
+        <label class="title-label" for="content">Content:</label>
+        <textarea class="content-text" id="content" [(ngModel)]="emailContent"></textarea>
+        <div style=" display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 15px; gap: 3% ">
+            <button pButton type="button" class="send-btn" (click)="sendUserMail()">Send</button>
+            <button pButton type="button" class="cancel-btn" (click)="cancelSendMail()">Cancel</button>
+        </div>
+
+    </div>
+</p-dialog>

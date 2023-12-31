@@ -1,0 +1,168 @@
+.body-library{
+  height: 100%;
+  min-height: 100vh;
+  background-color: #f7f7f7;
+  display: flex;
+  justify-content: center
+  ;
+
+}
+
+.container-library{
+  height: 100%;
+  padding-top: 130px;
+  padding-bottom: 60px;
+  width: 80%;
+  min-width: 355px;
+}
+
+.div-body{
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 13px 45px 0 rgba(51, 59, 69, 0.1);
+
+}
+
+.title-rowgroup{
+  display: flex;
+}
+
+.title-rowgroup h4{
+  display: inline-block;
+  white-space: nowrap;
+  color: #00ceff;
+  font-size: 20px;
+}
+
+.div-br{
+  display: table-cell;
+  width: 100%;
+  margin-left: 5px;
+}
+.title-rowgroup hr{
+  border-bottom: .0625rem solid #00ceff;
+  height: 0;
+  overflow: visible;
+}
+.row-item{
+  padding: 0 40px;
+}
+
+.content-item{
+  margin: 5px 0;
+  cursor: pointer;
+  background-color: #e4faff;
+  border-radius: 5px;
+  padding: 15px 25px;
+  border: 3px solid #daf8ff;
+  color: #575757;
+
+}
+
+.content-item:hover{
+  border: 3px solid #daf8ff;
+  background-color: #b1f1ff;
+  color: #fff;
+}
+
+.content-item h6{
+  font-size: 22px;
+}
+
+.content-item span{
+  font-size: 13px;
+  font-weight: 500;
+
+}
+
+:host ::ng-deep .p-datatable .p-datatable-header{
+    background: #89d4ff30;
+}
+
+.tab-tool{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.left-content{
+  display: flex;
+  align-items: center;
+}
+
+.right-content{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.p-input-icon-left{
+  width: 80%;
+}
+
+.p-inputtext{
+  width: 100%;
+}
+
+.img-avatar img{
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.infor-user span{
+  display: block;
+}
+
+.infor-user{
+  margin-left: 20px;
+}
+
+.fullname{
+
+}
+
+.username{
+  color: #707070;
+  font-size: 13px;
+}
+
+
+.header-container h4{
+  font-size: 30px;
+  font-weight: 600;
+  color: #0bb2db;
+}
+
+.header-container{
+  margin-bottom: 40px;
+  display: flex;
+}
+
+.btn-title{
+  margin-left: 30px;
+}
+
+.AssemblyButtonBase {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+}
+
+.AssemblyPrimaryButton--default {
+  background-color: #4edfff;
+  color: #fff;
+  border: 3px solid #58cae2;
+}
+
+.AssemblyPrimaryButton--default:hover {
+  background-color: #54cef9;
+}

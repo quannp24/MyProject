@@ -1,0 +1,698 @@
+.container{
+  background-color: #ededed73;
+    height: auto;
+    min-height: 100vh; /* 100% chiều cao của viewport */
+    width: 100vw; /* 100% chiều rộng của viewport */
+
+}
+
+
+
+.card-quiz{
+  margin-bottom: 8%;
+  min-height: 500px;
+}
+
+
+.card-body{
+  animation: slide-in 0.2s ease-in-out both;
+}
+
+@keyframes slide-in {
+  0% {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+.card-quiz h5{
+  color: #41ccf7;
+}
+
+.body-quiz{
+  height: 100%;
+}
+
+.row-answer{
+  width: 100%;
+}
+
+.content-quiz{
+  margin-top: 7%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.options-answer{
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Căn giữa theo chiều ngang */
+  height: 100%; /* Độ cao 100% để căn giữa */
+}
+
+.options-answer button{
+  min-width: 200px;
+  min-height: 80px;
+  margin: 5px;
+  background-color: #fff;
+  border: 2px solid #b1d7e9de;
+  border-radius: 5px;
+  color: rgb(14, 14, 14);
+  height: 90%;
+}
+
+.options-answer button:hover{
+  border: 2px solid #1a9bf1;
+}
+
+@media (min-width: 1150px) {
+  .card-quiz{
+    width: 70%;
+    margin-right: auto;
+    margin-left: auto;
+
+  }
+}
+
+@media (max-width: 1150px) {
+  .card-quiz{
+    width: 80%;
+    margin-right: auto;
+    margin-left: auto;
+
+  }
+
+  .content-quiz{
+    margin-top: 10%;
+  }
+}
+
+@media (max-width: 900px) {
+  .card-quiz{
+    width: 95%;
+    margin-right: auto;
+    margin-left: auto;
+
+  }
+
+  .content-finish-right img{
+    width: 200px;
+  }
+}
+
+
+@media (max-width: 767px) {
+  .content-quiz{
+    margin-top: 18%;
+  }
+
+
+}
+
+
+@media (max-width: 500px) {
+  .content-quiz{
+    margin-top: 22%;
+  }
+
+  // .container{
+  //   height: 135vh;
+  // }
+
+
+}
+
+
+
+//=================================
+.quizlet-button {
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.quizlet-content {
+  display: flex;
+  align-items: center;
+}
+
+.quizlet-number {
+  background-color: #def0ff;
+  border-radius: 50%;
+  color: #333;
+  // padding: 5px;
+  margin-right: 10px;
+  width: 25px;
+  height: 25px;
+  display: flex; /* Sử dụng display: flex để căn chỉnh nội dung theo chiều dọc và chiều ngang */
+  justify-content: center; /* Để căn giữa theo chiều ngang */
+  align-items: center; /* Để căn giữa theo chiều dọc */
+  font-size: 13px;
+}
+
+.custom-pre{
+  font-family: "Poppins", sans-serif;
+  font-size: 16px; /* Kích thước font chữ */
+  line-height: 1.4; /* Khoảng cách giữa dòng */
+  color: #333; /* Màu chữ */
+  min-height: 220px;
+  padding: 10px; /* Khoảng cách lề bên trong thẻ */
+  white-space: pre-wrap; /* Cho phép tự động ngắt dòng */
+}
+
+.quizlet-text {
+  flex: 1;
+  white-space: pre-wrap;
+}
+
+/* Add hover effect if desired */
+.quizlet-button:hover {
+  background-color: #f5f5f5;
+  cursor: pointer;
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+
+.body-right{
+  animation: slideIn 0.3s ease forwards;
+  position: fixed;
+  right: 0px;
+  z-index: 3;
+  height: 100%;
+  padding: 0;
+}
+
+button.quizlet-button.correct{
+  border: 2px solid rgb(93 226 93);
+  background-color: rgb(234 255 234);
+}
+
+button.quizlet-button.correct:hover{
+  border: 2px solid rgb(93 226 93);
+  background-color: rgb(234 255 234);
+}
+
+button.quizlet-button.incorrect{
+  border: 2px solid rgb(255 108 108);
+}
+
+button.quizlet-button.incorrect:hover{
+  border: 2px solid rgb(255 108 108);
+}
+
+button.quizlet-button.hidden{
+  border: 2px solid rgb(201, 201, 201);
+  color: rgb(201, 201, 201);
+}
+
+.hidden span.quizlet-number{
+  background-color: rgb(201, 201, 201);
+  color: #fff;
+}
+
+.correct span.quizlet-number{
+  background-color: rgb(93 226 93);
+  color: #fff;
+
+}
+
+.incorrect span.quizlet-number{
+  background-color: rgb(255 108 108);
+  color: #fff;
+}
+
+button.quizlet-button.hidden:hover{
+  border: 2px solid rgb(201, 201, 201);
+}
+
+.mess-text{
+  text-align: start;
+  font-size: 14px;
+  font-weight: bold;
+  margin-left: 20px;
+  min-height: 30px;
+}
+
+span.correct{
+  color: rgb(93 226 93);
+  animation: slide-in 0.2s ease-in-out both;
+}
+
+
+span.incorrect{
+  color: rgb(255 108 108);
+  animation: slide-in 0.2s ease-in-out both;
+}
+//=====================MODAL===========================
+.modal {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(0 0 0 / 19%);
+  z-index: 0;
+}
+
+.modal-content {
+  background-color: #fefefe00;
+  margin: 12% auto;
+  padding: 20px;
+  border: none;
+  max-width: 500px;
+}
+
+.text-random{
+  background-color: #fffa00;
+  color: #0874ff;
+  padding: 10px 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.text-helper{
+  background-color: #ffbe01;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.modal-content img{
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+//==========finish quiz
+
+
+.finish-quiz{
+  display: flex;
+  align-items: center; /* Giữa chiều dọc */
+  justify-content: center;
+}
+
+.text-complete p span{
+  color: #41ccf7;
+  font-weight: bold;
+}
+
+.text-complete img{
+  position: absolute;
+  width: 100px;
+  z-index: 0;
+}
+
+.content-finish-left{
+  cursor: default;
+}
+
+
+.content-finish-left h2{
+  color: #1a9bf1;
+}
+
+.btn-again{
+  width: 165px;
+  height: 50px;
+  color: #41ccf7;
+  background-color: #fff;
+  font-weight: bold;
+  border: 2px solid #41ccf7;
+  border-radius: 10px;
+  z-index: 1;
+  position: absolute;
+}
+
+
+
+.btn-detail{
+  width: 165px;
+  height: 50px;
+  color: #ffffff;
+  background-color: #41ccf7;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  margin-left: 20px;
+  z-index: 1;
+  position: absolute;
+}
+
+.btn-again:hover{
+  background-color: #7ed9f5;
+  border: 2px solid #13a7d4;
+  color: #fff;
+
+}
+
+.btn-detail:hover{
+  background-color: #4dc2e6;
+}
+
+.body-finish{
+  width: 100%;
+}
+
+.img-right img{
+  position: absolute;
+  width: 150px;
+  z-index: 0;
+  left: 20%;
+}
+
+.div-again{
+  width: 165px;
+  height: 50px;
+}
+
+.div-detail{
+  width: 165px;
+  height: 50px;
+}
+
+
+
+@media (min-width: 1150px) {
+  .content-finish-right img{
+    width: 280px;
+  }
+  .content-finish-left{
+    display: flex;
+    align-items: center; /* Giữa chiều dọc */
+    justify-content: flex-end;
+    text-align: center;
+    margin-right: 30px;
+  }
+  .btn-finish{
+    margin-left: 50px;
+  }
+}
+
+@media (max-width: 1150px) {
+  .content-finish-right img{
+    width: 280px;
+  }
+  .content-finish-left{
+    display: flex;
+    align-items: center; /* Giữa chiều dọc */
+    justify-content: flex-end;
+    text-align: center;
+    margin-right: 30px;
+  }
+
+}
+
+@media (max-width: 900px) {
+
+  .content-finish-right img{
+    width: 200px;
+  }
+}
+
+
+@media (max-width: 767px) {
+  .content-finish-left{
+    display: flex;
+    align-items: center; /* Giữa chiều dọc */
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .content-finish-right{
+    display: flex;
+    align-items: center; /* Giữa chiều dọc */
+    justify-content: center;
+    text-align: center;
+  }
+
+}
+
+
+@media (max-width: 500px) {
+
+  .content-finish-right img{
+    display: none;
+  }
+
+  .div-again{
+    width: 400px;
+    margin-bottom: 10px;
+  }
+
+  .div-detail{
+    width: 400px;
+
+  }
+
+  .img-right img{
+    display: none;
+  }
+
+  .text-complete img{
+    display: none;
+  }
+
+  .btn-detail{
+    margin-left: 0;
+    left: 30%;
+  }
+
+  .btn-again{
+    left: 30%;
+  }
+}
+
+
+// ========= MODAL OPTIONS==========
+.title-options{
+  color: #2dd6ff;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.line-br{
+  width: 100%;
+  display: flex;
+  align-items: center; /* Căn giữa theo chiều dọc */
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.inside-line{
+  width: 98%;
+  border-top: 1px solid #c9c9c9;
+}
+
+.fun-reset{
+  margin: 10px 10px;
+  color: rgb(241, 57, 57);
+}
+
+.fun-random{
+  margin: 10px 0;
+  color: rgb(22, 22, 22);
+  width: 100%;
+}
+
+.fun-random h6{
+  font-weight: 600;
+  cursor: default;
+  width: 50%;
+}
+
+.switch-random{
+  display: flex;
+  align-items: center; /* Căn giữa theo chiều dọc */
+  justify-content: flex-end;
+}
+
+.fun-reset h6{
+  font-weight: bold;
+  cursor: pointer;
+  width: auto;
+  display: inline;
+}
+
+.title-note{
+  color: #db2323;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.div-notebtn{
+  display: flex;
+  align-items: center; /* Căn giữa theo chiều dọc */
+  justify-content: flex-end;
+}
+
+.btn-surenote{
+  background-color: #65d8e9;
+  border: none;
+  width: 120px;
+  height: 50px;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: 600;
+}
+
+.btn-surenote:hover{
+  background-color: #0a93a8;
+
+}
+
+//=====FOOTER============
+
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #fff;
+  color: #41ccf7;
+  box-shadow: 0px 5px 9px rgba(0,0,0,0.9);
+  height: 70px;
+}
+
+.footer-right{
+  display: flex;
+  align-items: center; /* Căn giữa theo chiều dọc */
+  justify-content: flex-start;
+  height: 100%;
+}
+
+.footer-right span{
+  height: 40px;
+  width: 90px;
+  background-color: #ffffff;
+  border: 3px solid #41ccf7;
+  color: #41ccf7;
+  border-radius: 5px;
+  display: flex;
+  align-items: center; /* Căn giữa theo chiều dọc */
+  justify-content: center;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.footer-left{
+  display: flex;
+  align-items: center; /* Căn giữa theo chiều dọc */
+  justify-content: flex-start;
+  height: 27px;
+  margin-left: 40px;
+  font-weight: bold;
+}
+
+.footer-right h6{
+  margin: 0;
+}
+
+.footer-left h6{
+  margin: 0 ;
+  font-weight: bold;
+}
+
+.update-exp{
+  position: absolute;
+  color: #41ccf7;
+  font-weight: bold;
+  font-size: 16px;
+  bottom: 40px;
+  animation: appearAndFly 2s ease-in-out forwards;
+}
+
+@keyframes appearAndFly {
+  0% {
+    opacity: 0;
+    transform: translateY(-50%); /* Bắt đầu ở dưới màn hình */
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-150%); /* Kết thúc ở trên màn hình */
+  }
+}
+
+
+.content-footer{
+  height: 100%;
+  width: 50%;
+  display: flex;
+  align-items: center; /* Căn giữa theo chiều dọc */
+  justify-content: flex-start;
+}
+
+.icon-index{
+  font-size: 18px;
+  margin-right: 4px;
+}
+
+
+//========== Exp==============
+.exp-text{
+  color: #fff;
+  margin: 0;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.div-textExp{
+  margin: 2px 10px;
+  background-color: #41ccf7;
+  width: 65px;
+  height: 30px;
+  display: flex;
+  align-items: center; /* Căn giữa theo chiều dọc */
+  justify-content: center;
+  border-radius: 5px;
+}
+
+.title-text-quiz{
+  display: flex;
+  align-items: center; /* Căn giữa theo chiều dọc */
+  justify-content: flex-start;
+}
+
+.title-text-quiz h5{
+  margin: 0;
+}

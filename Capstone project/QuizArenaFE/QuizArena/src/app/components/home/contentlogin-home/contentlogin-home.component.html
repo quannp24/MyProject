@@ -1,0 +1,198 @@
+
+<div id="portfolio" class="our-portfolio section" *ngIf="isRecent">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-5">
+        <div class="section-heading wow fadeInLeft" data-wow-duration="1s" data-wow-delay="0.3s">
+          <h6 *ngIf="isLoaded">Quiz Recent</h6>
+          <p-skeleton *ngIf="!isLoaded" width="150px" height="40px"></p-skeleton>
+
+          <h4 *ngIf="isLoaded">See Your Quiz Do <em>Recent</em></h4>
+          <p-skeleton *ngIf="!isLoaded" width="200px" height="60px"></p-skeleton>
+
+          <div class="line-dec"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid wow fadeIn" data-wow-duration="1s" data-wow-delay="0.7s">
+    <div class="row">
+      <div class="col-lg-12">
+
+        <owl-carousel-o *ngIf="!isDivQuiz" [options]="customOptions">
+          <ng-container *ngFor="let slide of slidesStore">
+
+            <ng-template carouselSlide >
+              <div class="item">
+                <a [routerLink]="[slide.href]">
+                  <div class="portfolio-item">
+                  <div class="thumb">
+                    <p-skeleton *ngIf="!isLoaded" width="100%" height="1100%"></p-skeleton>
+                      <img *ngIf="slide.src && isLoaded" [src]="slide.src" alt="image quiz">
+                      <img *ngIf="!slide.src && isLoaded" src="assets/images/quizdefault.jpg" alt="image default quiz">
+
+                  </div>
+                  <div class="down-content">
+                    <h4>{{slide.title}}</h4>
+                    <span>{{slide.desc}}</span>
+                  </div>
+                </div>
+                </a>
+              </div>
+            </ng-template>
+          </ng-container>
+
+        </owl-carousel-o>
+
+        <div *ngIf="isDivQuiz" class="row">
+          <ng-container *ngFor="let slide of slidesStore" >
+              <div class="item col-lg-4 col-md-6" >
+                <a [routerLink]="[slide.href]">
+                  <div class="portfolio-item">
+                  <div class="thumb">
+                    <p-skeleton *ngIf="!isLoaded" width="100%" height="1100%"></p-skeleton>
+                      <img *ngIf="slide.src && isLoaded" [src]="slide.src" alt="image quiz">
+                      <img *ngIf="!slide.src && isLoaded" src="assets/images/quizdefault.jpg" alt="image default quiz">
+
+                  </div>
+                  <div class="down-content">
+                    <h4>{{slide.title}}</h4>
+                    <span>{{slide.desc}}</span>
+                  </div>
+                </div>
+                </a>
+              </div>
+          </ng-container>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="portfolio" class="our-portfolio section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-5">
+        <div class="section-heading wow fadeInLeft" data-wow-duration="1s" data-wow-delay="0.3s">
+          <h6 *ngIf="isLoaded">Quiz Popular</h6>
+          <p-skeleton *ngIf="!isLoaded" width="150px" height="40px"></p-skeleton>
+
+          <h4 *ngIf="isLoaded">See Quiz <em>Popular</em></h4>
+          <p-skeleton *ngIf="!isLoaded" width="200px" height="60px"></p-skeleton>
+
+          <div class="line-dec"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid wow fadeIn" data-wow-duration="1s" data-wow-delay="0.7s">
+    <div class="row">
+      <div class="col-lg-12">
+
+        <owl-carousel-o *ngIf="!isDivQuizPopular" [options]="customOptions">
+          <ng-container *ngFor="let slide of slidesStorePopular">
+
+            <ng-template carouselSlide >
+              <div class="item">
+                <a [routerLink]="[slide.href]">
+                  <div class="portfolio-item">
+                  <div class="thumb">
+                    <p-skeleton *ngIf="!isLoaded" width="100%" height="1100%"></p-skeleton>
+                      <img *ngIf="slide.src && isLoaded" [src]="slide.src" alt="image quiz">
+                      <img *ngIf="!slide.src && isLoaded" src="assets/images/quizdefault.jpg" alt="image default quiz">
+
+                  </div>
+                  <div class="down-content">
+                    <h4>{{slide.title}}</h4>
+                    <span>{{slide.desc}}</span>
+                  </div>
+                </div>
+                </a>
+              </div>
+            </ng-template>
+          </ng-container>
+
+        </owl-carousel-o>
+
+        <div *ngIf="isDivQuizPopular" class="row">
+          <ng-container *ngFor="let slide of slidesStore" >
+              <div class="item col-lg-4 col-md-6" >
+                <a [routerLink]="[slide.href]">
+                  <div class="portfolio-item">
+                  <div class="thumb">
+                    <p-skeleton *ngIf="!isLoaded" width="100%" height="1100%"></p-skeleton>
+                      <img *ngIf="slide.src && isLoaded" [src]="slide.src" alt="image quiz">
+                      <img *ngIf="!slide.src && isLoaded" src="assets/images/quizdefault.jpg" alt="image default quiz">
+
+                  </div>
+                  <div class="down-content">
+                    <h4>{{slide.title}}</h4>
+                    <span>{{slide.desc}}</span>
+                  </div>
+                </div>
+                </a>
+              </div>
+          </ng-container>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="blog" class="blog">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 offset-lg-4  wow fadeInDown" data-wow-duration="1s" data-wow-delay="0.3s">
+        <div class="section-heading">
+          <h6>Recent Challenge</h6>
+          <h4>Check Our<em> Posts</em></h4>
+          <div class="line-dec"></div>
+        </div>
+      </div>
+
+      <div class="col-lg-6 show-up wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.3s" *ngIf="challenges.length>0 && challenges[0]">
+        <div class="blog-post">
+          <div class="thumb">
+            <a [routerLink]="['/challenge-detail',challenges[0].examId]"><img *ngIf="challenges[0].image && challenges[0].image.length>2" src="{{ challenges[0].image }}" alt=""></a>
+            <a [routerLink]="['/challenge-detail',challenges[0].examId]"><img *ngIf="!challenges[0].image || (challenges[0].image && challenges[0].image.length<2)" src="assets/images/examdefault.png" alt=""></a>
+          </div>
+          <div class="down-content">
+            <span class="category">{{ challenges[0].examType == 1?'Main':'Event' }}</span>
+            <span class="date">{{ challenges[0].date | date: 'MMM dd, yyyy' }}</span>
+            <a [routerLink]="['/challenge-detail',challenges[0].examId]"><h4>{{ challenges[0].examName }}</h4></a>
+            <p>{{ challenges[0].description }}</p>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-lg-6 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.3s">
+        <div class="blog-posts">
+          <div class="row">
+            <div class="col-lg-12" *ngFor="let challenge of challenges.slice(1,4)">
+              <div class="post-item">
+                <div class="thumb">
+                  <a [routerLink]="['/challenge-detail',challenge.examId]"><img *ngIf="challenge.image && challenge.image.length>2" src="{{ challenge.image }}" alt="img"></a>
+                  <a [routerLink]="['/challenge-detail',challenge.examId]"><img *ngIf="!challenge.image || (challenge.image && challenge.image.length<2)" src="assets/images/examdefault.png" alt="img"></a>
+                </div>
+                <div class="right-content">
+                  <span class="category">{{ challenge.examType == 1?'Main':'Event' }}</span>
+                  <span class="date">{{ challenge.date | date: 'MMM dd, yyyy' }}</span>
+                  <a [routerLink]="['/challenge-detail',challenge.examId]"><h4>{{ challenge.examName}}</h4></a>
+                  <p>{{ challenge.description }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+    </div>
+  </div>
+</div>

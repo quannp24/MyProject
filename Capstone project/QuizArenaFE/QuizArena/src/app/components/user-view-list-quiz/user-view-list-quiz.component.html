@@ -1,0 +1,56 @@
+<app-header></app-header>
+
+<div class="banner-list">
+    <img src="/assets/images/banner-list-quiz.jpg" alt="Banner Image">
+</div>
+
+<div class="container bootdey">
+    <div class="row" style="padding: 5% 10%;">
+        <div class="col-md-3">
+            <section class="panel">
+                <header class="panel-heading">
+                    Search Quiz
+                </header>
+                <div class="panel-body">
+                    <input type="text" id="search-input" [(ngModel)]="searchText" class="form-control" placeholder="Search..." (keyup.enter)="getListQuizActive()">
+                </div>
+                <header class="panel-heading">
+                    Category
+                </header>
+                <div class="panel-body">
+                    <ul class="nav prod-cat" style="position: relative; display: block; margin-left: 6%;" >
+                        <li style="padding-bottom: 5%;">
+                            <a href="#" (click)="getListQuizByCategoryId($event, 0)"> <fa-icon style="font-size: 80%; margin-right: 3%;" [icon]="faDotCircle"></fa-icon>All Quiz</a>
+                        </li>
+                    </ul>
+                    <ul class="nav prod-cat" style="position: relative; display: block; margin-left: 6%;" *ngFor="let category of listCategoryQuiz" >
+                        <li style="padding-bottom: 5%;">
+                            <a href="#" (click)="getListQuizByCategoryId($event, category.categoryId)"> <fa-icon style="font-size: 80%; margin-right: 3%;" [icon]="faDotCircle"></fa-icon> {{category.categoryName}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+        </div>
+        <div class="col-md-9">
+            <div class="row product-list">
+                <div class="col-md-4 mb-4"  *ngFor="let quiz of listQuiz">
+                    <section class="panel">
+                        <div class="pro-img-box">
+                            <img *ngIf="quiz.image" [src]="quiz.image" alt="image" />
+                            <img *ngIf="!quiz.image" src="assets/images/quizdefault.jpg" alt="image" />
+                        </div>
+                        <div class="panel-body text-center">
+                            <h4>
+                                <a [routerLink]="['/quiz-detail',quiz.quizId]" class="pro-title">
+                                    {{quiz.title}}
+                                </a>
+                            </h4>
+                            <p class="description-container">{{quiz.description}}</p>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,70 @@
+
+<aside class="left-sidebar">
+  <div class="header" style="margin-bottom: 40%;">
+  <div class="user" style="border-bottom: 1px solid rgba(120, 130, 140, 0.13);">
+
+    <!-- /.name -->
+    <div class="user-dropdown col-md-10" *ngIf="userData">
+      <div class="user-info">
+        <a class="avatar" *ngIf="userData.images && userData.images.length>2"><img [src]="userData.images" alt="user" class="" /></a>
+        <a class="avatar" *ngIf="!userData.images || userData.images.length<2"><img src="assets/images/avatar/avatardefault.png" alt="user" class="" /></a>
+    <h5 class="name"><a  [routerLink]="['/profile']">{{userData.username}}</a></h5>
+    <h5 *ngIf="userData.role == 1" class="position">Administrator</h5>
+    <h5 *ngIf="userData.role == 2" class="position">Manager</h5>
+      </div>
+    <div class="dropdown-content">
+      <ul>
+        <li><a  [routerLink]="['/profile']"><fa-icon [icon]="faIdBadge"></fa-icon>  Profile</a></li>
+        <li><a (click)="logout()"><fa-icon [icon]="faArrowRightFromBracket"></fa-icon>  Logout</a></li>
+      </ul>
+    </div>
+    </div>
+  </div>
+</div>
+  <div class="scroll-sidebar">
+      <!-- Sidebar navigation-->
+      <nav class="sidebar-nav">
+        <ul id="sidebarnav">
+          <li>
+            <a class="waves-effect waves-dark" [routerLink]="['/dashboard']" [routerLinkActive]="['active']" aria-expanded="false">
+              <fa-icon class="pr-8per pl-10per" [icon]="faHouse"></fa-icon><span class="hide-menu">Home Dashboard</span>
+            </a>
+          </li>
+          <li *ngIf="userData && userData.role == 1">
+            <a class="waves-effect waves-dark" [routerLink]="['/user-manage']" [routerLinkActive]="['active']" aria-expanded="false">
+              <fa-icon class="pr-8per pl-10per" [icon]="faUsers"></fa-icon><span class="hide-menu">User Manage</span>
+            </a>
+          </li>
+          <li>
+            <a class="waves-effect waves-dark" [routerLink]="['/question-manage']" [routerLinkActive]="['active']" aria-expanded="false">
+              <fa-icon class="pr-8per pl-10per" [icon]="faClipboardQuestion"></fa-icon><span class="hide-menu">Question Manage</span>
+            </a>
+          </li>
+          <li>
+            <a class="waves-effect waves-dark" [routerLink]="['/quiz-manage']" [routerLinkActive]="['active']" aria-expanded="false">
+              <fa-icon class="pr-8per pl-10per" [icon]="faChalkboardUser"></fa-icon><span class="hide-menu">Quiz Manage</span>
+            </a>
+          </li>
+          <li>
+            <a class="waves-effect waves-dark" [routerLink]="['/challenge-manage']" [routerLinkActive]="['active']" aria-expanded="false">
+              <fa-icon class="pr-8per pl-10per" [icon]="faBookOpenReader"></fa-icon><span class="hide-menu">Challenge Manage</span>
+            </a>
+          </li>
+          <li>
+            <a class="waves-effect waves-dark" [routerLink]="['/earning-money']" [routerLinkActive]="['active']" aria-expanded="false">
+              <fa-icon class="pr-8per pl-10per" [icon]="faMoneyCheckDollar"></fa-icon><span class="hide-menu">Earning Money</span>
+            </a>
+          </li>
+          <li>
+            <a class="waves-effect waves-dark" [routerLink]="['/history']" [routerLinkActive]="['active']" aria-expanded="false">
+              <fa-icon class="pr-8per pl-10per" [icon]="faCameraRetro"></fa-icon><span class="hide-menu">History Record</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+</aside>
+
+
+
+

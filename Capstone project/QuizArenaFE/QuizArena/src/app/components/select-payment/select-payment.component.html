@@ -1,0 +1,65 @@
+<app-header></app-header>
+<div class="contain">
+  <div class="info-body">
+    <article class="card">
+      <div class="container">
+        <div class="card-title">
+          <h2>Payment</h2>
+        </div>
+        <div class="card-body">
+          <div class="payment-type">
+            <h4>Choose payment method below</h4>
+            <div class="types flex justify-space-between" style="justify-content: left !important; gap: 10%;">
+              <div class="type selected" (click)="selectPaymentType('momo')">
+                <div class="logo">
+                  <img src="assets/images/momo.png" alt="image">
+                </div>
+                <div class="text">
+                  <p>Pay with Momo</p>
+                </div>
+              </div>
+              <div class="type unactice" (click)="selectPaymentType('vnpay')">
+                <div class="logo">
+                  <img src="assets/images/vnpay.png" alt="image">
+                </div>
+                <div class="text">
+                  <p>Pay with VNPay</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="payment-info flex justify-space-between"  style="width: 200%;">
+            <div class="column billing">
+              <div class="title">
+                <h4>Billing Info</h4>
+              </div>
+              <div class="field full">
+                <label for="name">Full Name</label>
+                <input id="name" type="text" [(ngModel)]="fullname" placeholder="Full Name">
+              </div>
+              <div class="field full">
+                <label for="address">Phone</label>
+                <input id="address" type="text"  [(ngModel)]="phone" placeholder="Phone">
+              </div>
+              <div class="field full">
+                <label for="address">Email</label>
+                <input id="address" disabled type="text"  [(ngModel)]="email" placeholder="Email">
+              </div>
+              <div class="field full">
+                <label class="error" *ngIf="messError && messError.length>0">{{messError}}</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-actions flex justify-space-between">
+          <div class="flex-start">
+            <button class="button button-secondary" [routerLink]="['/home']">Return to Home</button>
+          </div>
+          <div class="flex-end">
+            <button class="button button-primary" (click)="requestPayment()">Proceed</button>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+</div>

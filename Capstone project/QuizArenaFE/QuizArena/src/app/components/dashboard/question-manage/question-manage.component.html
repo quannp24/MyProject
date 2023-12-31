@@ -1,0 +1,287 @@
+<div class="fix-header fix-sidebar card-no-border">
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    <div class="preloader" *ngIf="isLoading">
+        <div class="loader">
+            <div class="loader__figure"></div>
+            <p class="loader__label">Quiz Arena</p>
+        </div>
+    </div>
+    <div id="main-wrapper">
+        <header class="topbar">
+            <nav class="navbar top-navbar navbar-expand-md navbar-light">
+                <div class="navbar-header">
+                    <a class="navbar-brand" [routerLink]="['/home']">
+                        <b>
+                            <img src="/assets/images/logo_web.png" alt="homepage" class="dark-logo" />
+
+                        </b>
+
+                    </a>
+                </div>
+                <div class="navbar-collapse">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item"> <a class="nav-link nav-toggler hidden-md-up waves-effect waves-dark"
+                                href="javascript:void(0)"><i class="fa fa-bars"></i></a> </li>
+                        <li class="nav-item hidden-xs-down search-box"> <a
+                                class="nav-link hidden-sm-down waves-effect waves-dark" href="javascript:void(0)"><i
+                                    class="fa fa-search"></i></a>
+                            <form class="app-search">
+                                <input type="text" class="form-control" placeholder="Search & enter"> <a
+                                    class="srh-btn"><i class="fa fa-times"></i></a>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <app-left-sidebar></app-left-sidebar>
+        <div class="page-wrapper">
+            <div class="container-fluid">
+                <div class="row" style="display: flex;
+                justify-content: center;">
+
+                    <div class="col-lg-3 col-md-6 col-xs-12">
+                        <div class="box-content">
+                            <h4 class="box-title fz-20 ">Total Unapprove Question</h4>
+                            <div class="content widget-stat">
+                                <div class="percent bg-warning" style="background-color: rgb(229, 134, 39) !important;">
+                                    {{totalUnapprove}} Questions</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-xs-12">
+                        <div class="box-content">
+                            <h4 class="box-title fz-20 ">Total Approved Questions</h4>
+                            <div class="content widget-stat">
+                                <div class="percent bg-warning" style="background-color: rgb(62, 93, 231) !important;">
+                                    {{totalApprove}} Questions</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- Column -->
+                    <div class="col-lg-6 d-flex align-items-stretch">
+                        <div class="card w-100">
+                            <div class="card-body">
+                                <div class="d-flex" style="gap:66%">
+                                    <div>
+                                        <h5 style="font-weight: 600;
+                                        font-size: 20px;
+                                        ">UNAPPROVE QUESTION</h5>
+                                    </div>
+                                </div>
+                                <div class="table-responsive mt-3 no-wrap">
+                                    <p-table #dt1 [value]="listUnapproveCategory" dataKey="categoryId" [rows]="5"
+                                        [showCurrentPageReport]="true" [loading]="loading" [paginator]="true"
+                                        [rowHover]="true" class="question-paginator"
+                                        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                                        [globalFilterFields]="['categoryName', 'username']">
+                                        <ng-template pTemplate="caption">
+                                            <div class="flex">
+                                                <span class="p-input-icon-left ml-auto">
+                                                    <i class="pi pi-search"></i>
+                                                    <input style="width: 200px; height: 40px; " pInputText type="text"
+                                                        (input)="dt1.filterGlobal($any($event.target).value, 'contains')"
+                                                        placeholder="Search keyword" />
+                                                </span>
+                                            </div>
+                                        </ng-template>
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                <th>
+                                                    <div class="flex align-items-center" type="text"
+                                                        field="questionText">
+                                                        Category ID
+                                                    </div>
+                                                </th>
+                                                <th>
+                                                    <div class="flex align-items-center" type="text"
+                                                        field="questionText">
+                                                        Category Name
+                                                    </div>
+                                                </th>
+                                                <th>
+                                                    <div class="flex align-items-center th-creator" type="text"
+                                                        field="userId">
+                                                        Action
+                                                    </div>
+                                                </th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-category>
+                                            <tr class="row-question">
+                                                <td>
+                                                    {{ category.categoryId }}
+                                                </td>
+                                                <td class="colum-creator">
+                                                    <span class="ml-1 vertical-align-middle">{{ category.categoryName
+                                                        }}</span>
+                                                </td>
+                                                <td style="padding: 0.5rem 1rem;">
+                                                    <a class="btn btn-light btn-round me-1 mb-1 mb-md-0"
+                                                        [routerLink]="['/approve-question',category.categoryId]">
+                                                        <fa-icon style="color: #20aee3;"
+                                                            [icon]="faPenToSquare"></fa-icon>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="emptymessage">
+                                            <tr>
+                                                <td colspan="7">No question found.</td>
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 d-flex align-items-stretch">
+                        <div class="card w-100">
+                            <div class="card-body">
+                                <div class="d-flex">
+                                    <div class="header-table-list">
+                                        <h5 class="card-title" style="font-weight: 600;
+                                        font-size: 20px;">APPROVED QUESTION</h5>
+                                    </div>
+                                </div>
+                                <div class="table-responsive mt-3 no-wrap">
+                                    <p-table #dt2 [value]="listApproveCategory" dataKey="categoryId" [rows]="5"
+                                        [showCurrentPageReport]="true" [loading]="loading" [paginator]="true"
+                                        [rowHover]="true" class="question-paginator"
+                                        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                                        [globalFilterFields]="['categoryName', 'username']">
+                                        <ng-template pTemplate="caption">
+                                            <div class="flex">
+                                                <span class="p-input-icon-left ml-auto">
+                                                    <i class="pi pi-search"></i>
+                                                    <input style="width: 200px; height: 40px; " pInputText type="text"
+                                                        (input)="dt2.filterGlobal($any($event.target).value, 'contains')"
+                                                        placeholder="Search keyword" />
+                                                </span>
+                                            </div>
+                                        </ng-template>
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                <th>
+                                                    <div class="flex align-items-center" type="text"
+                                                        field="questionText">
+                                                        Category ID
+                                                    </div>
+                                                </th>
+                                                <th>
+                                                    <div class="flex align-items-center" type="text"
+                                                        field="questionText">
+                                                        Category Name
+                                                    </div>
+                                                </th>
+                                                <th>
+                                                    <div class="flex align-items-center th-creator" type="text"
+                                                        field="userId">
+                                                        Action
+                                                    </div>
+                                                </th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-category>
+                                            <tr class="row-question">
+                                                <td>
+                                                    {{ category.categoryId }}
+                                                </td>
+                                                <td class="colum-creator">
+                                                    <span class="ml-1 vertical-align-middle">{{ category.categoryName
+                                                        }}</span>
+                                                </td>
+                                                <td style="padding: 0.5rem 1rem;">
+                                                    <a class="btn btn-light btn-round me-1 mb-1 mb-md-0"
+                                                        (click)="showDetailQuestion(category.categoryId)">
+                                                        <fa-icon [icon]="faCircleInfo"></fa-icon>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="emptymessage">
+                                            <tr>
+                                                <td colspan="7">No question found.</td>
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <p-dialog [(visible)]="showResultApprove"  [modal]="true" [breakpoints]="{ '960px': '50vw' }"
+        [style]="{ width: '75vw' , 'max-height': '100%'}" [draggable]="false" [resizable]="false" dismissable="true">
+        <div class="table-responsive no-wrap">
+          <p-table
+            #dt1
+            [value]="listQuestion"
+            dataKey="questionId"
+            [rows]="10"
+            [showCurrentPageReport]="true"
+            [loading]="loading"
+            [paginator]="true"
+            [rowHover]="true"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [globalFilterFields]="['questionText', 'username']"
+            >
+            <ng-template pTemplate="caption">
+                <div class="flex">
+                    <span class="p-input-icon-left ml-auto">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" (input)="dt1.filterGlobal($any($event.target).value, 'contains')" placeholder="Search keyword" />
+                    </span>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                  <th style="min-width:15rem">
+                    <div class="flex align-items-center" type="text" field="questionText" >
+                        Question ID
+                    </div>
+                </th>
+                    <th style="min-width:15rem">
+                        <div class="flex align-items-center" type="text" field="questionText" >
+                            Question
+                        </div>
+                    </th>
+                    <th style="min-width:15rem">
+                        <div class="flex align-items-center th-creator" type="text" field="userId">
+                            Difficult Level
+                        </div>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-question>
+                <tr class="row-question">
+                  <td style="padding-left: 3%;">
+                    {{ question.questionId }}
+                </td>
+                    <td>
+                        {{ question.questionText }}
+                    </td>
+                    <td class="colum-creator">
+                      <div *ngIf="question.difficultyLevel == 1">Easy</div>
+                      <div *ngIf="question.difficultyLevel == 2">Medium</div>
+                      <div *ngIf="question.difficultyLevel == 3">Hard</div>
+                    </td>
+
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="7">No customers found.</td>
+                </tr>
+            </ng-template>
+        </p-table>
+      </div>
+    </p-dialog>

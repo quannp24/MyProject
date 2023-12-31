@@ -1,0 +1,60 @@
+<app-header></app-header>
+<div class="body-result">
+  <div class="content-body">
+
+    <div class="payment-success">
+      <div class="header">
+        <div class="img-icon">
+          <img src="assets/images/momo-icon.png" alt="momo">
+        </div>
+      </div>
+      <div class="body">
+        <h2 class="title" *ngIf="resultPayment">Payment Successful</h2>
+        <h2 class="title-faild" *ngIf="!resultPayment">Payment Faild</h2>
+        <img class="main-img" *ngIf="resultPayment" src="assets/images/payment-succ.png" alt="img success">
+        <img class="main-img" *ngIf="!resultPayment" src="assets/images/payment-faild.png" alt="img success">
+        <span *ngIf="resultPayment">You have successfully paid, login again and enjoy your VIP account now.</span>
+        <span style="color: rgb(190, 14, 14);" *ngIf="!resultPayment">There was an error somewhere in the payment process, please try again later.</span>
+        <div class="info-payment">
+          <div class="container-infor">
+            <h6>Payment details</h6>
+
+            <div class="row-infor">
+              <div class="title-row">
+                <h6>ID</h6>
+              </div>
+              <div class="text-row">
+                <p>{{paymentId}}</p>
+              </div>
+            </div>
+
+            <div class="row-infor">
+              <div class="title-row">
+                <h6>Amount</h6>
+              </div>
+              <div class="text-row">
+                <p>{{amount}} $</p>
+              </div>
+            </div>
+
+            <div class="row-infor">
+              <div class="title-row">
+                <h6>Method</h6>
+              </div>
+              <div class="text-row">
+                <p>{{method}}</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="button-result">
+          <button class="btn btn-primary" [routerLink]="['/home']">Home</button>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

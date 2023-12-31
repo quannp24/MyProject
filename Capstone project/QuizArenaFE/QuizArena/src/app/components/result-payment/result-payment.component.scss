@@ -1,0 +1,141 @@
+$primBlue: #0073ff;
+$white: #fff;
+$blueGray: #607d8b;
+$slate: #54617a;
+.payment-success{
+  width: 90%;
+  min-width: 300px;
+  max-width: 1100px;
+  box-shadow: 0 13px 45px 0 rgba(51, 59, 69, 0.1);
+  margin: auto;
+  border-radius: 10px;
+  text-align: center;
+  position: relative;
+
+  .header{
+    position: relative;
+  }
+  .body{
+    padding: 0 50px;
+    padding-bottom: 25px;
+  }
+
+  .close{
+    position: absolute;
+    color: $primBlue;
+    font-size: 20px;
+    right: 15px;
+    top: 11px;
+    cursor: pointer;
+  }
+  .title{
+    font-size: 32px;
+    font-weight: 500;
+    margin-bottom: 10px;
+    color: #00b1ff;
+    text-transform: uppercase;
+  }
+  .title-faild{
+    font-size: 32px;
+    font-weight: 500;
+    margin-bottom: 10px;
+    color: #b90909;
+    text-transform: uppercase;
+  }
+  .main-img{
+    width: 243px;
+  }
+  p{
+    font-size: 13px;
+    color: $blueGray;
+  }
+  span{
+    display: block;
+    color: #00b1ff;
+    margin: 10px 0;
+  }
+  .btn{
+    border: none;
+    border-radius: 100px;
+    width: 100px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+    &.btn-primary{
+      background: $primBlue;
+      color: $white;
+    }
+  }
+  .cancel{
+    text-decoration: none;
+    font-size: 14px;
+    color: $blueGray;
+  }
+}
+
+
+.body-result{
+  height: 100vh;
+}
+
+.content-body{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding-top: 70px;
+}
+
+.img-icon img{
+  width: 100px;
+
+}
+
+.img-icon{
+  display: flex;
+}
+
+.row-infor{
+  display: flex;
+}
+
+.title-row{
+  width: 50%;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.text-row{
+  width: 50%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.row-infor{
+
+}
+
+.container-infor{
+  width: 300px;
+  background-color: #7edcff66;
+  padding: 25px;
+  border-radius: 6px;
+}
+
+.info-payment{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.button-result{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
