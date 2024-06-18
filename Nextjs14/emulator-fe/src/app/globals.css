@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.fixed-sidebar {
+    transition: margin-left 0.3s ease;
+}
