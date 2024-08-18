@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .spin-infinite {
+    @apply animate-spin;
+    animation: spin 8s linear infinite;
+  }
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}
+
+
+/* CSS for scrollbar web */
+&::-webkit-scrollbar {
+  width: 12px;
+}
+
+&::-webkit-scrollbar-track {
+  background: #eef2f6;
+}
+
+&::-webkit-scrollbar-thumb {
+  background-color: #118ed691;
+  border-radius: 10px;
+  border: 2px solid #eef2f6;
+}
+
+&::-webkit-scrollbar-thumb:hover {
+  background-color: #5887b1;
+}
+
+.MuiPaper-root.MuiDrawer-paper {
+  overflow: hidden;
+  transition: overflow 5000s ease;
+}
+
+/* Hiển thị thanh cuộn khi hover */
+.MuiPaper-root.MuiDrawer-paper:hover {
+  overflow-y: auto;
+}
+
+.MuiPaper-root.MuiDrawer-paper::-webkit-scrollbar {
+  width: 8px; 
+}
+
+.MuiPaper-root.MuiDrawer-paper::-webkit-scrollbar-thumb {
+  background-color: rgba(0,0,0,0.5);
+  border-radius: 4px; 
+}
+
+.MuiPaper-root.MuiDrawer-paper::-webkit-scrollbar-track {
+  background: transparent; 
+}
+
+@font-face {
+  font-family: 'Nunito-Custom700';
+  src: url('/fonts/Nunito-VariableFont_wght.ttf') format('truetype');
+  font-weight:700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Nunito-Custom';
+  src: url('/fonts/Nunito-VariableFont_wght.ttf') format('truetype');
+  font-weight:600;
+  font-style: normal;
+}
+
+
